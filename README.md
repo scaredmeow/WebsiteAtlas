@@ -1,2 +1,3 @@
 # WebsiteAtlas
-Object-Oriented Programming
+Training application created in Java Swing
+
