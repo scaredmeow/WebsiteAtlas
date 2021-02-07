@@ -83,7 +83,7 @@ public class jframeSignUp extends javax.swing.JFrame {
         panelTitle.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_websiteatlas/ico.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_websiteatlas/icoApplication.png"))); // NOI18N
         panelTitle.add(jLabel2, java.awt.BorderLayout.PAGE_END);
 
         mainWindow.add(panelTitle);
