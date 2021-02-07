@@ -98,13 +98,21 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         homeSpace1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
+        videoCSS = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
+        videoSQL2 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        videoCSS2 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
+        videoJS2 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
+        videoHTML2 = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
+        videoSQL = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        videoJS = new javax.swing.JLabel();
+        jPanel16 = new javax.swing.JPanel();
+        videoHTML = new javax.swing.JLabel();
         dashProfile = new javax.swing.JPanel();
         dashQuest = new javax.swing.JPanel();
         dashGrades = new javax.swing.JPanel();
@@ -478,8 +486,13 @@ public class jframeMainMenu extends javax.swing.JFrame {
         dashHome.setLayout(new java.awt.BorderLayout());
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(1024, 1024));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(979, 1600));
+        jScrollPane1.setRequestFocusEnabled(false);
 
-        homePathway.setPreferredSize(new java.awt.Dimension(977, 1056));
+        homePathway.setMaximumSize(new java.awt.Dimension(1024, 1024));
+        homePathway.setMinimumSize(new java.awt.Dimension(1024, 151));
+        homePathway.setPreferredSize(new java.awt.Dimension(977, 1600));
 
         homeTitlePath.setPreferredSize(new java.awt.Dimension(977, 30));
 
@@ -633,68 +646,99 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         homePathway.add(homeSpace1);
 
-        jPanel8.setPreferredSize(new java.awt.Dimension(475, 300));
+        jPanel8.setPreferredSize(new java.awt.Dimension(977, 160));
         jPanel8.setLayout(new java.awt.BorderLayout());
 
-        jLabel26.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel26.setText("[HTML] [CSS] SAMPLE TITLE");
-        jPanel8.add(jLabel26, java.awt.BorderLayout.PAGE_START);
-
-        jPanel11.setPreferredSize(new java.awt.Dimension(475, 150));
-        jPanel11.setLayout(new java.awt.BorderLayout());
-
-        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/youtubeCover.png"))); // NOI18N
-        jPanel11.add(jLabel30, java.awt.BorderLayout.CENTER);
-
-        jPanel8.add(jPanel11, java.awt.BorderLayout.CENTER);
+        videoCSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        videoCSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoCSS.jpg"))); // NOI18N
+        videoCSS.setPreferredSize(new java.awt.Dimension(977, 140));
+        videoCSS.setRequestFocusEnabled(false);
+        jPanel8.add(videoCSS, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel8);
 
-        jPanel10.setPreferredSize(new java.awt.Dimension(12, 100));
+        jPanel10.setPreferredSize(new java.awt.Dimension(977, 160));
+        jPanel10.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 12, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        videoSQL2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        videoSQL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoSQL2.jpg"))); // NOI18N
+        videoSQL2.setPreferredSize(new java.awt.Dimension(977, 140));
+        videoSQL2.setRequestFocusEnabled(false);
+        jPanel10.add(videoSQL2, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel10);
 
-        jPanel12.setPreferredSize(new java.awt.Dimension(475, 100));
+        jPanel11.setPreferredSize(new java.awt.Dimension(977, 160));
+        jPanel11.setLayout(new java.awt.BorderLayout());
+
+        videoCSS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        videoCSS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoCSS2.jpg"))); // NOI18N
+        videoCSS2.setPreferredSize(new java.awt.Dimension(977, 140));
+        videoCSS2.setRequestFocusEnabled(false);
+        jPanel11.add(videoCSS2, java.awt.BorderLayout.PAGE_START);
+
+        homePathway.add(jPanel11);
+
+        jPanel12.setPreferredSize(new java.awt.Dimension(977, 160));
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jLabel29.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel29.setText("[HTML] [JS] SAMPLE TITLE");
-        jPanel12.add(jLabel29, java.awt.BorderLayout.PAGE_START);
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 81, Short.MAX_VALUE)
-        );
-
-        jPanel12.add(jPanel13, java.awt.BorderLayout.CENTER);
+        videoJS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        videoJS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoJS2.jpg"))); // NOI18N
+        videoJS2.setPreferredSize(new java.awt.Dimension(977, 140));
+        videoJS2.setRequestFocusEnabled(false);
+        jPanel12.add(videoJS2, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel12);
+
+        jPanel13.setPreferredSize(new java.awt.Dimension(977, 160));
+        jPanel13.setLayout(new java.awt.BorderLayout());
+
+        videoHTML2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        videoHTML2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoHTML2.jpg"))); // NOI18N
+        videoHTML2.setPreferredSize(new java.awt.Dimension(977, 140));
+        videoHTML2.setRequestFocusEnabled(false);
+        jPanel13.add(videoHTML2, java.awt.BorderLayout.PAGE_START);
+
+        homePathway.add(jPanel13);
+
+        jPanel14.setPreferredSize(new java.awt.Dimension(977, 160));
+        jPanel14.setLayout(new java.awt.BorderLayout());
+
+        videoSQL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        videoSQL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoSQL.jpg"))); // NOI18N
+        videoSQL.setPreferredSize(new java.awt.Dimension(977, 140));
+        videoSQL.setRequestFocusEnabled(false);
+        jPanel14.add(videoSQL, java.awt.BorderLayout.PAGE_START);
+
+        homePathway.add(jPanel14);
+
+        jPanel15.setPreferredSize(new java.awt.Dimension(977, 160));
+        jPanel15.setLayout(new java.awt.BorderLayout());
+
+        videoJS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        videoJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoJS.jpg"))); // NOI18N
+        videoJS.setPreferredSize(new java.awt.Dimension(977, 140));
+        videoJS.setRequestFocusEnabled(false);
+        jPanel15.add(videoJS, java.awt.BorderLayout.PAGE_START);
+
+        homePathway.add(jPanel15);
+
+        jPanel16.setPreferredSize(new java.awt.Dimension(977, 160));
+        jPanel16.setLayout(new java.awt.BorderLayout());
+
+        videoHTML.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        videoHTML.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoHTML.jpg"))); // NOI18N
+        videoHTML.setPreferredSize(new java.awt.Dimension(977, 140));
+        videoHTML.setRequestFocusEnabled(false);
+        jPanel16.add(videoHTML, java.awt.BorderLayout.PAGE_START);
+
+        homePathway.add(jPanel16);
 
         jScrollPane1.setViewportView(homePathway);
 
         dashHome.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         dashMain.add(dashHome, "dashHome");
-
-        dashProfile.setBackground(new java.awt.Color(255, 51, 255));
 
         javax.swing.GroupLayout dashProfileLayout = new javax.swing.GroupLayout(dashProfile);
         dashProfile.setLayout(dashProfileLayout);
@@ -1015,12 +1059,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1031,6 +1072,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1042,5 +1086,13 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel panelSpace;
     private javax.swing.JPanel titleMenu;
     private javax.swing.JPanel titleMenu1;
+    private javax.swing.JLabel videoCSS;
+    private javax.swing.JLabel videoCSS2;
+    private javax.swing.JLabel videoHTML;
+    private javax.swing.JLabel videoHTML2;
+    private javax.swing.JLabel videoJS;
+    private javax.swing.JLabel videoJS2;
+    private javax.swing.JLabel videoSQL;
+    private javax.swing.JLabel videoSQL2;
     // End of variables declaration//GEN-END:variables
 }
