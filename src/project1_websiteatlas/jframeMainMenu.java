@@ -85,10 +85,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        homeCSS = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
         dashProfile = new javax.swing.JPanel();
         dashQuest = new javax.swing.JPanel();
         dashGrades = new javax.swing.JPanel();
@@ -465,7 +461,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         homePathway.setPreferredSize(new java.awt.Dimension(977, 1056));
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(977, 40));
+        jPanel1.setPreferredSize(new java.awt.Dimension(977, 30));
 
         jLabel2.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel2.setText("PATHWAYS AVAILABLE");
@@ -491,26 +487,13 @@ public class jframeMainMenu extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 1, Short.MAX_VALUE))
         );
 
         homePathway.add(jPanel1);
 
         jPanel2.setPreferredSize(new java.awt.Dimension(977, 300));
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
-
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoHTML.png"))); // NOI18N
-        jPanel2.add(jLabel25);
-
-        homeCSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoCSS.png"))); // NOI18N
-        jPanel2.add(homeCSS);
-
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoJS.png"))); // NOI18N
-        jPanel2.add(jLabel22);
-
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoSQL.png"))); // NOI18N
-        jPanel2.add(jLabel24);
-
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 5));
         homePathway.add(jPanel2);
 
         jScrollPane1.setViewportView(homePathway);
@@ -818,7 +801,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel dashSpace;
     private javax.swing.JLabel dashTitleHeader;
     private javax.swing.JPanel dashVideos;
-    private javax.swing.JLabel homeCSS;
     private javax.swing.JPanel homePathway;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -834,9 +816,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
