@@ -9,7 +9,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
+import java.net.URI;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class jframeMainMenu extends javax.swing.JFrame {
 
     boolean a = false;
@@ -40,28 +45,24 @@ public class jframeMainMenu extends javax.swing.JFrame {
         buttonHome1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        buttonProfile = new javax.swing.JPanel();
-        buttonProfile1 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        buttonQuest = new javax.swing.JPanel();
-        buttonQuest1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        buttonGrades = new javax.swing.JPanel();
-        buttonGrades1 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         buttonVideos = new javax.swing.JPanel();
         buttonVideos1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        buttonForums = new javax.swing.JPanel();
-        buttonForums1 = new javax.swing.JPanel();
+        buttonStudy = new javax.swing.JPanel();
+        buttonStudy1 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        buttonResources = new javax.swing.JPanel();
-        buttonResources1 = new javax.swing.JPanel();
+        buttonProfile = new javax.swing.JPanel();
+        buttonProfile1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        buttonGrades = new javax.swing.JPanel();
+        buttonGrades1 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        buttonContact = new javax.swing.JPanel();
+        buttonContact1 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         panelSpace = new javax.swing.JPanel();
@@ -174,6 +175,70 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         panelMenu.add(buttonHome);
 
+        buttonVideos.setBackground(new java.awt.Color(224, 224, 224));
+        buttonVideos.setPreferredSize(new java.awt.Dimension(300, 50));
+        buttonVideos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+
+        buttonVideos1.setBackground(new java.awt.Color(224, 224, 224));
+        buttonVideos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonVideos1.setPreferredSize(new java.awt.Dimension(260, 50));
+        buttonVideos1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonVideos1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonVideos1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                buttonVideos1MouseExited(evt);
+            }
+        });
+        buttonVideos1.setLayout(new java.awt.BorderLayout());
+
+        jLabel12.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("   LATEST VIDEOS");
+        buttonVideos1.add(jLabel12, java.awt.BorderLayout.CENTER);
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/video_20px.png"))); // NOI18N
+        buttonVideos1.add(jLabel13, java.awt.BorderLayout.LINE_START);
+
+        buttonVideos.add(buttonVideos1);
+
+        panelMenu.add(buttonVideos);
+
+        buttonStudy.setBackground(new java.awt.Color(224, 224, 224));
+        buttonStudy.setPreferredSize(new java.awt.Dimension(300, 50));
+        buttonStudy.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+
+        buttonStudy1.setBackground(new java.awt.Color(224, 224, 224));
+        buttonStudy1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonStudy1.setPreferredSize(new java.awt.Dimension(260, 50));
+        buttonStudy1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonStudy1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonStudy1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                buttonStudy1MouseExited(evt);
+            }
+        });
+        buttonStudy1.setLayout(new java.awt.BorderLayout());
+
+        jLabel16.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel16.setText("   CURRENT PATHWAY");
+        buttonStudy1.add(jLabel16, java.awt.BorderLayout.CENTER);
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/study_20px.png"))); // NOI18N
+        buttonStudy1.add(jLabel17, java.awt.BorderLayout.LINE_START);
+
+        buttonStudy.add(buttonStudy1);
+
+        panelMenu.add(buttonStudy);
+
         buttonProfile.setBackground(new java.awt.Color(224, 224, 224));
         buttonProfile.setPreferredSize(new java.awt.Dimension(300, 50));
         buttonProfile.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
@@ -205,38 +270,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
         buttonProfile.add(buttonProfile1);
 
         panelMenu.add(buttonProfile);
-
-        buttonQuest.setBackground(new java.awt.Color(224, 224, 224));
-        buttonQuest.setPreferredSize(new java.awt.Dimension(300, 50));
-        buttonQuest.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
-
-        buttonQuest1.setBackground(new java.awt.Color(224, 224, 224));
-        buttonQuest1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonQuest1.setPreferredSize(new java.awt.Dimension(260, 50));
-        buttonQuest1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonQuest1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                buttonQuest1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                buttonQuest1MouseExited(evt);
-            }
-        });
-        buttonQuest1.setLayout(new java.awt.BorderLayout());
-
-        jLabel8.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("   QUEST");
-        buttonQuest1.add(jLabel8, java.awt.BorderLayout.CENTER);
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/quest_20px.png"))); // NOI18N
-        buttonQuest1.add(jLabel9, java.awt.BorderLayout.LINE_START);
-
-        buttonQuest.add(buttonQuest1);
-
-        panelMenu.add(buttonQuest);
 
         buttonGrades.setBackground(new java.awt.Color(224, 224, 224));
         buttonGrades.setPreferredSize(new java.awt.Dimension(300, 50));
@@ -270,104 +303,40 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         panelMenu.add(buttonGrades);
 
-        buttonVideos.setBackground(new java.awt.Color(224, 224, 224));
-        buttonVideos.setPreferredSize(new java.awt.Dimension(300, 50));
-        buttonVideos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+        buttonContact.setBackground(new java.awt.Color(224, 224, 224));
+        buttonContact.setPreferredSize(new java.awt.Dimension(300, 50));
+        buttonContact.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
-        buttonVideos1.setBackground(new java.awt.Color(224, 224, 224));
-        buttonVideos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonVideos1.setPreferredSize(new java.awt.Dimension(260, 50));
-        buttonVideos1.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonContact1.setBackground(new java.awt.Color(224, 224, 224));
+        buttonContact1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonContact1.setPreferredSize(new java.awt.Dimension(260, 50));
+        buttonContact1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonVideos1MouseClicked(evt);
+                buttonContact1MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                buttonVideos1MouseEntered(evt);
+                buttonContact1MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                buttonVideos1MouseExited(evt);
+                buttonContact1MouseExited(evt);
             }
         });
-        buttonVideos1.setLayout(new java.awt.BorderLayout());
-
-        jLabel12.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setText("   LATEST VIDEOS");
-        buttonVideos1.add(jLabel12, java.awt.BorderLayout.CENTER);
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/video_20px.png"))); // NOI18N
-        buttonVideos1.add(jLabel13, java.awt.BorderLayout.LINE_START);
-
-        buttonVideos.add(buttonVideos1);
-
-        panelMenu.add(buttonVideos);
-
-        buttonForums.setBackground(new java.awt.Color(224, 224, 224));
-        buttonForums.setPreferredSize(new java.awt.Dimension(300, 50));
-        buttonForums.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
-
-        buttonForums1.setBackground(new java.awt.Color(224, 224, 224));
-        buttonForums1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonForums1.setPreferredSize(new java.awt.Dimension(260, 50));
-        buttonForums1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonForums1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                buttonForums1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                buttonForums1MouseExited(evt);
-            }
-        });
-        buttonForums1.setLayout(new java.awt.BorderLayout());
-
-        jLabel16.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel16.setText("   DISCUSSION FORUM");
-        buttonForums1.add(jLabel16, java.awt.BorderLayout.CENTER);
-
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/forum_20px.png"))); // NOI18N
-        buttonForums1.add(jLabel17, java.awt.BorderLayout.LINE_START);
-
-        buttonForums.add(buttonForums1);
-
-        panelMenu.add(buttonForums);
-
-        buttonResources.setBackground(new java.awt.Color(224, 224, 224));
-        buttonResources.setPreferredSize(new java.awt.Dimension(300, 50));
-        buttonResources.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
-
-        buttonResources1.setBackground(new java.awt.Color(224, 224, 224));
-        buttonResources1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonResources1.setPreferredSize(new java.awt.Dimension(260, 50));
-        buttonResources1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonResources1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                buttonResources1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                buttonResources1MouseExited(evt);
-            }
-        });
-        buttonResources1.setLayout(new java.awt.BorderLayout());
+        buttonContact1.setLayout(new java.awt.BorderLayout());
 
         jLabel14.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel14.setText("   CONTACT US");
-        buttonResources1.add(jLabel14, java.awt.BorderLayout.CENTER);
+        buttonContact1.add(jLabel14, java.awt.BorderLayout.CENTER);
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/file_20px.png"))); // NOI18N
-        buttonResources1.add(jLabel15, java.awt.BorderLayout.LINE_START);
+        buttonContact1.add(jLabel15, java.awt.BorderLayout.LINE_START);
 
-        buttonResources.add(buttonResources1);
+        buttonContact.add(buttonContact1);
 
-        panelMenu.add(buttonResources);
+        panelMenu.add(buttonContact);
 
         panelSpace.setBackground(new java.awt.Color(224, 224, 224));
-        panelSpace.setPreferredSize(new java.awt.Dimension(300, 100));
+        panelSpace.setPreferredSize(new java.awt.Dimension(300, 150));
 
         javax.swing.GroupLayout panelSpaceLayout = new javax.swing.GroupLayout(panelSpace);
         panelSpace.setLayout(panelSpaceLayout);
@@ -377,7 +346,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         );
         panelSpaceLayout.setVerticalGroup(
             panelSpaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
 
         panelMenu.add(panelSpace);
@@ -651,8 +620,14 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         videoCSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         videoCSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoCSS.jpg"))); // NOI18N
+        videoCSS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoCSS.setPreferredSize(new java.awt.Dimension(977, 140));
         videoCSS.setRequestFocusEnabled(false);
+        videoCSS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoCSSMouseClicked(evt);
+            }
+        });
         jPanel8.add(videoCSS, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel8);
@@ -662,6 +637,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         videoSQL2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         videoSQL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoSQL2.jpg"))); // NOI18N
+        videoSQL2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoSQL2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoSQL2.setRequestFocusEnabled(false);
         jPanel10.add(videoSQL2, java.awt.BorderLayout.PAGE_START);
@@ -673,6 +649,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         videoCSS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         videoCSS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoCSS2.jpg"))); // NOI18N
+        videoCSS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoCSS2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoCSS2.setRequestFocusEnabled(false);
         jPanel11.add(videoCSS2, java.awt.BorderLayout.PAGE_START);
@@ -684,6 +661,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         videoJS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         videoJS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoJS2.jpg"))); // NOI18N
+        videoJS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoJS2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoJS2.setRequestFocusEnabled(false);
         jPanel12.add(videoJS2, java.awt.BorderLayout.PAGE_START);
@@ -695,6 +673,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         videoHTML2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         videoHTML2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoHTML2.jpg"))); // NOI18N
+        videoHTML2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoHTML2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoHTML2.setRequestFocusEnabled(false);
         jPanel13.add(videoHTML2, java.awt.BorderLayout.PAGE_START);
@@ -706,6 +685,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         videoSQL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         videoSQL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoSQL.jpg"))); // NOI18N
+        videoSQL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoSQL.setPreferredSize(new java.awt.Dimension(977, 140));
         videoSQL.setRequestFocusEnabled(false);
         jPanel14.add(videoSQL, java.awt.BorderLayout.PAGE_START);
@@ -717,6 +697,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         videoJS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         videoJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoJS.jpg"))); // NOI18N
+        videoJS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoJS.setPreferredSize(new java.awt.Dimension(977, 140));
         videoJS.setRequestFocusEnabled(false);
         jPanel15.add(videoJS, java.awt.BorderLayout.PAGE_START);
@@ -728,6 +709,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         videoHTML.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         videoHTML.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoHTML.jpg"))); // NOI18N
+        videoHTML.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoHTML.setPreferredSize(new java.awt.Dimension(977, 140));
         videoHTML.setRequestFocusEnabled(false);
         jPanel16.add(videoHTML, java.awt.BorderLayout.PAGE_START);
@@ -872,6 +854,15 @@ public class jframeMainMenu extends javax.swing.JFrame {
         }
     }
     
+    public void desktopLink(String link) {
+        try {
+            URI newURI = new URI(link);
+            Desktop.getDesktop().browse(newURI);
+        } catch (URISyntaxException | IOException ex) {
+            Logger.getLogger(jframeMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void buttonMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonMenuMouseClicked
         if(a==true){
           hideshow(panelMenu, a, buttonMenu);
@@ -921,19 +912,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
         hoverShow(buttonProfile,buttonProfile,buttonProfile1,colorNormal);
     }//GEN-LAST:event_buttonProfile1MouseExited
 
-    private void buttonQuest1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonQuest1MouseClicked
-        cardLayout.show(dashMain,"dashQuest");
-        selectShow(buttonQuest, buttonQuest,buttonQuest1,colorSelected,colorNormal);
-    }//GEN-LAST:event_buttonQuest1MouseClicked
-
-    private void buttonQuest1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonQuest1MouseEntered
-        hoverShow(buttonQuest,buttonQuest,buttonQuest1,colorHover);
-    }//GEN-LAST:event_buttonQuest1MouseEntered
-
-    private void buttonQuest1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonQuest1MouseExited
-        hoverShow(buttonQuest,buttonQuest,buttonQuest1,colorNormal);
-    }//GEN-LAST:event_buttonQuest1MouseExited
-
     private void buttonGrades1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGrades1MouseClicked
         cardLayout.show(dashMain,"dashGrades");
         selectShow(buttonGrades, buttonGrades,buttonGrades1,colorSelected,colorNormal);
@@ -961,31 +939,18 @@ public class jframeMainMenu extends javax.swing.JFrame {
         hoverShow(buttonVideos,buttonVideos,buttonVideos1,colorNormal);
     }//GEN-LAST:event_buttonVideos1MouseExited
 
-    private void buttonResources1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonResources1MouseClicked
+    private void buttonContact1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonContact1MouseClicked
         cardLayout.show(dashMain,"dashResources");
-        selectShow(buttonResources, buttonResources,buttonResources1,colorSelected,colorNormal);
-    }//GEN-LAST:event_buttonResources1MouseClicked
+        selectShow(buttonContact, buttonContact,buttonContact1,colorSelected,colorNormal);
+    }//GEN-LAST:event_buttonContact1MouseClicked
 
-    private void buttonResources1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonResources1MouseEntered
-        hoverShow(buttonResources,buttonResources,buttonResources1,colorHover);
-    }//GEN-LAST:event_buttonResources1MouseEntered
+    private void buttonContact1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonContact1MouseEntered
+        hoverShow(buttonContact,buttonContact,buttonContact1,colorHover);
+    }//GEN-LAST:event_buttonContact1MouseEntered
 
-    private void buttonResources1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonResources1MouseExited
-        hoverShow(buttonResources,buttonResources,buttonResources1,colorNormal);
-    }//GEN-LAST:event_buttonResources1MouseExited
-
-    private void buttonForums1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonForums1MouseClicked
-        cardLayout.show(dashMain,"dashDiscussion");
-        selectShow(buttonForums, buttonForums,buttonForums1,colorSelected,colorNormal);
-    }//GEN-LAST:event_buttonForums1MouseClicked
-
-    private void buttonForums1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonForums1MouseEntered
-        hoverShow(buttonForums,buttonForums,buttonForums1,colorHover);
-    }//GEN-LAST:event_buttonForums1MouseEntered
-
-    private void buttonForums1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonForums1MouseExited
-        hoverShow(buttonForums,buttonForums,buttonForums1,colorNormal);
-    }//GEN-LAST:event_buttonForums1MouseExited
+    private void buttonContact1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonContact1MouseExited
+        hoverShow(buttonContact,buttonContact,buttonContact1,colorNormal);
+    }//GEN-LAST:event_buttonContact1MouseExited
 
     private void buttonLogout1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogout1MouseClicked
         java.awt.EventQueue.invokeLater(() -> {
@@ -1002,13 +967,30 @@ public class jframeMainMenu extends javax.swing.JFrame {
         hoverShow(buttonLogout,buttonLogout,buttonLogout1,colorNormal);
     }//GEN-LAST:event_buttonLogout1MouseExited
 
+    private void buttonStudy1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStudy1MouseExited
+        hoverShow(buttonStudy,buttonStudy,buttonStudy1,colorNormal);
+    }//GEN-LAST:event_buttonStudy1MouseExited
+
+    private void buttonStudy1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStudy1MouseEntered
+        hoverShow(buttonStudy,buttonStudy,buttonStudy1,colorHover);
+    }//GEN-LAST:event_buttonStudy1MouseEntered
+
+    private void buttonStudy1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStudy1MouseClicked
+        cardLayout.show(dashMain,"dashDiscussion");
+        selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);
+    }//GEN-LAST:event_buttonStudy1MouseClicked
+
+    private void videoCSSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoCSSMouseClicked
+        desktopLink("https://www.youtube.com/watch?v=D-h8L5hgW-w&t=4s");
+    }//GEN-LAST:event_videoCSSMouseClicked
+
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel buttonForums;
-    private javax.swing.JPanel buttonForums1;
+    private javax.swing.JPanel buttonContact;
+    private javax.swing.JPanel buttonContact1;
     private javax.swing.JPanel buttonGrades;
     private javax.swing.JPanel buttonGrades1;
     private javax.swing.JPanel buttonHome;
@@ -1019,10 +1001,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel buttonMenu;
     private javax.swing.JPanel buttonProfile;
     private javax.swing.JPanel buttonProfile1;
-    private javax.swing.JPanel buttonQuest;
-    private javax.swing.JPanel buttonQuest1;
-    private javax.swing.JPanel buttonResources;
-    private javax.swing.JPanel buttonResources1;
+    private javax.swing.JPanel buttonStudy;
+    private javax.swing.JPanel buttonStudy1;
     private javax.swing.JPanel buttonVideos;
     private javax.swing.JPanel buttonVideos1;
     private javax.swing.JPanel dashBoard;
@@ -1066,8 +1046,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
