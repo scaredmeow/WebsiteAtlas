@@ -45,10 +45,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
         buttonHome1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        buttonVideos = new javax.swing.JPanel();
-        buttonVideos1 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         buttonStudy = new javax.swing.JPanel();
         buttonStudy1 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -114,12 +110,14 @@ public class jframeMainMenu extends javax.swing.JFrame {
         videoJS = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         videoHTML = new javax.swing.JLabel();
+        dashStudy = new javax.swing.JPanel();
         dashProfile = new javax.swing.JPanel();
-        dashQuest = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
         dashGrades = new javax.swing.JPanel();
-        dashResources = new javax.swing.JPanel();
-        dashVideos = new javax.swing.JPanel();
-        dashDiscussion = new javax.swing.JPanel();
+        dashContact = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("WEBSITE ATLAS");
@@ -174,38 +172,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
         buttonHome.add(buttonHome1);
 
         panelMenu.add(buttonHome);
-
-        buttonVideos.setBackground(new java.awt.Color(224, 224, 224));
-        buttonVideos.setPreferredSize(new java.awt.Dimension(300, 50));
-        buttonVideos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
-
-        buttonVideos1.setBackground(new java.awt.Color(224, 224, 224));
-        buttonVideos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonVideos1.setPreferredSize(new java.awt.Dimension(260, 50));
-        buttonVideos1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonVideos1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                buttonVideos1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                buttonVideos1MouseExited(evt);
-            }
-        });
-        buttonVideos1.setLayout(new java.awt.BorderLayout());
-
-        jLabel12.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setText("   LATEST VIDEOS");
-        buttonVideos1.add(jLabel12, java.awt.BorderLayout.CENTER);
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/video_20px.png"))); // NOI18N
-        buttonVideos1.add(jLabel13, java.awt.BorderLayout.LINE_START);
-
-        buttonVideos.add(buttonVideos1);
-
-        panelMenu.add(buttonVideos);
 
         buttonStudy.setBackground(new java.awt.Color(224, 224, 224));
         buttonStudy.setPreferredSize(new java.awt.Dimension(300, 50));
@@ -336,7 +302,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         panelMenu.add(buttonContact);
 
         panelSpace.setBackground(new java.awt.Color(224, 224, 224));
-        panelSpace.setPreferredSize(new java.awt.Dimension(300, 150));
+        panelSpace.setPreferredSize(new java.awt.Dimension(300, 200));
 
         javax.swing.GroupLayout panelSpaceLayout = new javax.swing.GroupLayout(panelSpace);
         panelSpace.setLayout(panelSpaceLayout);
@@ -346,7 +312,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         );
         panelSpaceLayout.setVerticalGroup(
             panelSpaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
 
         panelMenu.add(panelSpace);
@@ -464,33 +430,17 @@ public class jframeMainMenu extends javax.swing.JFrame {
         homePathway.setPreferredSize(new java.awt.Dimension(977, 1600));
 
         homeTitlePath.setPreferredSize(new java.awt.Dimension(977, 30));
+        homeTitlePath.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         jLabel2.setText("PATHWAYS AVAILABLE");
+        homeTitlePath.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 21));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLong.png"))); // NOI18N
         jLabel21.setMaximumSize(new java.awt.Dimension(300, 2));
         jLabel21.setMinimumSize(new java.awt.Dimension(300, 2));
         jLabel21.setPreferredSize(new java.awt.Dimension(300, 2));
-
-        javax.swing.GroupLayout homeTitlePathLayout = new javax.swing.GroupLayout(homeTitlePath);
-        homeTitlePath.setLayout(homeTitlePathLayout);
-        homeTitlePathLayout.setHorizontalGroup(
-            homeTitlePathLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homeTitlePathLayout.createSequentialGroup()
-                .addGroup(homeTitlePathLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 767, Short.MAX_VALUE))
-        );
-        homeTitlePathLayout.setVerticalGroup(
-            homeTitlePathLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homeTitlePathLayout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
-        );
+        homeTitlePath.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 27, 210, -1));
 
         homePathway.add(homeTitlePath);
 
@@ -640,6 +590,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         videoSQL2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoSQL2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoSQL2.setRequestFocusEnabled(false);
+        videoSQL2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoSQL2MouseClicked(evt);
+            }
+        });
         jPanel10.add(videoSQL2, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel10);
@@ -652,6 +607,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         videoCSS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoCSS2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoCSS2.setRequestFocusEnabled(false);
+        videoCSS2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoCSS2MouseClicked(evt);
+            }
+        });
         jPanel11.add(videoCSS2, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel11);
@@ -664,6 +624,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         videoJS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoJS2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoJS2.setRequestFocusEnabled(false);
+        videoJS2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoJS2MouseClicked(evt);
+            }
+        });
         jPanel12.add(videoJS2, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel12);
@@ -676,6 +641,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         videoHTML2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoHTML2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoHTML2.setRequestFocusEnabled(false);
+        videoHTML2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoHTML2MouseClicked(evt);
+            }
+        });
         jPanel13.add(videoHTML2, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel13);
@@ -688,6 +658,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         videoSQL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoSQL.setPreferredSize(new java.awt.Dimension(977, 140));
         videoSQL.setRequestFocusEnabled(false);
+        videoSQL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoSQLMouseClicked(evt);
+            }
+        });
         jPanel14.add(videoSQL, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel14);
@@ -700,6 +675,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         videoJS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoJS.setPreferredSize(new java.awt.Dimension(977, 140));
         videoJS.setRequestFocusEnabled(false);
+        videoJS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoJSMouseClicked(evt);
+            }
+        });
         jPanel15.add(videoJS, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel15);
@@ -712,6 +692,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         videoHTML.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoHTML.setPreferredSize(new java.awt.Dimension(977, 140));
         videoHTML.setRequestFocusEnabled(false);
+        videoHTML.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoHTMLMouseClicked(evt);
+            }
+        });
         jPanel16.add(videoHTML, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel16);
@@ -722,33 +707,54 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         dashMain.add(dashHome, "dashHome");
 
+        dashStudy.setBackground(new java.awt.Color(204, 204, 255));
+
+        javax.swing.GroupLayout dashStudyLayout = new javax.swing.GroupLayout(dashStudy);
+        dashStudy.setLayout(dashStudyLayout);
+        dashStudyLayout.setHorizontalGroup(
+            dashStudyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 996, Short.MAX_VALUE)
+        );
+        dashStudyLayout.setVerticalGroup(
+            dashStudyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 570, Short.MAX_VALUE)
+        );
+
+        dashMain.add(dashStudy, "dashDiscussion");
+
+        jLabel9.setText("First Name, Middle Initial, Last Name");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addGap(0, 479, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addGap(0, 86, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout dashProfileLayout = new javax.swing.GroupLayout(dashProfile);
         dashProfile.setLayout(dashProfileLayout);
         dashProfileLayout.setHorizontalGroup(
             dashProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 996, Short.MAX_VALUE)
+            .addGroup(dashProfileLayout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 337, Short.MAX_VALUE))
         );
         dashProfileLayout.setVerticalGroup(
             dashProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGroup(dashProfileLayout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 470, Short.MAX_VALUE))
         );
 
         dashMain.add(dashProfile, "dashProfile");
-
-        dashQuest.setBackground(new java.awt.Color(255, 255, 0));
-
-        javax.swing.GroupLayout dashQuestLayout = new javax.swing.GroupLayout(dashQuest);
-        dashQuest.setLayout(dashQuestLayout);
-        dashQuestLayout.setHorizontalGroup(
-            dashQuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 996, Short.MAX_VALUE)
-        );
-        dashQuestLayout.setVerticalGroup(
-            dashQuestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
-        );
-
-        dashMain.add(dashQuest, "dashQuest");
 
         dashGrades.setBackground(new java.awt.Color(255, 102, 102));
 
@@ -765,50 +771,30 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         dashMain.add(dashGrades, "dashGrades");
 
-        dashResources.setBackground(new java.awt.Color(153, 102, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(996, 100));
 
-        javax.swing.GroupLayout dashResourcesLayout = new javax.swing.GroupLayout(dashResources);
-        dashResources.setLayout(dashResourcesLayout);
-        dashResourcesLayout.setHorizontalGroup(
-            dashResourcesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 996, Short.MAX_VALUE)
+        jLabel8.setText("jLabel8");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addContainerGap(951, Short.MAX_VALUE))
         );
-        dashResourcesLayout.setVerticalGroup(
-            dashResourcesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
-        );
-
-        dashMain.add(dashResources, "dashResources");
-
-        dashVideos.setBackground(new java.awt.Color(255, 204, 255));
-
-        javax.swing.GroupLayout dashVideosLayout = new javax.swing.GroupLayout(dashVideos);
-        dashVideos.setLayout(dashVideosLayout);
-        dashVideosLayout.setHorizontalGroup(
-            dashVideosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 996, Short.MAX_VALUE)
-        );
-        dashVideosLayout.setVerticalGroup(
-            dashVideosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
-        dashMain.add(dashVideos, "dashVideos");
+        dashContact.add(jPanel1);
 
-        dashDiscussion.setBackground(new java.awt.Color(204, 204, 255));
-
-        javax.swing.GroupLayout dashDiscussionLayout = new javax.swing.GroupLayout(dashDiscussion);
-        dashDiscussion.setLayout(dashDiscussionLayout);
-        dashDiscussionLayout.setHorizontalGroup(
-            dashDiscussionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 996, Short.MAX_VALUE)
-        );
-        dashDiscussionLayout.setVerticalGroup(
-            dashDiscussionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
-        );
-
-        dashMain.add(dashDiscussion, "dashDiscussion");
+        dashMain.add(dashContact, "dashResources");
 
         dashBoard.add(dashMain, java.awt.BorderLayout.CENTER);
 
@@ -925,20 +911,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
         hoverShow(buttonGrades,buttonGrades,buttonGrades1,colorNormal);
     }//GEN-LAST:event_buttonGrades1MouseExited
 
-    private void buttonVideos1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonVideos1MouseClicked
-        cardLayout.show(dashMain,"dashVideos");
-        selectShow(buttonVideos, buttonVideos,buttonVideos1,colorSelected,colorNormal);
-    }//GEN-LAST:event_buttonVideos1MouseClicked
-
-    private void buttonVideos1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonVideos1MouseEntered
-        hoverShow(buttonVideos,buttonVideos,buttonVideos1,colorHover);
-        
-    }//GEN-LAST:event_buttonVideos1MouseEntered
-
-    private void buttonVideos1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonVideos1MouseExited
-        hoverShow(buttonVideos,buttonVideos,buttonVideos1,colorNormal);
-    }//GEN-LAST:event_buttonVideos1MouseExited
-
     private void buttonContact1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonContact1MouseClicked
         cardLayout.show(dashMain,"dashResources");
         selectShow(buttonContact, buttonContact,buttonContact1,colorSelected,colorNormal);
@@ -984,6 +956,34 @@ public class jframeMainMenu extends javax.swing.JFrame {
         desktopLink("https://www.youtube.com/watch?v=D-h8L5hgW-w&t=4s");
     }//GEN-LAST:event_videoCSSMouseClicked
 
+    private void videoSQL2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoSQL2MouseClicked
+        desktopLink("https://www.youtube.com/watch?v=zbMHLJ0dY4w");
+    }//GEN-LAST:event_videoSQL2MouseClicked
+
+    private void videoCSS2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoCSS2MouseClicked
+        desktopLink("https://www.youtube.com/watch?v=Tfjd5yzCaxk");
+    }//GEN-LAST:event_videoCSS2MouseClicked
+
+    private void videoJS2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoJS2MouseClicked
+        desktopLink("https://www.youtube.com/watch?v=NibsUd_InPU");
+    }//GEN-LAST:event_videoJS2MouseClicked
+
+    private void videoHTML2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoHTML2MouseClicked
+        desktopLink("https://www.youtube.com/watch?v=PlxWf493en4");
+    }//GEN-LAST:event_videoHTML2MouseClicked
+
+    private void videoSQLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoSQLMouseClicked
+        desktopLink("https://www.youtube.com/watch?v=bEtnYWuo2Bw");
+    }//GEN-LAST:event_videoSQLMouseClicked
+
+    private void videoJSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoJSMouseClicked
+        desktopLink("https://www.youtube.com/watch?v=vEROU2XtPR8&t=1s");
+    }//GEN-LAST:event_videoJSMouseClicked
+
+    private void videoHTMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoHTMLMouseClicked
+        desktopLink("https://www.youtube.com/watch?v=idHyruXhXhA&t=5s");
+    }//GEN-LAST:event_videoHTMLMouseClicked
+
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
     }
@@ -1003,20 +1003,16 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel buttonProfile1;
     private javax.swing.JPanel buttonStudy;
     private javax.swing.JPanel buttonStudy1;
-    private javax.swing.JPanel buttonVideos;
-    private javax.swing.JPanel buttonVideos1;
     private javax.swing.JPanel dashBoard;
-    private javax.swing.JPanel dashDiscussion;
+    private javax.swing.JPanel dashContact;
     private javax.swing.JPanel dashGrades;
     private javax.swing.JPanel dashHeader;
     private javax.swing.JPanel dashHome;
     private javax.swing.JPanel dashMain;
     private javax.swing.JPanel dashProfile;
-    private javax.swing.JPanel dashQuest;
-    private javax.swing.JPanel dashResources;
     private javax.swing.JPanel dashSpace;
+    private javax.swing.JPanel dashStudy;
     private javax.swing.JLabel dashTitleHeader;
-    private javax.swing.JPanel dashVideos;
     private javax.swing.JPanel homePathway;
     private javax.swing.JPanel homeSpace;
     private javax.swing.JPanel homeSpace1;
@@ -1024,8 +1020,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1046,6 +1040,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
@@ -1057,6 +1054,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
