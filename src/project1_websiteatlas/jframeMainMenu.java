@@ -74,6 +74,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         dashTitleHeader = new javax.swing.JLabel();
         buttonHover = new javax.swing.JPanel();
         buttonMenu = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         dashMain = new javax.swing.JPanel();
         dashHome = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -112,12 +113,39 @@ public class jframeMainMenu extends javax.swing.JFrame {
         videoHTML = new javax.swing.JLabel();
         dashStudy = new javax.swing.JPanel();
         dashProfile = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        profileInfo = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jPanel17 = new javax.swing.JPanel();
+        profileOverall = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel28 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        profileOverall2 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        profileOverall3 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jPanel23 = new javax.swing.JPanel();
+        jPanel24 = new javax.swing.JPanel();
+        profileOverall4 = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
+        jPanel25 = new javax.swing.JPanel();
+        jPanel26 = new javax.swing.JPanel();
+        profileOverall5 = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jPanel27 = new javax.swing.JPanel();
         dashGrades = new javax.swing.JPanel();
         dashContact = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("WEBSITE ATLAS");
@@ -380,19 +408,17 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         dashBoard.add(dashSpace, java.awt.BorderLayout.LINE_START);
 
-        dashHeader.setToolTipText("");
         dashHeader.setPreferredSize(new java.awt.Dimension(1024, 70));
         dashHeader.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         dashTitleHeader.setFont(new java.awt.Font("SansSerif", 1, 25)); // NOI18N
         dashTitleHeader.setText("  WEBSITE ATLAS");
-        dashHeader.add(dashTitleHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 340, 70));
+        dashHeader.add(dashTitleHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 340, 40));
 
         buttonHover.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         buttonHover.setMinimumSize(new java.awt.Dimension(24, 24));
         buttonHover.setPreferredSize(new java.awt.Dimension(24, 24));
         buttonHover.setRequestFocusEnabled(false);
-        buttonHover.setLayout(new java.awt.BorderLayout());
 
         buttonMenu.setBackground(new java.awt.Color(51, 51, 0));
         buttonMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -410,9 +436,27 @@ public class jframeMainMenu extends javax.swing.JFrame {
                 buttonMenuMouseExited(evt);
             }
         });
-        buttonHover.add(buttonMenu, java.awt.BorderLayout.PAGE_START);
 
-        dashHeader.add(buttonHover, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 40));
+        javax.swing.GroupLayout buttonHoverLayout = new javax.swing.GroupLayout(buttonHover);
+        buttonHover.setLayout(buttonHoverLayout);
+        buttonHoverLayout.setHorizontalGroup(
+            buttonHoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(buttonMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        buttonHoverLayout.setVerticalGroup(
+            buttonHoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonHoverLayout.createSequentialGroup()
+                .addComponent(buttonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 9, Short.MAX_VALUE))
+        );
+
+        dashHeader.add(buttonHover, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 30));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLongGrey.png"))); // NOI18N
+        jLabel8.setMaximumSize(new java.awt.Dimension(1024, 2));
+        jLabel8.setMinimumSize(new java.awt.Dimension(1024, 2));
+        jLabel8.setPreferredSize(new java.awt.Dimension(1024, 2));
+        dashHeader.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1080, 10));
 
         dashBoard.add(dashHeader, java.awt.BorderLayout.NORTH);
 
@@ -722,36 +766,249 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         dashMain.add(dashStudy, "dashDiscussion");
 
-        jLabel9.setText("First Name, Middle Initial, Last Name");
+        jPanel22.setPreferredSize(new java.awt.Dimension(800, 560));
+        jPanel22.setLayout(new java.awt.BorderLayout(20, 0));
+
+        profileInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        profileInfo.setPreferredSize(new java.awt.Dimension(280, 550));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel9)
-                .addGap(0, 479, Short.MAX_VALUE))
+            .addGap(0, 100, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel9)
-                .addGap(0, 86, Short.MAX_VALUE))
+            .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        profileInfo.add(jPanel6);
+
+        jLabel31.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel31.setText("JUAN DELA CRUZ");
+        jLabel31.setPreferredSize(new java.awt.Dimension(276, 14));
+        profileInfo.add(jLabel31);
+
+        jPanel22.add(profileInfo, java.awt.BorderLayout.LINE_START);
+
+        jPanel17.setPreferredSize(new java.awt.Dimension(300, 570));
+        jPanel17.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+
+        profileOverall.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        profileOverall.setPreferredSize(new java.awt.Dimension(690, 90));
+        profileOverall.setLayout(new java.awt.BorderLayout());
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/futures_96px.png"))); // NOI18N
+        profileOverall.add(jLabel9, java.awt.BorderLayout.LINE_START);
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 590, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 86, Short.MAX_VALUE)
+        );
+
+        profileOverall.add(jPanel9, java.awt.BorderLayout.CENTER);
+
+        jPanel17.add(profileOverall);
+
+        jPanel28.setPreferredSize(new java.awt.Dimension(100, 25));
+
+        javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
+        jPanel28.setLayout(jPanel28Layout);
+        jPanel28Layout.setHorizontalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel28Layout.setVerticalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+
+        jPanel17.add(jPanel28);
+
+        jLabel29.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel29.setText(" Specific Pathway Progress");
+        jLabel29.setPreferredSize(new java.awt.Dimension(696, 30));
+        jPanel17.add(jLabel29);
+
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLong.png"))); // NOI18N
+        jLabel30.setPreferredSize(new java.awt.Dimension(680, 10));
+        jPanel17.add(jLabel30);
+
+        jPanel18.setPreferredSize(new java.awt.Dimension(100, 10));
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel17.add(jPanel18);
+
+        profileOverall2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        profileOverall2.setPreferredSize(new java.awt.Dimension(690, 90));
+        profileOverall2.setLayout(new java.awt.BorderLayout());
+
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/html_5_96px.png"))); // NOI18N
+        profileOverall2.add(jLabel32, java.awt.BorderLayout.LINE_START);
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 590, Short.MAX_VALUE)
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 86, Short.MAX_VALUE)
+        );
+
+        profileOverall2.add(jPanel20, java.awt.BorderLayout.CENTER);
+
+        jPanel17.add(profileOverall2);
+
+        jPanel21.setPreferredSize(new java.awt.Dimension(100, 10));
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel17.add(jPanel21);
+
+        profileOverall3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        profileOverall3.setPreferredSize(new java.awt.Dimension(690, 90));
+        profileOverall3.setLayout(new java.awt.BorderLayout());
+
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/css3_logo_96px.png"))); // NOI18N
+        profileOverall3.add(jLabel33, java.awt.BorderLayout.LINE_START);
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 590, Short.MAX_VALUE)
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 86, Short.MAX_VALUE)
+        );
+
+        profileOverall3.add(jPanel23, java.awt.BorderLayout.CENTER);
+
+        jPanel17.add(profileOverall3);
+
+        jPanel24.setPreferredSize(new java.awt.Dimension(100, 10));
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel17.add(jPanel24);
+
+        profileOverall4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        profileOverall4.setPreferredSize(new java.awt.Dimension(690, 90));
+        profileOverall4.setLayout(new java.awt.BorderLayout());
+
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/node_js_96px.png"))); // NOI18N
+        profileOverall4.add(jLabel34, java.awt.BorderLayout.LINE_START);
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 590, Short.MAX_VALUE)
+        );
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 86, Short.MAX_VALUE)
+        );
+
+        profileOverall4.add(jPanel25, java.awt.BorderLayout.CENTER);
+
+        jPanel17.add(profileOverall4);
+
+        jPanel26.setPreferredSize(new java.awt.Dimension(100, 10));
+
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel17.add(jPanel26);
+
+        profileOverall5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        profileOverall5.setPreferredSize(new java.awt.Dimension(690, 90));
+        profileOverall5.setLayout(new java.awt.BorderLayout());
+
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/database_import_72px_1.png"))); // NOI18N
+        jLabel35.setPreferredSize(new java.awt.Dimension(96, 96));
+        profileOverall5.add(jLabel35, java.awt.BorderLayout.LINE_START);
+
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 590, Short.MAX_VALUE)
+        );
+        jPanel27Layout.setVerticalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 86, Short.MAX_VALUE)
+        );
+
+        profileOverall5.add(jPanel27, java.awt.BorderLayout.CENTER);
+
+        jPanel17.add(profileOverall5);
+
+        jPanel22.add(jPanel17, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout dashProfileLayout = new javax.swing.GroupLayout(dashProfile);
         dashProfile.setLayout(dashProfileLayout);
         dashProfileLayout.setHorizontalGroup(
             dashProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashProfileLayout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 337, Short.MAX_VALUE))
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 994, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         dashProfileLayout.setVerticalGroup(
             dashProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashProfileLayout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 470, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         dashMain.add(dashProfile, "dashProfile");
@@ -771,26 +1028,21 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         dashMain.add(dashGrades, "dashGrades");
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(996, 100));
+        jPanel1.setPreferredSize(new java.awt.Dimension(996, 800));
+        jPanel1.setRequestFocusEnabled(false);
 
-        jLabel8.setText("jLabel8");
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/jP0gVmpXQruvR0jfNGlu_contactuswhite_1.png"))); // NOI18N
+        jLabel12.setPreferredSize(new java.awt.Dimension(600, 330));
+        jPanel1.add(jLabel12);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(951, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(75, Short.MAX_VALUE))
-        );
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLong.png"))); // NOI18N
+        jLabel13.setPreferredSize(new java.awt.Dimension(800, 2));
+        jPanel1.add(jLabel13);
+
+        jLabel26.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel26.setText("<html> <head> <style> p {   text-transform: uppercase; text-align: justify;} </style> </head> <p> We want your input: questions, problems with accessing the course, bug reports,  complaints, praise, content requests — every little bit helps. Let us know what we  can do to improve the Creator Education and help you along this journey of becoming a Creator!   <br><br> Email: support@peterhollens.com and we'll do our best to get back to you right away!   <br><br> What do you want to learn?  We are working on developing new content, tell us what you  want to learn so we can ensure that we are serving the needs of the Creator Academy community. Let us know your thoughts here: HCA Survey.  </p> </html>");
+        jLabel26.setPreferredSize(new java.awt.Dimension(800, 200));
+        jPanel1.add(jLabel26);
 
         dashContact.add(jPanel1);
 
@@ -1020,6 +1272,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1033,9 +1287,17 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1050,16 +1312,34 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelSpace;
+    private javax.swing.JPanel profileInfo;
+    private javax.swing.JPanel profileOverall;
+    private javax.swing.JPanel profileOverall2;
+    private javax.swing.JPanel profileOverall3;
+    private javax.swing.JPanel profileOverall4;
+    private javax.swing.JPanel profileOverall5;
     private javax.swing.JPanel titleMenu;
     private javax.swing.JPanel titleMenu1;
     private javax.swing.JLabel videoCSS;
