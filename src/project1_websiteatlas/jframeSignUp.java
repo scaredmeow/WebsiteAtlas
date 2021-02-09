@@ -57,6 +57,7 @@ public class jframeSignUp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("WEBSITE ATLAS");
+        setResizable(false);
 
         panelEmpty.setPreferredSize(new java.awt.Dimension(1024, 20));
 

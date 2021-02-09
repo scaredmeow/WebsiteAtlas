@@ -115,7 +115,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
         dashProfile = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         profileInfo = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         profileOverall = new javax.swing.JPanel();
@@ -142,6 +143,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jPanel27 = new javax.swing.JPanel();
         dashGrades = new javax.swing.JPanel();
         dashContact = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -151,6 +153,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         setTitle("WEBSITE ATLAS");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(390, 150));
+        setResizable(false);
 
         panelMenu.setBackground(new java.awt.Color(224, 224, 224));
         panelMenu.setPreferredSize(new java.awt.Dimension(0, 640));
@@ -466,7 +469,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane1.setMaximumSize(new java.awt.Dimension(1024, 1024));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(979, 1600));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(997, 1600));
         jScrollPane1.setRequestFocusEnabled(false);
 
         homePathway.setMaximumSize(new java.awt.Dimension(1024, 1024));
@@ -771,19 +774,10 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         profileInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         profileInfo.setPreferredSize(new java.awt.Dimension(280, 550));
+        profileInfo.add(jLabel36);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        profileInfo.add(jPanel6);
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icons8_ninja_turtle_96px.png"))); // NOI18N
+        profileInfo.add(jLabel37);
 
         jLabel31.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1028,23 +1022,33 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         dashMain.add(dashGrades, "dashGrades");
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(996, 800));
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(997, 600));
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(997, 850));
         jPanel1.setRequestFocusEnabled(false);
 
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/jP0gVmpXQruvR0jfNGlu_contactuswhite_1.png"))); // NOI18N
-        jLabel12.setPreferredSize(new java.awt.Dimension(600, 330));
+        jLabel12.setPreferredSize(new java.awt.Dimension(997, 330));
         jPanel1.add(jLabel12);
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLong.png"))); // NOI18N
-        jLabel13.setPreferredSize(new java.awt.Dimension(800, 2));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLongGrey.png"))); // NOI18N
+        jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabel13.setPreferredSize(new java.awt.Dimension(700, 50));
         jPanel1.add(jLabel13);
 
         jLabel26.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel26.setText("<html> <head> <style> p {   text-transform: uppercase; text-align: justify;} </style> </head> <p> We want your input: questions, problems with accessing the course, bug reports,  complaints, praise, content requests — every little bit helps. Let us know what we  can do to improve the Creator Education and help you along this journey of becoming a Creator!   <br><br> Email: support@peterhollens.com and we'll do our best to get back to you right away!   <br><br> What do you want to learn?  We are working on developing new content, tell us what you  want to learn so we can ensure that we are serving the needs of the Creator Academy community. Let us know your thoughts here: HCA Survey.  </p> </html>");
-        jLabel26.setPreferredSize(new java.awt.Dimension(800, 200));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel26.setText("<html> \n<head>\n <style> p {   text-transform: uppercase; text-align: justify;} </style> </head>\n<p>\n<font size = 30> Hi! Having troubles using the app? </font> <br>\nHorrible experience? Bug reports? Complaints?<br><br>\n\nNo Worries. Hang in there, we got you covered. <br>\nAs much as we want a smooth sailing experience to our users, issues are inevitable. <br>\nLet us know by sending an email on example@gmail.com and we’ll get down to business. <br><br><br>\n<font size = 30> No troubles? </font> <br>\nGreat. Send us your feedback on example2@gmail.com. Every feedback counts. <br><br>\n\nWe appreciate your time sending comprehensive feedback as this will guarantee quality<br>\nimprovements in the future. We ensure every feedbacks are evaluated because we value <br>\nyour time and effort on this matter. We hope to provide you a better experience in the future. \n</p> </html>");
+        jLabel26.setPreferredSize(new java.awt.Dimension(700, 400));
         jPanel1.add(jLabel26);
 
-        dashContact.add(jPanel1);
+        jScrollPane2.setViewportView(jPanel1);
+
+        dashContact.add(jScrollPane2);
 
         dashMain.add(dashContact, "dashResources");
 
@@ -1298,6 +1302,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1327,11 +1333,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelSpace;
     private javax.swing.JPanel profileInfo;

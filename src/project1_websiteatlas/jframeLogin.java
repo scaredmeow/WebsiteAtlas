@@ -50,6 +50,7 @@ public class jframeLogin extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(390, 150));
         setPreferredSize(new java.awt.Dimension(1024, 640));
+        setResizable(false);
 
         mainWindow.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
