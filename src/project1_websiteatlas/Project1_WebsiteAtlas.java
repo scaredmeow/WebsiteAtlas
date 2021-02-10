@@ -16,7 +16,7 @@ public class Project1_WebsiteAtlas {
     public static Connection ConnectDb() {
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:javaDatabaseTutorials.db");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:javaDatabase.db");
             System.out.println("Connected Successfully to" + conn);
             return conn;
         } catch (ClassNotFoundException | SQLException e) {

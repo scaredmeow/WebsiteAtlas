@@ -1,10 +1,13 @@
 
 package project1_websiteatlas;
 
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class jframeSignUp extends javax.swing.JFrame {
     
@@ -31,22 +34,22 @@ public class jframeSignUp extends javax.swing.JFrame {
         panelForm = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        signupName = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        signupEmail = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        signupUser = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        signupPassword = new javax.swing.JPasswordField();
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        signupConfirm = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        signupActivation = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -115,8 +118,8 @@ public class jframeSignUp extends javax.swing.JFrame {
         jLabel3.setPreferredSize(new java.awt.Dimension(109, 20));
         jPanel2.add(jLabel3, java.awt.BorderLayout.PAGE_START);
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(10, 25));
-        jPanel2.add(jTextField1, java.awt.BorderLayout.CENTER);
+        signupName.setPreferredSize(new java.awt.Dimension(10, 25));
+        jPanel2.add(signupName, java.awt.BorderLayout.CENTER);
 
         panelForm.add(jPanel2);
 
@@ -129,8 +132,8 @@ public class jframeSignUp extends javax.swing.JFrame {
         jLabel5.setPreferredSize(new java.awt.Dimension(109, 20));
         jPanel4.add(jLabel5, java.awt.BorderLayout.PAGE_START);
 
-        jTextField3.setPreferredSize(new java.awt.Dimension(10, 25));
-        jPanel4.add(jTextField3, java.awt.BorderLayout.CENTER);
+        signupEmail.setPreferredSize(new java.awt.Dimension(10, 25));
+        jPanel4.add(signupEmail, java.awt.BorderLayout.CENTER);
 
         panelForm.add(jPanel4);
 
@@ -143,8 +146,8 @@ public class jframeSignUp extends javax.swing.JFrame {
         jLabel6.setPreferredSize(new java.awt.Dimension(109, 20));
         jPanel5.add(jLabel6, java.awt.BorderLayout.PAGE_START);
 
-        jTextField4.setPreferredSize(new java.awt.Dimension(10, 25));
-        jPanel5.add(jTextField4, java.awt.BorderLayout.CENTER);
+        signupUser.setPreferredSize(new java.awt.Dimension(10, 25));
+        jPanel5.add(signupUser, java.awt.BorderLayout.CENTER);
 
         panelForm.add(jPanel5);
 
@@ -157,9 +160,9 @@ public class jframeSignUp extends javax.swing.JFrame {
         jLabel7.setPreferredSize(new java.awt.Dimension(109, 20));
         jPanel6.add(jLabel7, java.awt.BorderLayout.PAGE_START);
 
-        jPasswordField2.setMinimumSize(new java.awt.Dimension(7, 25));
-        jPasswordField2.setPreferredSize(new java.awt.Dimension(112, 25));
-        jPanel6.add(jPasswordField2, java.awt.BorderLayout.PAGE_END);
+        signupPassword.setMinimumSize(new java.awt.Dimension(7, 25));
+        signupPassword.setPreferredSize(new java.awt.Dimension(112, 25));
+        jPanel6.add(signupPassword, java.awt.BorderLayout.PAGE_END);
 
         panelForm.add(jPanel6);
 
@@ -172,9 +175,9 @@ public class jframeSignUp extends javax.swing.JFrame {
         jLabel8.setPreferredSize(new java.awt.Dimension(109, 20));
         jPanel7.add(jLabel8, java.awt.BorderLayout.PAGE_START);
 
-        jPasswordField1.setMinimumSize(new java.awt.Dimension(7, 25));
-        jPasswordField1.setPreferredSize(new java.awt.Dimension(112, 25));
-        jPanel7.add(jPasswordField1, java.awt.BorderLayout.PAGE_END);
+        signupConfirm.setMinimumSize(new java.awt.Dimension(7, 25));
+        signupConfirm.setPreferredSize(new java.awt.Dimension(112, 25));
+        jPanel7.add(signupConfirm, java.awt.BorderLayout.PAGE_END);
 
         panelForm.add(jPanel7);
 
@@ -187,8 +190,8 @@ public class jframeSignUp extends javax.swing.JFrame {
         jLabel4.setPreferredSize(new java.awt.Dimension(109, 20));
         jPanel3.add(jLabel4, java.awt.BorderLayout.PAGE_START);
 
-        jTextField2.setPreferredSize(new java.awt.Dimension(10, 25));
-        jPanel3.add(jTextField2, java.awt.BorderLayout.CENTER);
+        signupActivation.setPreferredSize(new java.awt.Dimension(10, 25));
+        jPanel3.add(signupActivation, java.awt.BorderLayout.CENTER);
 
         panelForm.add(jPanel3);
 
@@ -258,7 +261,23 @@ public class jframeSignUp extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1040, 679));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void sqlInsert(){
+        String sql = "INSERT INTO userInfo(name, email, username, password, activationkey) VALUES (?,?,?,?,?)";
+        try {
+            pst = conn.prepareStatement (sql);
+            pst.setString(1, signupName.getText());
+            pst.setString(2, signupEmail.getText());
+            pst.setString(3, signupUser.getText());
+            pst.setString(4, signupPassword.getText());
+            pst.setString(5, signupActivation.getText());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Inserted");
+        } catch(HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         java.awt.EventQueue.invokeLater(() -> {
             new jframeLogin().setVisible(true);
@@ -267,10 +286,17 @@ public class jframeSignUp extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        java.awt.EventQueue.invokeLater(() -> {
-            new jframeLogin().setVisible(true);
-        });
+        if (true){
+            sqlInsert();
+        } else if (false) {
+                    
+            java.awt.EventQueue.invokeLater(() -> {
+                new jframeLogin().setVisible(true);
+            });
         dispose();
+        } else {
+            
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void setIcon() {
@@ -298,16 +324,16 @@ public class jframeSignUp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel mainWindow;
     private javax.swing.JPanel panelEmpty;
     private javax.swing.JPanel panelEmpty1;
     private javax.swing.JPanel panelForm;
     private javax.swing.JPanel panelTitle;
+    private javax.swing.JTextField signupActivation;
+    private javax.swing.JPasswordField signupConfirm;
+    private javax.swing.JTextField signupEmail;
+    private javax.swing.JTextField signupName;
+    private javax.swing.JPasswordField signupPassword;
+    private javax.swing.JTextField signupUser;
     // End of variables declaration//GEN-END:variables
 }

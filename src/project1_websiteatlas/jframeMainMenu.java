@@ -13,29 +13,50 @@ import java.net.URI;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JToolBar;
+import javax.swing.JButton;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
+import org.icepdf.ri.util.PropertiesManager;
 
 public class jframeMainMenu extends javax.swing.JFrame {
 
     boolean a = false;
-    CardLayout cardLayout;
-    JPanel buttonShow;
-    JPanel buttonShow2;
+    static int i = -1,limit,j;
+    CardLayout cardLayout, cardLayout2;
+    JPanel buttonShow, buttonShow2,viewHtml,viewCss,viewJs,viewSql,sideHtml,sideCss,sideJs,sideSql;
     Color colorHover = new Color(212,212,212);
     Color colorNormal = new Color(224,224,224);
     Color colorSelected = new Color(240,240,240);
-    
+    Color colorSide = new Color(50,50,250);
+    SwingController ctrl = new SwingController();   
+    String[] htmlArray ={"src//project1_resources//html//HTML-Week-1.pdf",
+                        "src//project1_resources//html//HTML-Week-2.pdf",
+                        "src//project1_resources//html//HTML-Week-3.pdf",
+                        "src//project1_resources//html//HTML-Week-4.pdf",
+                        "src//project1_resources//html//HTML-Week-5.pdf",
+                        "src//project1_resources//html//HTML-Week-6.pdf",
+                        "src//project1_resources//html//HTML-Week-7.pdf"} ;
+    String[] cssArray = {};
+    String[] jsArray = {};
+    String[] sqlArray = {};
     public jframeMainMenu() {
         initComponents();
         setIcon();
         cardLayout = (CardLayout) (dashMain.getLayout());
         this.buttonShow = buttonHome;
-        this.buttonShow2 = buttonHome1;
-        openpdf("src//project1_resources//BAB II.pdf",htmlOverview);
+        this.buttonShow2 = buttonHome1;  
+        this.viewHtml = htmlView;
+//        this.viewCss = htmlView;
+//        this.viewSql = htmlView;
+//        this.viewJs = htmlView;
+        this.sideHtml = htmlSelect;
+//        this.sideCss = htmlView;
+//        this.sideSql = htmlView;
+//        this.sideJs = htmlView;
+        openpdf(htmlLesson);
     }
     
     @SuppressWarnings("unchecked")
@@ -58,8 +79,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
         buttonProfile1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        buttonGrades = new javax.swing.JPanel();
-        buttonGrades1 = new javax.swing.JPanel();
+        buttonDiscussion = new javax.swing.JPanel();
+        buttonDiscussion1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         buttonContact = new javax.swing.JPanel();
@@ -119,19 +140,50 @@ public class jframeMainMenu extends javax.swing.JFrame {
         dashStudy = new javax.swing.JPanel();
         studyHTML = new javax.swing.JPanel();
         htmlMenu = new javax.swing.JPanel();
+        htmlmenuTitle = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        htmlView = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        htmlSelect = new javax.swing.JPanel();
+        htmlWeek1 = new javax.swing.JPanel();
+        jLabel45 = new javax.swing.JLabel();
+        htmlSelect1 = new javax.swing.JPanel();
+        htmlWeek2 = new javax.swing.JPanel();
+        jLabel46 = new javax.swing.JLabel();
+        htmlSelect2 = new javax.swing.JPanel();
+        htmlWeek3 = new javax.swing.JPanel();
+        jLabel47 = new javax.swing.JLabel();
+        htmlSelect3 = new javax.swing.JPanel();
+        htmlWeek4 = new javax.swing.JPanel();
+        jLabel48 = new javax.swing.JLabel();
+        htmlSelect4 = new javax.swing.JPanel();
+        htmlWeek5 = new javax.swing.JPanel();
+        jLabel49 = new javax.swing.JLabel();
+        htmlSelect5 = new javax.swing.JPanel();
+        htmlWeek6 = new javax.swing.JPanel();
+        jLabel50 = new javax.swing.JLabel();
+        htmlSelect6 = new javax.swing.JPanel();
+        htmlWeek7 = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
+        htmlSelect7 = new javax.swing.JPanel();
         htmlRight = new javax.swing.JPanel();
         htmlNav = new javax.swing.JPanel();
         buttonPrev = new javax.swing.JButton();
         buttonNext = new javax.swing.JButton();
         htmlViewer = new javax.swing.JPanel();
         htmlOverview = new javax.swing.JPanel();
-        htmlWeek1 = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        htmlLesson = new javax.swing.JPanel();
         dashProfile = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         profileInfo = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         profileOverall = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -155,7 +207,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         profileOverall5 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
-        dashGrades = new javax.swing.JPanel();
+        dashDiscussion = new javax.swing.JPanel();
         dashContact = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
@@ -282,37 +334,41 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         panelMenu.add(buttonProfile);
 
-        buttonGrades.setBackground(new java.awt.Color(224, 224, 224));
-        buttonGrades.setPreferredSize(new java.awt.Dimension(300, 50));
-        buttonGrades.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+        buttonDiscussion.setBackground(new java.awt.Color(224, 224, 224));
+        buttonDiscussion.setEnabled(false);
+        buttonDiscussion.setPreferredSize(new java.awt.Dimension(300, 50));
+        buttonDiscussion.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
-        buttonGrades1.setBackground(new java.awt.Color(224, 224, 224));
-        buttonGrades1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonGrades1.setPreferredSize(new java.awt.Dimension(260, 50));
-        buttonGrades1.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonDiscussion1.setBackground(new java.awt.Color(224, 224, 224));
+        buttonDiscussion1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonDiscussion1.setEnabled(false);
+        buttonDiscussion1.setPreferredSize(new java.awt.Dimension(260, 50));
+        buttonDiscussion1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonGrades1MouseClicked(evt);
+                buttonDiscussion1MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                buttonGrades1MouseEntered(evt);
+                buttonDiscussion1MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                buttonGrades1MouseExited(evt);
+                buttonDiscussion1MouseExited(evt);
             }
         });
-        buttonGrades1.setLayout(new java.awt.BorderLayout());
+        buttonDiscussion1.setLayout(new java.awt.BorderLayout());
 
         jLabel10.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("   GRADES");
-        buttonGrades1.add(jLabel10, java.awt.BorderLayout.CENTER);
+        jLabel10.setText("   DISCUSSION FORUM");
+        jLabel10.setEnabled(false);
+        buttonDiscussion1.add(jLabel10, java.awt.BorderLayout.CENTER);
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/grades_20px.png"))); // NOI18N
-        buttonGrades1.add(jLabel11, java.awt.BorderLayout.LINE_START);
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/communicate_20px_1.png"))); // NOI18N
+        jLabel11.setEnabled(false);
+        buttonDiscussion1.add(jLabel11, java.awt.BorderLayout.LINE_START);
 
-        buttonGrades.add(buttonGrades1);
+        buttonDiscussion.add(buttonDiscussion1);
 
-        panelMenu.add(buttonGrades);
+        panelMenu.add(buttonDiscussion);
 
         buttonContact.setBackground(new java.awt.Color(224, 224, 224));
         buttonContact.setPreferredSize(new java.awt.Dimension(300, 50));
@@ -774,34 +830,348 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         htmlMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         htmlMenu.setPreferredSize(new java.awt.Dimension(250, 570));
+        htmlMenu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        javax.swing.GroupLayout htmlMenuLayout = new javax.swing.GroupLayout(htmlMenu);
-        htmlMenu.setLayout(htmlMenuLayout);
-        htmlMenuLayout.setHorizontalGroup(
-            htmlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 246, Short.MAX_VALUE)
+        htmlmenuTitle.setPreferredSize(new java.awt.Dimension(246, 85));
+        htmlmenuTitle.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
+
+        jLabel41.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel41.setText("<html> Hypertext Markup<br> Language [HTML] </html>");
+        htmlmenuTitle.add(jLabel41);
+
+        jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLongGrey.png"))); // NOI18N
+        jLabel44.setText("jLabel44");
+        jLabel44.setPreferredSize(new java.awt.Dimension(248, 14));
+        htmlmenuTitle.add(jLabel44);
+
+        htmlMenu.add(htmlmenuTitle);
+
+        htmlView.setBackground(new java.awt.Color(224, 224, 224));
+        htmlView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlView.setPreferredSize(new java.awt.Dimension(246, 40));
+        htmlView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                htmlViewMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                htmlViewMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                htmlViewMouseExited(evt);
+            }
+        });
+        htmlView.setLayout(new java.awt.BorderLayout());
+
+        jLabel43.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel43.setText("  OVERVIEW");
+        jLabel43.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlView.add(jLabel43, java.awt.BorderLayout.CENTER);
+
+        htmlSelect.setBackground(new java.awt.Color(50, 50, 250));
+        htmlSelect.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout htmlSelectLayout = new javax.swing.GroupLayout(htmlSelect);
+        htmlSelect.setLayout(htmlSelectLayout);
+        htmlSelectLayout.setHorizontalGroup(
+            htmlSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
-        htmlMenuLayout.setVerticalGroup(
-            htmlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 566, Short.MAX_VALUE)
+        htmlSelectLayout.setVerticalGroup(
+            htmlSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
+
+        htmlView.add(htmlSelect, java.awt.BorderLayout.LINE_START);
+
+        htmlMenu.add(htmlView);
+
+        htmlWeek1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlWeek1.setPreferredSize(new java.awt.Dimension(246, 40));
+        htmlWeek1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                htmlWeek1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                htmlWeek1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                htmlWeek1MouseExited(evt);
+            }
+        });
+        htmlWeek1.setLayout(new java.awt.BorderLayout());
+
+        jLabel45.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel45.setText("  WEEK 1");
+        jLabel45.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek1.add(jLabel45, java.awt.BorderLayout.CENTER);
+
+        htmlSelect1.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout htmlSelect1Layout = new javax.swing.GroupLayout(htmlSelect1);
+        htmlSelect1.setLayout(htmlSelect1Layout);
+        htmlSelect1Layout.setHorizontalGroup(
+            htmlSelect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        htmlSelect1Layout.setVerticalGroup(
+            htmlSelect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        htmlWeek1.add(htmlSelect1, java.awt.BorderLayout.LINE_START);
+
+        htmlMenu.add(htmlWeek1);
+
+        htmlWeek2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlWeek2.setPreferredSize(new java.awt.Dimension(246, 40));
+        htmlWeek2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                htmlWeek2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                htmlWeek2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                htmlWeek2MouseExited(evt);
+            }
+        });
+        htmlWeek2.setLayout(new java.awt.BorderLayout());
+
+        jLabel46.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel46.setText("  WEEK 2");
+        jLabel46.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek2.add(jLabel46, java.awt.BorderLayout.CENTER);
+
+        htmlSelect2.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout htmlSelect2Layout = new javax.swing.GroupLayout(htmlSelect2);
+        htmlSelect2.setLayout(htmlSelect2Layout);
+        htmlSelect2Layout.setHorizontalGroup(
+            htmlSelect2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        htmlSelect2Layout.setVerticalGroup(
+            htmlSelect2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        htmlWeek2.add(htmlSelect2, java.awt.BorderLayout.LINE_START);
+
+        htmlMenu.add(htmlWeek2);
+
+        htmlWeek3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlWeek3.setPreferredSize(new java.awt.Dimension(246, 40));
+        htmlWeek3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                htmlWeek3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                htmlWeek3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                htmlWeek3MouseExited(evt);
+            }
+        });
+        htmlWeek3.setLayout(new java.awt.BorderLayout());
+
+        jLabel47.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel47.setText("  WEEK 3");
+        jLabel47.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek3.add(jLabel47, java.awt.BorderLayout.CENTER);
+
+        htmlSelect3.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout htmlSelect3Layout = new javax.swing.GroupLayout(htmlSelect3);
+        htmlSelect3.setLayout(htmlSelect3Layout);
+        htmlSelect3Layout.setHorizontalGroup(
+            htmlSelect3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        htmlSelect3Layout.setVerticalGroup(
+            htmlSelect3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        htmlWeek3.add(htmlSelect3, java.awt.BorderLayout.LINE_START);
+
+        htmlMenu.add(htmlWeek3);
+
+        htmlWeek4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlWeek4.setPreferredSize(new java.awt.Dimension(246, 40));
+        htmlWeek4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                htmlWeek4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                htmlWeek4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                htmlWeek4MouseExited(evt);
+            }
+        });
+        htmlWeek4.setLayout(new java.awt.BorderLayout());
+
+        jLabel48.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel48.setText("  WEEK 4");
+        jLabel48.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek4.add(jLabel48, java.awt.BorderLayout.CENTER);
+
+        htmlSelect4.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout htmlSelect4Layout = new javax.swing.GroupLayout(htmlSelect4);
+        htmlSelect4.setLayout(htmlSelect4Layout);
+        htmlSelect4Layout.setHorizontalGroup(
+            htmlSelect4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        htmlSelect4Layout.setVerticalGroup(
+            htmlSelect4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        htmlWeek4.add(htmlSelect4, java.awt.BorderLayout.LINE_START);
+
+        htmlMenu.add(htmlWeek4);
+
+        htmlWeek5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlWeek5.setPreferredSize(new java.awt.Dimension(246, 40));
+        htmlWeek5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                htmlWeek5MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                htmlWeek5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                htmlWeek5MouseExited(evt);
+            }
+        });
+        htmlWeek5.setLayout(new java.awt.BorderLayout());
+
+        jLabel49.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel49.setText("  WEEK 5");
+        jLabel49.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek5.add(jLabel49, java.awt.BorderLayout.CENTER);
+
+        htmlSelect5.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout htmlSelect5Layout = new javax.swing.GroupLayout(htmlSelect5);
+        htmlSelect5.setLayout(htmlSelect5Layout);
+        htmlSelect5Layout.setHorizontalGroup(
+            htmlSelect5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        htmlSelect5Layout.setVerticalGroup(
+            htmlSelect5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        htmlWeek5.add(htmlSelect5, java.awt.BorderLayout.LINE_START);
+
+        htmlMenu.add(htmlWeek5);
+
+        htmlWeek6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlWeek6.setPreferredSize(new java.awt.Dimension(246, 40));
+        htmlWeek6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                htmlWeek6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                htmlWeek6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                htmlWeek6MouseExited(evt);
+            }
+        });
+        htmlWeek6.setLayout(new java.awt.BorderLayout());
+
+        jLabel50.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel50.setText("  WEEK 6");
+        jLabel50.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek6.add(jLabel50, java.awt.BorderLayout.CENTER);
+
+        htmlSelect6.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout htmlSelect6Layout = new javax.swing.GroupLayout(htmlSelect6);
+        htmlSelect6.setLayout(htmlSelect6Layout);
+        htmlSelect6Layout.setHorizontalGroup(
+            htmlSelect6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        htmlSelect6Layout.setVerticalGroup(
+            htmlSelect6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        htmlWeek6.add(htmlSelect6, java.awt.BorderLayout.LINE_START);
+
+        htmlMenu.add(htmlWeek6);
+
+        htmlWeek7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlWeek7.setPreferredSize(new java.awt.Dimension(246, 40));
+        htmlWeek7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                htmlWeek7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                htmlWeek7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                htmlWeek7MouseExited(evt);
+            }
+        });
+        htmlWeek7.setLayout(new java.awt.BorderLayout());
+
+        jLabel51.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel51.setText("  WEEK 7");
+        jLabel51.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek7.add(jLabel51, java.awt.BorderLayout.CENTER);
+
+        htmlSelect7.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout htmlSelect7Layout = new javax.swing.GroupLayout(htmlSelect7);
+        htmlSelect7.setLayout(htmlSelect7Layout);
+        htmlSelect7Layout.setHorizontalGroup(
+            htmlSelect7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        htmlSelect7Layout.setVerticalGroup(
+            htmlSelect7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        htmlWeek7.add(htmlSelect7, java.awt.BorderLayout.LINE_START);
+
+        htmlMenu.add(htmlWeek7);
 
         studyHTML.add(htmlMenu, java.awt.BorderLayout.LINE_START);
 
+        htmlRight.setMaximumSize(new java.awt.Dimension(680, 197));
+        htmlRight.setPreferredSize(new java.awt.Dimension(680, 570));
         htmlRight.setLayout(new java.awt.BorderLayout(0, 10));
 
-        htmlNav.setPreferredSize(new java.awt.Dimension(726, 50));
+        htmlNav.setMaximumSize(new java.awt.Dimension(680, 40));
+        htmlNav.setMinimumSize(new java.awt.Dimension(680, 40));
+        htmlNav.setPreferredSize(new java.awt.Dimension(710, 50));
         htmlNav.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buttonPrev.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         buttonPrev.setText("Previous");
+        buttonPrev.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonPrev.setEnabled(false);
         buttonPrev.setMaximumSize(new java.awt.Dimension(100, 30));
         buttonPrev.setMinimumSize(new java.awt.Dimension(100, 30));
         buttonPrev.setPreferredSize(new java.awt.Dimension(100, 30));
+        buttonPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPrevActionPerformed(evt);
+            }
+        });
         htmlNav.add(buttonPrev, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         buttonNext.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         buttonNext.setText("Next");
+        buttonNext.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonNext.setMaximumSize(new java.awt.Dimension(100, 30));
         buttonNext.setMinimumSize(new java.awt.Dimension(100, 30));
         buttonNext.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -814,16 +1184,30 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         htmlRight.add(htmlNav, java.awt.BorderLayout.PAGE_END);
 
-        htmlViewer.setPreferredSize(new java.awt.Dimension(700, 510));
+        htmlViewer.setMaximumSize(new java.awt.Dimension(680, 40));
+        htmlViewer.setPreferredSize(new java.awt.Dimension(680, 510));
         htmlViewer.setLayout(new java.awt.CardLayout());
 
         htmlOverview.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        htmlOverview.setLayout(new java.awt.BorderLayout());
-        htmlViewer.add(htmlOverview, "card3");
+        htmlOverview.setMaximumSize(new java.awt.Dimension(680, 40));
+        htmlOverview.setPreferredSize(new java.awt.Dimension(680, 514));
+        htmlOverview.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        htmlWeek1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        htmlWeek1.setLayout(new java.awt.BorderLayout());
-        htmlViewer.add(htmlWeek1, "html1");
+        jLabel39.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel39.setText("Instructor's Note");
+        htmlOverview.add(jLabel39);
+
+        jLabel40.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel40.setText("<html>\n<style> p {   text-transform: uppercase; text-align: justify;} </style> </head>\n<p>\nWelcome to the HTML pathway! So you’ve decided you want to learn some HTML? Well, you have come to the right place! Learning HTML is something every web developer should learn. After all, HTML is the basic skeleton of all web pages. Without HTML skills, web developers wouldn’t be able to add text, add images, or even add videos to your favorite websites. HTML is the very foundation of everything you need to know in order to create an engaging web page!\n<br><br>\nIn this pathway, you will learn all the common HTML tags used to structure HTML pages. You will also learn how to add links and images to your web pages. Plus, some basics on how to create HTML tables, forms, lists, and iFrames. \n<br><br>\nIf ever you encountered some issues, have inquiries or suggestions, please do not hesitate to get in touch with our support team in the contact us section. We would love to hear from you!\n<br><br>\nWhat website do you wish existed but doesn't yet? Whatever that may be, hopefully, by the end of this pathway, you will be able to create your very own web page! Goodluck on starting your HTML journey and continue building your imagination!\n\n</p>\n\n\n</html>");
+        jLabel40.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel40.setPreferredSize(new java.awt.Dimension(710, 500));
+        htmlOverview.add(jLabel40);
+
+        htmlViewer.add(htmlOverview, "html");
+
+        htmlLesson.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        htmlLesson.setLayout(new java.awt.BorderLayout());
+        htmlViewer.add(htmlLesson, "html1");
 
         htmlRight.add(htmlViewer, java.awt.BorderLayout.CENTER);
 
@@ -838,9 +1222,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         profileInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         profileInfo.setPreferredSize(new java.awt.Dimension(280, 550));
-        profileInfo.add(jLabel36);
 
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icons8_ninja_turtle_96px.png"))); // NOI18N
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/school_director_96px.png"))); // NOI18N
         profileInfo.add(jLabel37);
 
         jLabel31.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
@@ -848,6 +1231,36 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel31.setText("JUAN DELA CRUZ");
         jLabel31.setPreferredSize(new java.awt.Dimension(276, 14));
         profileInfo.add(jLabel31);
+
+        jPanel6.setPreferredSize(new java.awt.Dimension(260, 100));
+
+        jLabel36.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel36.setText("Email: ");
+
+        jLabel38.setText("Neilriego3@gmail.com");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel38)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel36))
+                .addGap(80, 80, 80))
+        );
+
+        profileInfo.add(jPanel6);
 
         jPanel22.add(profileInfo, java.awt.BorderLayout.LINE_START);
 
@@ -1057,9 +1470,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
         dashProfileLayout.setHorizontalGroup(
             dashProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashProfileLayout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 994, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         dashProfileLayout.setVerticalGroup(
             dashProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1071,20 +1484,18 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         dashMain.add(dashProfile, "dashProfile");
 
-        dashGrades.setBackground(new java.awt.Color(255, 102, 102));
-
-        javax.swing.GroupLayout dashGradesLayout = new javax.swing.GroupLayout(dashGrades);
-        dashGrades.setLayout(dashGradesLayout);
-        dashGradesLayout.setHorizontalGroup(
-            dashGradesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout dashDiscussionLayout = new javax.swing.GroupLayout(dashDiscussion);
+        dashDiscussion.setLayout(dashDiscussionLayout);
+        dashDiscussionLayout.setHorizontalGroup(
+            dashDiscussionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 996, Short.MAX_VALUE)
         );
-        dashGradesLayout.setVerticalGroup(
-            dashGradesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dashDiscussionLayout.setVerticalGroup(
+            dashDiscussionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 570, Short.MAX_VALUE)
         );
 
-        dashMain.add(dashGrades, "dashGrades");
+        dashMain.add(dashDiscussion, "dashDiscussion");
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -1125,40 +1536,111 @@ public class jframeMainMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    public void controllerCardLayout(){
-        
+    public void controllerNext(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
+        controlLayout = (CardLayout) (containerParent.getLayout());
+        if (i != max){
+            i = i+1;
+            if (i == 0) {
+                controlLayout.show(containerParent,card);
+                ctrl.openDocument(lesson[i]);
+                prev.setEnabled(true);
+            } else if (i <= max) {
+                ctrl.openDocument(lesson[i]);
+                if (i == max) {
+                    next.setEnabled(false);
+                }  
+            } 
+        }
+    } 
+    
+    public void controllerPrev(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
+        controlLayout = (CardLayout) (containerParent.getLayout());
+        if (i != -1) {
+            i = i-1;
+            if (i > -1) {
+                ctrl.openDocument(lesson[i]);
+                if (i == max)
+                    next.setEnabled(true);  
+            }
+            if (i == -1) {
+                prev.setEnabled(false);
+                controlLayout.show(containerParent,card);                
+            }
+        }
+    }
+
+    public void controllerShow(CardLayout controlLayout,int state, String card, JPanel containerParent){
+        controlLayout = (CardLayout) (containerParent.getLayout());
+        if (state == -1) {
+            controlLayout.show(containerParent,card);
+        } else if (state >=0) {
+            controlLayout.show(containerParent,card);
+            ctrl.openDocument(htmlArray[state]);
+        }
+    }
+    public void dashHover (JPanel state, JPanel side,Color mousestate,int frame) {
+        if (state != viewHtml && frame == 1 ) {
+            state.setBackground(mousestate);
+            side.setBackground(mousestate);
+        } else if (state != viewCss && frame == 2) {
+            state.setBackground(mousestate);
+            side.setBackground(mousestate);
+        } else if (state != viewJs && frame == 3) {
+            state.setBackground(mousestate);
+            side.setBackground(mousestate);            
+        } else if (state != viewSql && frame == 4) {
+            state.setBackground(mousestate);
+            side.setBackground(mousestate);            
+        }
+    }
+           
+    public void dashSelect (JPanel state, JPanel side,int frame) {
+        if (state != viewHtml && frame == 1) {
+            viewHtml.setBackground(colorSelected);
+            sideHtml.setBackground(colorSelected);
+            state.setBackground(colorNormal);
+            side.setBackground(colorSide);
+            viewHtml = state;
+            sideHtml = side;
+        } else if (state != viewCss && frame == 2) {
+            viewCss.setBackground(colorSelected);
+            sideCss.setBackground(colorSelected);
+            state.setBackground(colorNormal);
+            side.setBackground(colorSide);
+            viewCss = state;
+            sideCss = side;
+        } else if (state != viewJs && frame == 3) {
+            viewJs.setBackground(colorSelected);
+            sideJs.setBackground(colorSelected);
+            state.setBackground(colorNormal);
+            side.setBackground(colorSide);   
+            viewJs = state;
+            sideJs = side;
+        } else if (state != viewSql && frame == 4) {
+            viewSql.setBackground(colorSelected);
+            sideSql.setBackground(colorSelected);
+            state.setBackground(colorNormal);
+            side.setBackground(colorSide);  
+            viewSql = state;
+            sideSql = side;
+        }
     }
     
-    public void openpdf (String file, JPanel dashboardview){
+    public void openpdf (JPanel dashboardview){
         try {
-            // build a component controller
-            SwingController ctrl = new SwingController();      
-            SwingViewBuilder vb = new SwingViewBuilder(ctrl) {
-                @Override
-                public JToolBar buildPageNavigationToolBar() {
-                    JToolBar toolbar = new JToolBar();
-                    commonToolBarSetup(toolbar, false);
-                    addToToolBar(toolbar, buildPreviousPageButton());
-                    addToToolBar(toolbar, buildCurrentPageNumberTextField());
-                    addToToolBar(toolbar, buildNumberOfPagesLabel());
-                    addToToolBar(toolbar, buildNextPageButton());
-                    return toolbar;
-                } 
-               
-                @Override
-                public JToolBar buildUtilityToolBar(boolean embeddableComponent){
-                    JToolBar toolbar1 = new JToolBar();
-                    embeddableComponent = false;
-                    commonToolBarSetup(toolbar1, false);
-                    addToToolBar(toolbar1,buildSaveAsFileButton());
-                    return toolbar1;
-                }
-            };
-            vb.buildUtilityToolBar(false);
+            // build a component controller   
+            PropertiesManager properties =
+                new PropertiesManager(System.getProperties(),
+                               ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
+            properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_UTILITY, Boolean.FALSE);
+            properties.setBoolean(PropertiesManager.PROPERTY_SHOW_UTILITYPANE_ANNOTATION, Boolean.FALSE);
+            properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_ANNOTATION, Boolean.FALSE);
+            SwingViewBuilder vb = new SwingViewBuilder(ctrl,properties);
+            ctrl.getDocumentViewController().setAnnotationCallback(
+                new org.icepdf.ri.common.MyAnnotationCallback(
+                    ctrl.getDocumentViewController()));
             JPanel s = vb.buildViewerPanel();
-            
-            ctrl.openDocument(file);
-            dashboardview.add(s);
+            dashboardview.add(s);                     
         }
         catch (Exception e){
             
@@ -1259,18 +1741,18 @@ public class jframeMainMenu extends javax.swing.JFrame {
         hoverShow(buttonProfile,buttonProfile,buttonProfile1,colorNormal);
     }//GEN-LAST:event_buttonProfile1MouseExited
 
-    private void buttonGrades1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGrades1MouseClicked
-        cardLayout.show(dashMain,"dashGrades");
-        selectShow(buttonGrades, buttonGrades,buttonGrades1,colorSelected,colorNormal);
-    }//GEN-LAST:event_buttonGrades1MouseClicked
+    private void buttonDiscussion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDiscussion1MouseClicked
+//        cardLayout.show(dashMain,"dashDiscussion");
+//        selectShow(buttonDiscussion, buttonDiscussion,buttonDiscussion1,colorSelected,colorNormal);
+    }//GEN-LAST:event_buttonDiscussion1MouseClicked
 
-    private void buttonGrades1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGrades1MouseEntered
-        hoverShow(buttonGrades,buttonGrades,buttonGrades1,colorHover);
-    }//GEN-LAST:event_buttonGrades1MouseEntered
+    private void buttonDiscussion1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDiscussion1MouseEntered
+        hoverShow(buttonDiscussion,buttonDiscussion,buttonDiscussion1,colorHover);
+    }//GEN-LAST:event_buttonDiscussion1MouseEntered
 
-    private void buttonGrades1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGrades1MouseExited
-        hoverShow(buttonGrades,buttonGrades,buttonGrades1,colorNormal);
-    }//GEN-LAST:event_buttonGrades1MouseExited
+    private void buttonDiscussion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDiscussion1MouseExited
+        hoverShow(buttonDiscussion,buttonDiscussion,buttonDiscussion1,colorNormal);
+    }//GEN-LAST:event_buttonDiscussion1MouseExited
 
     private void buttonContact1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonContact1MouseClicked
         cardLayout.show(dashMain,"dashContact");
@@ -1346,8 +1828,163 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_videoHTMLMouseClicked
 
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
-
+        controllerNext(cardLayout2,"html1",htmlViewer,htmlArray,6,buttonNext,buttonPrev);
+        switch(i) {
+            case -1: dashSelect(htmlView,htmlSelect,1); break;
+            case 0: dashSelect(htmlWeek1,htmlSelect1,1); break;
+            case 1: dashSelect(htmlWeek2,htmlSelect2,1); break;
+            case 2: dashSelect(htmlWeek3,htmlSelect3,1); break;
+            case 3: dashSelect(htmlWeek4,htmlSelect4,1); break;
+            case 4: dashSelect(htmlWeek5,htmlSelect5,1); break;
+            case 5: dashSelect(htmlWeek6,htmlSelect6,1); break;
+            case 6: dashSelect(htmlWeek7,htmlSelect7,1); break;
+            default: break;
+        }
     }//GEN-LAST:event_buttonNextActionPerformed
+
+    private void htmlViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlViewMouseClicked
+        dashSelect(htmlView,htmlSelect,1);
+        buttonPrev.setEnabled(false);
+        buttonNext.setEnabled(true);
+        i = -1;
+        controllerShow(cardLayout2,i,"html",htmlViewer);
+        
+    }//GEN-LAST:event_htmlViewMouseClicked
+
+    private void htmlViewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlViewMouseEntered
+        dashHover(htmlView,htmlSelect,colorHover,1);
+    }//GEN-LAST:event_htmlViewMouseEntered
+
+    private void htmlViewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlViewMouseExited
+        dashHover(htmlView,htmlSelect,colorSelected,1);
+    }//GEN-LAST:event_htmlViewMouseExited
+
+    private void buttonPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrevActionPerformed
+        controllerPrev(cardLayout2,"html",htmlViewer,htmlArray,6,buttonNext,buttonPrev);
+        switch(i) {
+            case -1: dashSelect(htmlView,htmlSelect,1); break;
+            case 0: dashSelect(htmlWeek1,htmlSelect1,1); break;
+            case 1: dashSelect(htmlWeek2,htmlSelect2,1); break;
+            case 2: dashSelect(htmlWeek3,htmlSelect3,1); break;
+            case 3: dashSelect(htmlWeek4,htmlSelect4,1); break;
+            case 4: dashSelect(htmlWeek5,htmlSelect5,1); break;
+            case 5: dashSelect(htmlWeek6,htmlSelect6,1); break;
+            case 6: dashSelect(htmlWeek7,htmlSelect7,1); break;
+            default: break;
+        }
+    }//GEN-LAST:event_buttonPrevActionPerformed
+
+    private void htmlWeek1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek1MouseClicked
+        dashSelect(htmlWeek1,htmlSelect1,1);
+        buttonPrev.setEnabled(true);
+        buttonNext.setEnabled(true);
+        i=0;
+        controllerShow(cardLayout2,i,"html1",htmlViewer);
+    }//GEN-LAST:event_htmlWeek1MouseClicked
+
+    private void htmlWeek1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek1MouseEntered
+        dashHover(htmlWeek1,htmlSelect1,colorHover,1);
+    }//GEN-LAST:event_htmlWeek1MouseEntered
+
+    private void htmlWeek1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek1MouseExited
+        dashHover(htmlWeek1,htmlSelect1,colorSelected,1);
+    }//GEN-LAST:event_htmlWeek1MouseExited
+
+    private void htmlWeek2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek2MouseClicked
+        dashSelect(htmlWeek2,htmlSelect2,1);
+        buttonPrev.setEnabled(true);
+        buttonNext.setEnabled(true);
+        i=1;
+        controllerShow(cardLayout2,i,"html1",htmlViewer);
+    }//GEN-LAST:event_htmlWeek2MouseClicked
+
+    private void htmlWeek2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek2MouseEntered
+        dashHover(htmlWeek2,htmlSelect2,colorHover,1);
+    }//GEN-LAST:event_htmlWeek2MouseEntered
+
+    private void htmlWeek2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek2MouseExited
+        dashHover(htmlWeek2,htmlSelect2,colorSelected,1);
+    }//GEN-LAST:event_htmlWeek2MouseExited
+
+    private void htmlWeek3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek3MouseClicked
+        dashSelect(htmlWeek3,htmlSelect3,1);
+        buttonPrev.setEnabled(true);
+        buttonNext.setEnabled(true);
+        i=2;
+        controllerShow(cardLayout2,i,"html1",htmlViewer);
+    }//GEN-LAST:event_htmlWeek3MouseClicked
+
+    private void htmlWeek3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek3MouseEntered
+        dashHover(htmlWeek3,htmlSelect3,colorHover,1);
+    }//GEN-LAST:event_htmlWeek3MouseEntered
+
+    private void htmlWeek3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek3MouseExited
+        dashHover(htmlWeek3,htmlSelect3,colorSelected,1);
+    }//GEN-LAST:event_htmlWeek3MouseExited
+
+    private void htmlWeek4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek4MouseClicked
+        dashSelect(htmlWeek4,htmlSelect4,1);
+        buttonPrev.setEnabled(true);
+        buttonNext.setEnabled(true);
+        i=3;
+        controllerShow(cardLayout2,i,"html1",htmlViewer);
+    }//GEN-LAST:event_htmlWeek4MouseClicked
+
+    private void htmlWeek4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek4MouseEntered
+        dashHover(htmlWeek4,htmlSelect4,colorHover,1);
+    }//GEN-LAST:event_htmlWeek4MouseEntered
+
+    private void htmlWeek4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek4MouseExited
+        dashHover(htmlWeek4,htmlSelect4,colorSelected,1);
+    }//GEN-LAST:event_htmlWeek4MouseExited
+
+    private void htmlWeek5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek5MouseClicked
+        dashSelect(htmlWeek5,htmlSelect5,1);
+        buttonPrev.setEnabled(true);
+        buttonNext.setEnabled(true);
+        i=4;
+        controllerShow(cardLayout2,i,"html1",htmlViewer);
+    }//GEN-LAST:event_htmlWeek5MouseClicked
+
+    private void htmlWeek5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek5MouseEntered
+        dashHover(htmlWeek5,htmlSelect5,colorHover,1);
+    }//GEN-LAST:event_htmlWeek5MouseEntered
+
+    private void htmlWeek5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek5MouseExited
+        dashHover(htmlWeek5,htmlSelect5,colorSelected,1);
+    }//GEN-LAST:event_htmlWeek5MouseExited
+
+    private void htmlWeek6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek6MouseClicked
+        dashSelect(htmlWeek6,htmlSelect6,1);
+        buttonPrev.setEnabled(true);
+        buttonNext.setEnabled(true);
+        i=5;
+        controllerShow(cardLayout2,i,"html1",htmlViewer);
+    }//GEN-LAST:event_htmlWeek6MouseClicked
+
+    private void htmlWeek6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek6MouseEntered
+        dashHover(htmlWeek6,htmlSelect6,colorHover,1);
+    }//GEN-LAST:event_htmlWeek6MouseEntered
+
+    private void htmlWeek6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek6MouseExited
+        dashHover(htmlWeek6,htmlSelect6,colorSelected,1);
+    }//GEN-LAST:event_htmlWeek6MouseExited
+
+    private void htmlWeek7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek7MouseClicked
+        dashSelect(htmlWeek7,htmlSelect7,1);
+        buttonPrev.setEnabled(true);
+        buttonNext.setEnabled(false);
+        i=6;
+        controllerShow(cardLayout2,i,"html1",htmlViewer);
+    }//GEN-LAST:event_htmlWeek7MouseClicked
+
+    private void htmlWeek7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek7MouseEntered
+        dashHover(htmlWeek7,htmlSelect7,colorHover,1);
+    }//GEN-LAST:event_htmlWeek7MouseEntered
+
+    private void htmlWeek7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek7MouseExited
+        dashHover(htmlWeek7,htmlSelect7,colorSelected,1);
+    }//GEN-LAST:event_htmlWeek7MouseExited
 
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
@@ -1356,8 +1993,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonContact;
     private javax.swing.JPanel buttonContact1;
-    private javax.swing.JPanel buttonGrades;
-    private javax.swing.JPanel buttonGrades1;
+    private javax.swing.JPanel buttonDiscussion;
+    private javax.swing.JPanel buttonDiscussion1;
     private javax.swing.JPanel buttonHome;
     private javax.swing.JPanel buttonHome1;
     private javax.swing.JPanel buttonHover;
@@ -1372,7 +2009,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel buttonStudy1;
     private javax.swing.JPanel dashBoard;
     private javax.swing.JPanel dashContact;
-    private javax.swing.JPanel dashGrades;
+    private javax.swing.JPanel dashDiscussion;
     private javax.swing.JPanel dashHeader;
     private javax.swing.JPanel dashHome;
     private javax.swing.JPanel dashMain;
@@ -1384,12 +2021,29 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel homeSpace;
     private javax.swing.JPanel homeSpace1;
     private javax.swing.JPanel homeTitlePath;
+    private javax.swing.JPanel htmlLesson;
     private javax.swing.JPanel htmlMenu;
     private javax.swing.JPanel htmlNav;
     private javax.swing.JPanel htmlOverview;
     private javax.swing.JPanel htmlRight;
+    private javax.swing.JPanel htmlSelect;
+    private javax.swing.JPanel htmlSelect1;
+    private javax.swing.JPanel htmlSelect2;
+    private javax.swing.JPanel htmlSelect3;
+    private javax.swing.JPanel htmlSelect4;
+    private javax.swing.JPanel htmlSelect5;
+    private javax.swing.JPanel htmlSelect6;
+    private javax.swing.JPanel htmlSelect7;
+    private javax.swing.JPanel htmlView;
     private javax.swing.JPanel htmlViewer;
     private javax.swing.JPanel htmlWeek1;
+    private javax.swing.JPanel htmlWeek2;
+    private javax.swing.JPanel htmlWeek3;
+    private javax.swing.JPanel htmlWeek4;
+    private javax.swing.JPanel htmlWeek5;
+    private javax.swing.JPanel htmlWeek6;
+    private javax.swing.JPanel htmlWeek7;
+    private javax.swing.JPanel htmlmenuTitle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1421,8 +2075,21 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1450,6 +2117,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
