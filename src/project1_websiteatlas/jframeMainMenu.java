@@ -129,9 +129,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         dashProfile = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         profileInfo = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         profileOverall = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -838,9 +840,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         profileInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         profileInfo.setPreferredSize(new java.awt.Dimension(280, 550));
-        profileInfo.add(jLabel36);
 
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icons8_ninja_turtle_96px.png"))); // NOI18N
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/school_director_96px.png"))); // NOI18N
         profileInfo.add(jLabel37);
 
         jLabel31.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
@@ -848,6 +849,36 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel31.setText("JUAN DELA CRUZ");
         jLabel31.setPreferredSize(new java.awt.Dimension(276, 14));
         profileInfo.add(jLabel31);
+
+        jPanel6.setPreferredSize(new java.awt.Dimension(260, 100));
+
+        jLabel36.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel36.setText("Email: ");
+
+        jLabel38.setText("Neilriego3@gmail.com");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel38)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel36))
+                .addGap(80, 80, 80))
+        );
+
+        profileInfo.add(jPanel6);
 
         jPanel22.add(profileInfo, java.awt.BorderLayout.LINE_START);
 
@@ -1421,6 +1452,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1450,6 +1482,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
