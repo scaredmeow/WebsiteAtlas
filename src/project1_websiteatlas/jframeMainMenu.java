@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JToolBar;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
+
 public class jframeMainMenu extends javax.swing.JFrame {
 
     boolean a = false;
@@ -31,8 +35,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
         cardLayout = (CardLayout) (dashMain.getLayout());
         this.buttonShow = buttonHome;
         this.buttonShow2 = buttonHome1;
+        openpdf("src//project1_resources//BAB II.pdf",htmlOverview);
     }
-   
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -112,6 +117,15 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jPanel16 = new javax.swing.JPanel();
         videoHTML = new javax.swing.JLabel();
         dashStudy = new javax.swing.JPanel();
+        studyHTML = new javax.swing.JPanel();
+        htmlMenu = new javax.swing.JPanel();
+        htmlRight = new javax.swing.JPanel();
+        htmlNav = new javax.swing.JPanel();
+        buttonPrev = new javax.swing.JButton();
+        buttonNext = new javax.swing.JButton();
+        htmlViewer = new javax.swing.JPanel();
+        htmlOverview = new javax.swing.JPanel();
+        htmlWeek1 = new javax.swing.JPanel();
         dashProfile = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         profileInfo = new javax.swing.JPanel();
@@ -754,20 +768,70 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         dashMain.add(dashHome, "dashHome");
 
-        dashStudy.setBackground(new java.awt.Color(204, 204, 255));
+        dashStudy.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout dashStudyLayout = new javax.swing.GroupLayout(dashStudy);
-        dashStudy.setLayout(dashStudyLayout);
-        dashStudyLayout.setHorizontalGroup(
-            dashStudyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 996, Short.MAX_VALUE)
+        studyHTML.setLayout(new java.awt.BorderLayout(20, 0));
+
+        htmlMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        htmlMenu.setPreferredSize(new java.awt.Dimension(250, 570));
+
+        javax.swing.GroupLayout htmlMenuLayout = new javax.swing.GroupLayout(htmlMenu);
+        htmlMenu.setLayout(htmlMenuLayout);
+        htmlMenuLayout.setHorizontalGroup(
+            htmlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 246, Short.MAX_VALUE)
         );
-        dashStudyLayout.setVerticalGroup(
-            dashStudyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+        htmlMenuLayout.setVerticalGroup(
+            htmlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 566, Short.MAX_VALUE)
         );
 
-        dashMain.add(dashStudy, "dashDiscussion");
+        studyHTML.add(htmlMenu, java.awt.BorderLayout.LINE_START);
+
+        htmlRight.setLayout(new java.awt.BorderLayout(0, 10));
+
+        htmlNav.setPreferredSize(new java.awt.Dimension(726, 50));
+        htmlNav.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        buttonPrev.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        buttonPrev.setText("Previous");
+        buttonPrev.setMaximumSize(new java.awt.Dimension(100, 30));
+        buttonPrev.setMinimumSize(new java.awt.Dimension(100, 30));
+        buttonPrev.setPreferredSize(new java.awt.Dimension(100, 30));
+        htmlNav.add(buttonPrev, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        buttonNext.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        buttonNext.setText("Next");
+        buttonNext.setMaximumSize(new java.awt.Dimension(100, 30));
+        buttonNext.setMinimumSize(new java.awt.Dimension(100, 30));
+        buttonNext.setPreferredSize(new java.awt.Dimension(100, 30));
+        buttonNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNextActionPerformed(evt);
+            }
+        });
+        htmlNav.add(buttonNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
+
+        htmlRight.add(htmlNav, java.awt.BorderLayout.PAGE_END);
+
+        htmlViewer.setPreferredSize(new java.awt.Dimension(700, 510));
+        htmlViewer.setLayout(new java.awt.CardLayout());
+
+        htmlOverview.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        htmlOverview.setLayout(new java.awt.BorderLayout());
+        htmlViewer.add(htmlOverview, "card3");
+
+        htmlWeek1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        htmlWeek1.setLayout(new java.awt.BorderLayout());
+        htmlViewer.add(htmlWeek1, "html1");
+
+        htmlRight.add(htmlViewer, java.awt.BorderLayout.CENTER);
+
+        studyHTML.add(htmlRight, java.awt.BorderLayout.CENTER);
+
+        dashStudy.add(studyHTML, "studyHTML");
+
+        dashMain.add(dashStudy, "dashStudy");
 
         jPanel22.setPreferredSize(new java.awt.Dimension(800, 560));
         jPanel22.setLayout(new java.awt.BorderLayout(20, 0));
@@ -1043,6 +1107,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel26.setText("<html> \n<head>\n <style> p {   text-transform: uppercase; text-align: justify;} </style> </head>\n<p>\n<font size = 30> Hi! Having troubles using the app? </font> <br>\nHorrible experience? Bug reports? Complaints?<br><br>\n\nNo Worries. Hang in there, we got you covered. <br>\nAs much as we want a smooth sailing experience to our users, issues are inevitable. <br>\nLet us know by sending an email on example@gmail.com and we’ll get down to business. <br><br><br>\n<font size = 30> No troubles? </font> <br>\nGreat. Send us your feedback on example2@gmail.com. Every feedback counts. <br><br>\n\nWe appreciate your time sending comprehensive feedback as this will guarantee quality<br>\nimprovements in the future. We ensure every feedbacks are evaluated because we value <br>\nyour time and effort on this matter. We hope to provide you a better experience in the future. \n</p> </html>");
+        jLabel26.setToolTipText("");
         jLabel26.setPreferredSize(new java.awt.Dimension(700, 400));
         jPanel1.add(jLabel26);
 
@@ -1050,7 +1115,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         dashContact.add(jScrollPane2);
 
-        dashMain.add(dashContact, "dashResources");
+        dashMain.add(dashContact, "dashContact");
 
         dashBoard.add(dashMain, java.awt.BorderLayout.CENTER);
 
@@ -1059,7 +1124,47 @@ public class jframeMainMenu extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1040, 679));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-     
+    
+    public void controllerCardLayout(){
+        
+    }
+    
+    public void openpdf (String file, JPanel dashboardview){
+        try {
+            // build a component controller
+            SwingController ctrl = new SwingController();      
+            SwingViewBuilder vb = new SwingViewBuilder(ctrl) {
+                @Override
+                public JToolBar buildPageNavigationToolBar() {
+                    JToolBar toolbar = new JToolBar();
+                    commonToolBarSetup(toolbar, false);
+                    addToToolBar(toolbar, buildPreviousPageButton());
+                    addToToolBar(toolbar, buildCurrentPageNumberTextField());
+                    addToToolBar(toolbar, buildNumberOfPagesLabel());
+                    addToToolBar(toolbar, buildNextPageButton());
+                    return toolbar;
+                } 
+               
+                @Override
+                public JToolBar buildUtilityToolBar(boolean embeddableComponent){
+                    JToolBar toolbar1 = new JToolBar();
+                    embeddableComponent = false;
+                    commonToolBarSetup(toolbar1, false);
+                    addToToolBar(toolbar1,buildSaveAsFileButton());
+                    return toolbar1;
+                }
+            };
+            vb.buildUtilityToolBar(false);
+            JPanel s = vb.buildViewerPanel();
+            
+            ctrl.openDocument(file);
+            dashboardview.add(s);
+        }
+        catch (Exception e){
+            
+        }
+    }
+    
     public void changeimage(JLabel button, String resourcheimg){
         ImageIcon img = new ImageIcon(getClass().getResource(resourcheimg));
         button.setIcon(img);
@@ -1168,7 +1273,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonGrades1MouseExited
 
     private void buttonContact1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonContact1MouseClicked
-        cardLayout.show(dashMain,"dashResources");
+        cardLayout.show(dashMain,"dashContact");
         selectShow(buttonContact, buttonContact,buttonContact1,colorSelected,colorNormal);
     }//GEN-LAST:event_buttonContact1MouseClicked
 
@@ -1204,7 +1309,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonStudy1MouseEntered
 
     private void buttonStudy1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStudy1MouseClicked
-        cardLayout.show(dashMain,"dashDiscussion");
+        cardLayout.show(dashMain,"dashStudy");
         selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);
     }//GEN-LAST:event_buttonStudy1MouseClicked
 
@@ -1240,6 +1345,10 @@ public class jframeMainMenu extends javax.swing.JFrame {
         desktopLink("https://www.youtube.com/watch?v=idHyruXhXhA&t=5s");
     }//GEN-LAST:event_videoHTMLMouseClicked
 
+    private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
+
+    }//GEN-LAST:event_buttonNextActionPerformed
+
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
     }
@@ -1255,6 +1364,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel buttonLogout;
     private javax.swing.JPanel buttonLogout1;
     private javax.swing.JLabel buttonMenu;
+    private javax.swing.JButton buttonNext;
+    private javax.swing.JButton buttonPrev;
     private javax.swing.JPanel buttonProfile;
     private javax.swing.JPanel buttonProfile1;
     private javax.swing.JPanel buttonStudy;
@@ -1273,6 +1384,12 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel homeSpace;
     private javax.swing.JPanel homeSpace1;
     private javax.swing.JPanel homeTitlePath;
+    private javax.swing.JPanel htmlMenu;
+    private javax.swing.JPanel htmlNav;
+    private javax.swing.JPanel htmlOverview;
+    private javax.swing.JPanel htmlRight;
+    private javax.swing.JPanel htmlViewer;
+    private javax.swing.JPanel htmlWeek1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1346,6 +1463,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel profileOverall3;
     private javax.swing.JPanel profileOverall4;
     private javax.swing.JPanel profileOverall5;
+    private javax.swing.JPanel studyHTML;
     private javax.swing.JPanel titleMenu;
     private javax.swing.JPanel titleMenu1;
     private javax.swing.JLabel videoCSS;

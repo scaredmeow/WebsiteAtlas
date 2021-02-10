@@ -38,6 +38,7 @@ public class jframeLogin extends javax.swing.JFrame {
         panelLogin = new javax.swing.JPanel();
         buttonLogin = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         panelUserSignUp = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -159,12 +160,22 @@ public class jframeLogin extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1024, 50));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(1044, 20));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 102, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Forgot your password?");
-        jPanel1.add(jLabel8, java.awt.BorderLayout.PAGE_START);
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel8);
+
+        jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         mainWindow.add(jPanel1);
 
@@ -220,6 +231,10 @@ public class jframeLogin extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_buttonLoginActionPerformed
 
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+
+    }//GEN-LAST:event_jLabel8MouseClicked
+
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
     }
@@ -236,6 +251,7 @@ public class jframeLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel mainWindow;
