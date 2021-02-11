@@ -173,7 +173,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         buttonNext = new javax.swing.JButton();
         htmlViewer = new javax.swing.JPanel();
         htmlOverview = new javax.swing.JPanel();
-        jLabel39 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         htmlLesson = new javax.swing.JPanel();
         dashProfile = new javax.swing.JPanel();
@@ -1193,9 +1193,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
         htmlOverview.setPreferredSize(new java.awt.Dimension(680, 514));
         htmlOverview.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel39.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel39.setText("Instructor's Note");
-        htmlOverview.add(jLabel39);
+        jLabel42.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel42.setText("Instructor's Note");
+        htmlOverview.add(jLabel42);
 
         jLabel40.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel40.setText("<html>\n<style> p {   text-transform: uppercase; text-align: justify;} </style> </head>\n<p>\nWelcome to the HTML pathway! So you’ve decided you want to learn some HTML? Well, you have come to the right place! Learning HTML is something every web developer should learn. After all, HTML is the basic skeleton of all web pages. Without HTML skills, web developers wouldn’t be able to add text, add images, or even add videos to your favorite websites. HTML is the very foundation of everything you need to know in order to create an engaging web page!\n<br><br>\nIn this pathway, you will learn all the common HTML tags used to structure HTML pages. You will also learn how to add links and images to your web pages. Plus, some basics on how to create HTML tables, forms, lists, and iFrames. \n<br><br>\nIf ever you encountered some issues, have inquiries or suggestions, please do not hesitate to get in touch with our support team in the contact us section. We would love to hear from you!\n<br><br>\nWhat website do you wish existed but doesn't yet? Whatever that may be, hopefully, by the end of this pathway, you will be able to create your very own web page! Goodluck on starting your HTML journey and continue building your imagination!\n\n</p>\n\n\n</html>");
@@ -2076,10 +2076,10 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
