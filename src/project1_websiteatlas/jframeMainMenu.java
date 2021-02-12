@@ -581,6 +581,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoHTML.png"))); // NOI18N
         jLabel22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel22MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel22);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -1559,7 +1564,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
             i = i-1;
             if (i > -1) {
                 ctrl.openDocument(lesson[i]);
-                if (i == max)
+                if (i == max-1)
                     next.setEnabled(true);  
             }
             if (i == -1) {
@@ -1985,6 +1990,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private void htmlWeek7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek7MouseExited
         dashHover(htmlWeek7,htmlSelect7,colorSelected,1);
     }//GEN-LAST:event_htmlWeek7MouseExited
+
+    private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
+        cardLayout.show(dashMain,"dashStudy");
+        selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);
+    }//GEN-LAST:event_jLabel22MouseClicked
 
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
