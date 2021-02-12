@@ -8,13 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.util.*;
 
 public class jframeSignUp extends javax.swing.JFrame {
     
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+    char[] randAlphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 
+                        'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 
+                        'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    int[] randPi = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9}; 
+    static int x,count1,count2,count3,count4;
+    boolean flag;
     public jframeSignUp() {
         initComponents();
         setIcon();
@@ -278,6 +284,51 @@ public class jframeSignUp extends javax.swing.JFrame {
         }
     }
     
+    public boolean keyAlgo(String activation) {
+        flag = false;
+        count1 = count2 = count3 = count4 = 0;
+        x =0;
+        char[] str = activation.toCharArray(); 
+        
+        for (int i=1; i<=14; i++){
+            if ((i+1) % 5 == 0){
+                if ( str[i] == '-'){
+                    count1++;//3
+                    System.out.println("count1: " + count1);
+                }   
+            } else {
+            //odd position    
+                if ((i+1) % 2 != 0){
+                    if ((i+1) % 3 == 0) {
+                        if (randPi[x] > Arrays.binarySearch(randAlphabet, str[i]) ){
+                            count4 ++; //2
+                            System.out.println("count4: " + count4);
+                        } 
+                    } else {
+                        if (randPi[x] > Character.getNumericValue(str[i])){
+                            count3 ++; //3
+                            System.out.println("count3: " + count3);
+                        }  
+                    }
+                }
+            //even position
+                else if ((i+1) % 2 == 0){
+                    if (randPi[x] > Character.getNumericValue(str[i])){
+                        count2 ++; //6
+                        System.out.println("count2: " + count2);
+                    }
+                } 
+            }
+            x++;    
+        }
+        if (count1 == 3)
+            if (count2 == 6)
+                if (count3 == 3)
+                    if (count4 == 2)
+                        flag = true;
+        return flag;                             
+    }
+    
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         java.awt.EventQueue.invokeLater(() -> {
             new jframeLogin().setVisible(true);
@@ -288,19 +339,26 @@ public class jframeSignUp extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         char[] firstPass = signupPassword.getPassword();
         String str1 = String.valueOf(firstPass);
+        
         char[] secondPass = signupConfirm.getPassword();
         String str2 = String.valueOf(secondPass);
-        if (str1.equals(str2)){
-            sqlInsert();
-        } else if (false) {
-                    
-            java.awt.EventQueue.invokeLater(() -> {
-                new jframeLogin().setVisible(true);
-            });
-        dispose();
-        } else {
-            JOptionPane.showMessageDialog(null,"Your inputted password does not match","Alert",JOptionPane.WARNING_MESSAGE); 
-        }
+ 
+        String inputActivation = signupActivation.getText();
+        
+        if (keyAlgo(inputActivation.toUpperCase()) == true){
+            if (str1.equals(str2)){
+                sqlInsert();
+            } else if (false) {            
+                java.awt.EventQueue.invokeLater(() -> {
+                    new jframeLogin().setVisible(true);
+                });
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null,"Your inputted password does not match","Alert",JOptionPane.WARNING_MESSAGE); 
+            }            
+        } else 
+            JOptionPane.showMessageDialog(null,"Your activation key is not valid","Alert",JOptionPane.WARNING_MESSAGE); 
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void setIcon() {
