@@ -1,16 +1,21 @@
 
 package project1_websiteatlas;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 public class jframeLogin extends javax.swing.JFrame {
     
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+    
     public jframeLogin() {
         initComponents();
         setIcon();
@@ -30,11 +35,11 @@ public class jframeLogin extends javax.swing.JFrame {
         panelUsername = new javax.swing.JPanel();
         inputEmail = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        loginUser = new javax.swing.JTextField();
         panelUserPass = new javax.swing.JPanel();
         inputPass = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        loginPass = new javax.swing.JPasswordField();
         panelLogin = new javax.swing.JPanel();
         buttonLogin = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -113,8 +118,8 @@ public class jframeLogin extends javax.swing.JFrame {
         jLabel5.setPreferredSize(new java.awt.Dimension(109, 20));
         inputEmail.add(jLabel5, java.awt.BorderLayout.CENTER);
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(10, 25));
-        inputEmail.add(jTextField1, java.awt.BorderLayout.PAGE_END);
+        loginUser.setPreferredSize(new java.awt.Dimension(10, 25));
+        inputEmail.add(loginUser, java.awt.BorderLayout.PAGE_END);
 
         panelUsername.add(inputEmail);
 
@@ -131,10 +136,10 @@ public class jframeLogin extends javax.swing.JFrame {
         jLabel6.setPreferredSize(new java.awt.Dimension(109, 20));
         inputPass.add(jLabel6, java.awt.BorderLayout.CENTER);
 
-        jPasswordField1.setDoubleBuffered(true);
-        jPasswordField1.setMinimumSize(new java.awt.Dimension(7, 25));
-        jPasswordField1.setPreferredSize(new java.awt.Dimension(112, 25));
-        inputPass.add(jPasswordField1, java.awt.BorderLayout.PAGE_END);
+        loginPass.setDoubleBuffered(true);
+        loginPass.setMinimumSize(new java.awt.Dimension(7, 25));
+        loginPass.setPreferredSize(new java.awt.Dimension(112, 25));
+        inputPass.add(loginPass, java.awt.BorderLayout.PAGE_END);
 
         panelUserPass.add(inputPass);
 
@@ -243,10 +248,46 @@ public class jframeLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSignUpActionPerformed
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
-        java.awt.EventQueue.invokeLater(() -> {
-            new jframeMainMenu().setVisible(true);
-        });
-        dispose();
+//        char[] inputPassword = loginPass.getPassword();
+        if (loginUser.getText().equals("") ||loginPass.getText().equals("") ){
+            JOptionPane.showMessageDialog(null,"Username or Password is Empty","Alert",JOptionPane.WARNING_MESSAGE); 
+        } else {
+            try {
+                String sql = "SELECT password from userInfo where username = ?";
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, loginUser.getText());
+                rs = pst.executeQuery();
+            
+            if (rs.next() == true) {
+                //getting the password from database
+                String realPass = rs.getString(1);
+                //getting the inputted password
+                char[] inputPassword = loginPass.getPassword();
+                String str = String.valueOf(inputPassword);
+                
+                if (realPass.equals(str)) {
+                    java.awt.EventQueue.invokeLater(() -> {
+                        new jframeMainMenu().setVisible(true);
+                    });
+                    dispose();               
+                } else {
+                    JOptionPane.showMessageDialog(null,"Password is Incorrect","Alert",JOptionPane.WARNING_MESSAGE);
+                    loginPass.setText(null);
+                }                
+            } else {
+                JOptionPane.showMessageDialog(null,"Username is not found","Alert",JOptionPane.WARNING_MESSAGE);
+                loginPass.setText(null);
+                loginUser.setText(null);
+            }    
+            
+
+            } catch (HeadlessException |SQLException e) {
+                JOptionPane.showMessageDialog(null, e);            
+        }
+        
+        } 
+        
+
     }//GEN-LAST:event_buttonLoginActionPerformed
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
@@ -279,8 +320,8 @@ public class jframeLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField loginPass;
+    private javax.swing.JTextField loginUser;
     private javax.swing.JPanel mainWindow;
     private javax.swing.JPanel panelEmpty;
     private javax.swing.JPanel panelEmpty1;

@@ -272,7 +272,7 @@ public class jframeSignUp extends javax.swing.JFrame {
             pst.setString(4, signupPassword.getText());
             pst.setString(5, signupActivation.getText());
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Inserted");
+            JOptionPane.showMessageDialog(null, "Successfully inserted");
         } catch(HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
