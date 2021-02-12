@@ -262,7 +262,7 @@ public class jframeSignUp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    public void sqlInsert(){
+    public void sqlInsert(){                      
         String sql = "INSERT INTO userInfo(name, email, username, password, activationkey) VALUES (?,?,?,?,?)";
         try {
             pst = conn.prepareStatement (sql);
@@ -272,7 +272,7 @@ public class jframeSignUp extends javax.swing.JFrame {
             pst.setString(4, signupPassword.getText());
             pst.setString(5, signupActivation.getText());
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Successfully inserted");
+            JOptionPane.showMessageDialog(null, "Successfully Registered");
         } catch(HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -286,7 +286,11 @@ public class jframeSignUp extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (true){
+        char[] firstPass = signupPassword.getPassword();
+        String str1 = String.valueOf(firstPass);
+        char[] secondPass = signupConfirm.getPassword();
+        String str2 = String.valueOf(secondPass);
+        if (str1.equals(str2)){
             sqlInsert();
         } else if (false) {
                     
@@ -295,7 +299,7 @@ public class jframeSignUp extends javax.swing.JFrame {
             });
         dispose();
         } else {
-            
+            JOptionPane.showMessageDialog(null,"Your inputted password does not match","Alert",JOptionPane.WARNING_MESSAGE); 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

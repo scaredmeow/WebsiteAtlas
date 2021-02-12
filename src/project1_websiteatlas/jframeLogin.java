@@ -279,13 +279,11 @@ public class jframeLogin extends javax.swing.JFrame {
                 loginPass.setText(null);
                 loginUser.setText(null);
             }    
-            
-
-            } catch (HeadlessException |SQLException e) {
+        } catch (HeadlessException |SQLException e) {
                 JOptionPane.showMessageDialog(null, e);            
-        }
+    }
         
-        } 
+    } 
         
 
     }//GEN-LAST:event_buttonLoginActionPerformed
