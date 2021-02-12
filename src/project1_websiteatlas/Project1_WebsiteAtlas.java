@@ -14,6 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Project1_WebsiteAtlas {
 
     public static Connection ConnectDb() {
+        //Sqlite connection 
         try {
             Class.forName("org.sqlite.JDBC");
             Connection conn = DriverManager.getConnection("jdbc:sqlite:javaDatabase.db");

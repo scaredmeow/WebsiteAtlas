@@ -45,6 +45,8 @@ public class jframeLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         panelSignUpButton = new javax.swing.JPanel();
         buttonSignUp = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        buttonGuess = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("WEBSITE ATLAS");
@@ -196,7 +198,7 @@ public class jframeLogin extends javax.swing.JFrame {
 
         mainWindow.add(panelUserSignUp);
 
-        panelSignUpButton.setPreferredSize(new java.awt.Dimension(1024, 50));
+        panelSignUpButton.setPreferredSize(new java.awt.Dimension(1024, 300));
 
         buttonSignUp.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         buttonSignUp.setText("Sign Up for Website Atlas");
@@ -208,6 +210,22 @@ public class jframeLogin extends javax.swing.JFrame {
             }
         });
         panelSignUpButton.add(buttonSignUp);
+
+        jLabel9.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Or");
+        jLabel9.setPreferredSize(new java.awt.Dimension(10245, 30));
+        panelSignUpButton.add(jLabel9);
+
+        buttonGuess.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        buttonGuess.setText("Sign in as a Guest");
+        buttonGuess.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonGuess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGuessActionPerformed(evt);
+            }
+        });
+        panelSignUpButton.add(buttonGuess);
 
         mainWindow.add(panelSignUpButton);
 
@@ -235,10 +253,18 @@ public class jframeLogin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabel8MouseClicked
 
+    private void buttonGuessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGuessActionPerformed
+        java.awt.EventQueue.invokeLater(() -> {
+            new jframeGuestLogin().setVisible(true);
+        });
+        dispose();
+    }//GEN-LAST:event_buttonGuessActionPerformed
+
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonGuess;
     private javax.swing.JButton buttonLogin;
     private javax.swing.JButton buttonSignUp;
     private javax.swing.JPanel inputEmail;
@@ -250,6 +276,7 @@ public class jframeLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField1;
