@@ -342,22 +342,32 @@ public class jframeSignUp extends javax.swing.JFrame {
         
         char[] secondPass = signupConfirm.getPassword();
         String str2 = String.valueOf(secondPass);
- 
         String inputActivation = signupActivation.getText();
         
-        if (keyAlgo(inputActivation.toUpperCase()) == true){
-            if (str1.equals(str2)){
-                sqlInsert();
-            } else if (false) {            
-                java.awt.EventQueue.invokeLater(() -> {
-                    new jframeLogin().setVisible(true);
-                });
-                dispose();
+        try {    
+            String sql = "SELECT activationkey from userInfo where activationkey = ?";
+                    pst = conn.prepareStatement(sql);
+                    pst.setString(1, signupActivation.getText());
+                    rs = pst.executeQuery();
+            if (rs.next() == true) {       
+                JOptionPane.showMessageDialog(null,"Your activation key is already used","Alert",JOptionPane.WARNING_MESSAGE);  
             } else {
-                JOptionPane.showMessageDialog(null,"Your inputted password does not match","Alert",JOptionPane.WARNING_MESSAGE); 
-            }            
-        } else 
-            JOptionPane.showMessageDialog(null,"Your activation key is not valid","Alert",JOptionPane.WARNING_MESSAGE); 
+                if (keyAlgo(inputActivation.toUpperCase()) == true){
+                    if (str1.equals(str2)){
+                        sqlInsert();
+                    } else if (false) {            
+                        java.awt.EventQueue.invokeLater(() -> {
+                            new jframeLogin().setVisible(true);
+                        });
+                        dispose();
+                    } else 
+                        JOptionPane.showMessageDialog(null,"Your inputted password does not match","Alert",JOptionPane.WARNING_MESSAGE);                 
+                } else 
+                    JOptionPane.showMessageDialog(null,"Your activation key is not valid","Alert",JOptionPane.WARNING_MESSAGE);                 
+            }
+        } catch (HeadlessException |SQLException e) {
+                JOptionPane.showMessageDialog(null, e);            
+        }             
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -7,7 +7,6 @@ import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 public class jframeLogin extends javax.swing.JFrame {
@@ -248,9 +247,8 @@ public class jframeLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSignUpActionPerformed
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
-//        char[] inputPassword = loginPass.getPassword();
-                char[] inputPassword = loginPass.getPassword();
-                String str = String.valueOf(inputPassword);
+        char[] inputPassword = loginPass.getPassword();
+        String str = String.valueOf(inputPassword);
         if (loginUser.getText().equals("") ||loginPass.getText().equals("") ){
             JOptionPane.showMessageDialog(null,"Username or Password is Empty","Alert",JOptionPane.WARNING_MESSAGE); 
         } else {

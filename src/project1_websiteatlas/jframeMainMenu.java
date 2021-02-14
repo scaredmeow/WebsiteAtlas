@@ -24,7 +24,8 @@ import org.icepdf.ri.util.PropertiesManager;
 public class jframeMainMenu extends javax.swing.JFrame {
 
     boolean a = false;
-    static int i = -1,limit,j;
+    static int i = -1,limit,j,score,times;
+    static int count = 0;
     CardLayout cardLayout, cardLayout2;
     JPanel buttonShow, buttonShow2,viewHtml,viewCss,viewJs,viewSql,sideHtml,sideCss,sideJs,sideSql;
     Color colorHover = new Color(212,212,212);
@@ -174,8 +175,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         htmlViewer = new javax.swing.JPanel();
         htmlOverview = new javax.swing.JPanel();
         jLabel42 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
+        jTextArea1 = new javax.swing.JTextArea();
         htmlLesson = new javax.swing.JPanel();
+        htmlQuiz = new javax.swing.JPanel();
+        jLabel52 = new javax.swing.JLabel();
+        jTextArea2 = new javax.swing.JTextArea();
         dashProfile = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         profileInfo = new javax.swing.JPanel();
@@ -1202,17 +1206,46 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel42.setText("Instructor's Note");
         htmlOverview.add(jLabel42);
 
-        jLabel40.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel40.setText("<html>\n<style> p {   text-transform: uppercase; text-align: justify;} </style> </head>\n<p>\nWelcome to the HTML pathway! So you’ve decided you want to learn some HTML? Well, you have come to the right place! Learning HTML is something every web developer should learn. After all, HTML is the basic skeleton of all web pages. Without HTML skills, web developers wouldn’t be able to add text, add images, or even add videos to your favorite websites. HTML is the very foundation of everything you need to know in order to create an engaging web page!\n<br><br>\nIn this pathway, you will learn all the common HTML tags used to structure HTML pages. You will also learn how to add links and images to your web pages. Plus, some basics on how to create HTML tables, forms, lists, and iFrames. \n<br><br>\nIf ever you encountered some issues, have inquiries or suggestions, please do not hesitate to get in touch with our support team in the contact us section. We would love to hear from you!\n<br><br>\nWhat website do you wish existed but doesn't yet? Whatever that may be, hopefully, by the end of this pathway, you will be able to create your very own web page! Goodluck on starting your HTML journey and continue building your imagination!\n\n</p>\n\n\n</html>");
-        jLabel40.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel40.setPreferredSize(new java.awt.Dimension(710, 500));
-        htmlOverview.add(jLabel40);
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Welcome to the HTML pathway! So you’ve decided you want to learn some HTML? Well, you have come to the right place! Learning HTML is something every web developer should learn. After all, HTML is the basic skeleton of all web pages. Without HTML skills, web developers wouldn’t be able to add text, add images, or even add videos to your favorite websites. HTML is the very foundation of everything you need to know in order to create an engaging web page!\n\nIn this pathway, you will learn all the common HTML tags used to structure HTML pages. You will also learn how to add links and images to your web pages. Plus, some basics on how to create HTML tables, forms, lists, and iFrames.\n\nIf ever you encountered some issues, have inquiries or suggestions, please do not hesitate to get in touch with our support team in the contact us section. We would love to hear from you!\n\nWhat website do you wish existed but doesn't yet? Whatever that may be, hopefully, by the end of this pathway, you will be able to create your very own web page! Goodluck on starting your HTML journey and continue building your imagination!  ");
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setMaximumSize(new java.awt.Dimension(100, 100));
+        jTextArea1.setMinimumSize(new java.awt.Dimension(100, 22));
+        jTextArea1.setPreferredSize(new java.awt.Dimension(710, 460));
+        htmlOverview.add(jTextArea1);
 
         htmlViewer.add(htmlOverview, "html");
 
         htmlLesson.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         htmlLesson.setLayout(new java.awt.BorderLayout());
         htmlViewer.add(htmlLesson, "html1");
+
+        htmlQuiz.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        htmlQuiz.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        jLabel52.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel52.setText("Week 1 - Quiz");
+        htmlQuiz.add(jLabel52);
+
+        jTextArea2.setEditable(false);
+        jTextArea2.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTextArea2.setLineWrap(true);
+        jTextArea2.setRows(1);
+        jTextArea2.setText("What does HTML stand for?");
+        jTextArea2.setWrapStyleWord(true);
+        jTextArea2.setMaximumSize(new java.awt.Dimension(710, 50));
+        jTextArea2.setMinimumSize(new java.awt.Dimension(710, 50));
+        jTextArea2.setPreferredSize(new java.awt.Dimension(710, 50));
+        htmlQuiz.add(jTextArea2);
+
+        htmlViewer.add(htmlQuiz, "htmlQuiz");
 
         htmlRight.add(htmlViewer, java.awt.BorderLayout.CENTER);
 
@@ -1541,22 +1574,51 @@ public class jframeMainMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    public void controllerNext(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
+    public void controllerNext(CardLayout controlLayout, String card, String card2, int grade, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
         if (i != max){
             i = i+1;
             if (i == 0) {
                 controlLayout.show(containerParent,card);
-                ctrl.openDocument(lesson[i]);
-                prev.setEnabled(true);
+                if (count == 0){
+                    ctrl.openDocument(lesson[i]);
+                    prev.setEnabled(true);
+                    count = 1;                    
+                } else if (count == 1) {
+                    next.setEnabled(false);
+                    controlLayout.show(containerParent,card2);
+                    count = 0;
+                    i = i -1;
+                }
+
             } else if (i <= max) {
-                ctrl.openDocument(lesson[i]);
+                if (count == 0){
+                    ctrl.openDocument(lesson[i]);
+                    count = 1;
+                } else if (count == 1) {
+                    next.setEnabled(false);
+                    controlLayout.show(containerParent,card2);
+                    count = 0;
+                    i = i -1;
+                }
                 if (i == max) {
                     next.setEnabled(false);
                 }  
             } 
         }
     } 
+    
+    public static void quizLogic () {
+	int i;
+	score = 0;
+	times = 0;
+	double percent = 0;
+        
+    }
+    
+    public static void quiz() {
+        
+    }
     
     public void controllerPrev(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
@@ -1833,18 +1895,21 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_videoHTMLMouseClicked
 
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
-        controllerNext(cardLayout2,"html1",htmlViewer,htmlArray,6,buttonNext,buttonPrev);
-        switch(i) {
-            case -1: dashSelect(htmlView,htmlSelect,1); break;
-            case 0: dashSelect(htmlWeek1,htmlSelect1,1); break;
-            case 1: dashSelect(htmlWeek2,htmlSelect2,1); break;
-            case 2: dashSelect(htmlWeek3,htmlSelect3,1); break;
-            case 3: dashSelect(htmlWeek4,htmlSelect4,1); break;
-            case 4: dashSelect(htmlWeek5,htmlSelect5,1); break;
-            case 5: dashSelect(htmlWeek6,htmlSelect6,1); break;
-            case 6: dashSelect(htmlWeek7,htmlSelect7,1); break;
-            default: break;
+        controllerNext(cardLayout2,"html1","htmlQuiz",score,htmlViewer,htmlArray,6,buttonNext,buttonPrev);
+        if (count == 1){
+            switch(i) {
+                case -1: dashSelect(htmlView,htmlSelect,1); break;
+                case 0: dashSelect(htmlWeek1,htmlSelect1,1); break;
+                case 1: dashSelect(htmlWeek2,htmlSelect2,1); break;
+                case 2: dashSelect(htmlWeek3,htmlSelect3,1); break;
+                case 3: dashSelect(htmlWeek4,htmlSelect4,1); break;
+                case 4: dashSelect(htmlWeek5,htmlSelect5,1); break;
+                case 5: dashSelect(htmlWeek6,htmlSelect6,1); break;
+                case 6: dashSelect(htmlWeek7,htmlSelect7,1); break;
+                default: break;
+            }            
         }
+
     }//GEN-LAST:event_buttonNextActionPerformed
 
     private void htmlViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlViewMouseClicked
@@ -2035,6 +2100,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel htmlMenu;
     private javax.swing.JPanel htmlNav;
     private javax.swing.JPanel htmlOverview;
+    private javax.swing.JPanel htmlQuiz;
     private javax.swing.JPanel htmlRight;
     private javax.swing.JPanel htmlSelect;
     private javax.swing.JPanel htmlSelect1;
@@ -2087,7 +2153,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
@@ -2100,6 +2165,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2133,6 +2199,8 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelSpace;
     private javax.swing.JPanel profileInfo;
