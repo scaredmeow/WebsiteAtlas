@@ -11,12 +11,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.net.URI;
 import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.Timer;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
 import org.icepdf.ri.util.PropertiesManager;
@@ -24,8 +27,8 @@ import org.icepdf.ri.util.PropertiesManager;
 public class jframeMainMenu extends javax.swing.JFrame {
 
     boolean a = false;
-    static int i = -1,limit,j,score,times;
-    static int count = 0;
+    static int i = -1,limit,j,score,times ;
+    static int count = 0, seconds = 10;
     CardLayout cardLayout, cardLayout2;
     JPanel buttonShow, buttonShow2,viewHtml,viewCss,viewJs,viewSql,sideHtml,sideCss,sideJs,sideSql;
     Color colorHover = new Color(212,212,212);
@@ -43,6 +46,10 @@ public class jframeMainMenu extends javax.swing.JFrame {
     String[] cssArray = {};
     String[] jsArray = {};
     String[] sqlArray = {};
+
+    /**
+     *
+     */
     public jframeMainMenu() {
         initComponents();
         setIcon();
@@ -64,6 +71,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        quizChoices = new javax.swing.ButtonGroup();
         panelMenu = new javax.swing.JPanel();
         titleMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -178,8 +186,18 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         htmlLesson = new javax.swing.JPanel();
         htmlQuiz = new javax.swing.JPanel();
-        jLabel52 = new javax.swing.JLabel();
-        jTextArea2 = new javax.swing.JTextArea();
+        quizWeek = new javax.swing.JLabel();
+        quizTimerLabel = new javax.swing.JLabel();
+        quizTimer = new javax.swing.JLabel();
+        quizInstructions = new javax.swing.JTextArea();
+        quizNo = new javax.swing.JLabel();
+        quizQuestion = new javax.swing.JTextArea();
+        quizChoiceA = new javax.swing.JRadioButton();
+        quizChoiceB = new javax.swing.JRadioButton();
+        quizChoiceC = new javax.swing.JRadioButton();
+        quizChoiceD = new javax.swing.JRadioButton();
+        jPanel19 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         dashProfile = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         profileInfo = new javax.swing.JPanel();
@@ -1228,22 +1246,109 @@ public class jframeMainMenu extends javax.swing.JFrame {
         htmlQuiz.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         htmlQuiz.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel52.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel52.setText("Week 1 - Quiz");
-        htmlQuiz.add(jLabel52);
+        quizWeek.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizWeek.setText("Week 1 - Quiz");
+        quizWeek.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizWeek.setPreferredSize(new java.awt.Dimension(160, 30));
+        htmlQuiz.add(quizWeek);
 
-        jTextArea2.setEditable(false);
-        jTextArea2.setBackground(new java.awt.Color(240, 240, 240));
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTextArea2.setLineWrap(true);
-        jTextArea2.setRows(1);
-        jTextArea2.setText("What does HTML stand for?");
-        jTextArea2.setWrapStyleWord(true);
-        jTextArea2.setMaximumSize(new java.awt.Dimension(710, 50));
-        jTextArea2.setMinimumSize(new java.awt.Dimension(710, 50));
-        jTextArea2.setPreferredSize(new java.awt.Dimension(710, 50));
-        htmlQuiz.add(jTextArea2);
+        quizTimerLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizTimerLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        quizTimerLabel.setText("Timer:");
+        quizTimerLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizTimerLabel.setPreferredSize(new java.awt.Dimension(500, 30));
+        htmlQuiz.add(quizTimerLabel);
+
+        quizTimer.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizTimer.setText("10");
+        quizTimer.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizTimer.setPreferredSize(new java.awt.Dimension(30, 30));
+        htmlQuiz.add(quizTimer);
+
+        quizInstructions.setEditable(false);
+        quizInstructions.setBackground(new java.awt.Color(240, 240, 240));
+        quizInstructions.setColumns(20);
+        quizInstructions.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        quizInstructions.setLineWrap(true);
+        quizInstructions.setRows(1);
+        quizInstructions.setText("All of the quizzes will have a timer per number in order for you not to cheat and apply your learnings from the lesson created by the instructors for you. \n\nIn order to assess your learning in this week you must pass the quiz with a score of above 70%. You will be given three (3) attempts to answer the quiz. In the event that you fail all of the three attempts, there will be a time penalty which is approximately 3 minutes before you can reattempt to answer again.\n\nNote: Closing the app while the reattempt timer is not done will reset it back to 3 minutes.\n\n");
+        quizInstructions.setWrapStyleWord(true);
+        quizInstructions.setMaximumSize(new java.awt.Dimension(710, 50));
+        quizInstructions.setMinimumSize(new java.awt.Dimension(710, 50));
+        quizInstructions.setPreferredSize(new java.awt.Dimension(710, 170));
+        quizInstructions.setRequestFocusEnabled(false);
+        htmlQuiz.add(quizInstructions);
+
+        quizNo.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        quizNo.setText("Question ");
+        quizNo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizNo.setPreferredSize(new java.awt.Dimension(710, 30));
+        htmlQuiz.add(quizNo);
+
+        quizQuestion.setEditable(false);
+        quizQuestion.setBackground(new java.awt.Color(240, 240, 240));
+        quizQuestion.setColumns(20);
+        quizQuestion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        quizQuestion.setLineWrap(true);
+        quizQuestion.setRows(1);
+        quizQuestion.setText("Once you click the start button, the question will appear in this part.");
+        quizQuestion.setWrapStyleWord(true);
+        quizQuestion.setMaximumSize(new java.awt.Dimension(710, 50));
+        quizQuestion.setMinimumSize(new java.awt.Dimension(710, 50));
+        quizQuestion.setPreferredSize(new java.awt.Dimension(710, 40));
+        htmlQuiz.add(quizQuestion);
+
+        quizChoices.add(quizChoiceA);
+        quizChoiceA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        quizChoiceA.setText("Choice A");
+        quizChoiceA.setEnabled(false);
+        quizChoiceA.setPreferredSize(new java.awt.Dimension(710, 23));
+        htmlQuiz.add(quizChoiceA);
+
+        quizChoices.add(quizChoiceB);
+        quizChoiceB.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        quizChoiceB.setText("Choice B");
+        quizChoiceB.setEnabled(false);
+        quizChoiceB.setPreferredSize(new java.awt.Dimension(710, 23));
+        htmlQuiz.add(quizChoiceB);
+
+        quizChoices.add(quizChoiceC);
+        quizChoiceC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        quizChoiceC.setText("Choice C");
+        quizChoiceC.setEnabled(false);
+        quizChoiceC.setPreferredSize(new java.awt.Dimension(710, 23));
+        htmlQuiz.add(quizChoiceC);
+
+        quizChoices.add(quizChoiceD);
+        quizChoiceD.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        quizChoiceD.setText("Choice D");
+        quizChoiceD.setEnabled(false);
+        quizChoiceD.setPreferredSize(new java.awt.Dimension(710, 23));
+        htmlQuiz.add(quizChoiceD);
+
+        jPanel19.setPreferredSize(new java.awt.Dimension(710, 20));
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 710, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        htmlQuiz.add(jPanel19);
+
+        jButton1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        jButton1.setText("Start");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        htmlQuiz.add(jButton1);
 
         htmlViewer.add(htmlQuiz, "htmlQuiz");
 
@@ -1573,6 +1678,18 @@ public class jframeMainMenu extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1040, 679));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    Timer timer = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            seconds --;
+            quizTimer.setText(String.valueOf(seconds));
+            if (seconds <=0){
+                 timer.stop();
+                 seconds = 10;
+                 quizTimer.setText(String.valueOf(seconds));
+            }
+        }
+    });
     
     public void controllerNext(CardLayout controlLayout, String card, String card2, int grade, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
@@ -1588,6 +1705,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
                     next.setEnabled(false);
                     controlLayout.show(containerParent,card2);
                     count = 0;
+                    timer.start();
                     i = i -1;
                 }
 
@@ -1599,6 +1717,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
                     next.setEnabled(false);
                     controlLayout.show(containerParent,card2);
                     count = 0;
+                    timer.start();
                     i = i -1;
                 }
                 if (i == max) {
@@ -1619,7 +1738,10 @@ public class jframeMainMenu extends javax.swing.JFrame {
     public static void quiz() {
         
     }
-    
+    public void timer() {
+
+                
+    }
     public void controllerPrev(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
         if (i != -1) {
@@ -2061,6 +2183,10 @@ public class jframeMainMenu extends javax.swing.JFrame {
         selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);
     }//GEN-LAST:event_jLabel22MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
     }
@@ -2120,6 +2246,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel htmlWeek6;
     private javax.swing.JPanel htmlWeek7;
     private javax.swing.JPanel htmlmenuTitle;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2165,7 +2292,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2180,6 +2306,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
@@ -2200,7 +2327,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelSpace;
     private javax.swing.JPanel profileInfo;
@@ -2209,6 +2335,17 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel profileOverall3;
     private javax.swing.JPanel profileOverall4;
     private javax.swing.JPanel profileOverall5;
+    private javax.swing.JRadioButton quizChoiceA;
+    private javax.swing.JRadioButton quizChoiceB;
+    private javax.swing.JRadioButton quizChoiceC;
+    private javax.swing.JRadioButton quizChoiceD;
+    private javax.swing.ButtonGroup quizChoices;
+    private javax.swing.JTextArea quizInstructions;
+    private javax.swing.JLabel quizNo;
+    private javax.swing.JTextArea quizQuestion;
+    private javax.swing.JLabel quizTimer;
+    private javax.swing.JLabel quizTimerLabel;
+    private javax.swing.JLabel quizWeek;
     private javax.swing.JPanel studyHTML;
     private javax.swing.JPanel titleMenu;
     private javax.swing.JPanel titleMenu1;
