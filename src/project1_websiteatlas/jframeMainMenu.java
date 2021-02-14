@@ -50,7 +50,15 @@ public class jframeMainMenu extends javax.swing.JFrame {
             sqlArray = {};
     String[][] htmlQuestion = {
                             {"What does HTML stand for?", 
-                                "The correct sequence of HTML tags for starting a webpage is -"
+                                "The correct sequence of HTML tags for starting a webpage is -",
+                                "Which is the correct sequence of HTML tags?",
+                                "Which is the correct HTML element for the largest heading?",
+                                "Which of the following HTML elements is used for making any text bold?",
+                                "Which of the following HTML elements is used for inserting a line break?",
+                                "Choose the correct HTML element to define emphasized text",
+                                "How many heading tags are there in HTML5?",
+                                "HTML comments start with <!-- and end with -->",
+                                "Which of the following characters indicate closing of a tag?"
                                 }, 
                             { 
                                 }
@@ -66,11 +74,51 @@ public class jframeMainMenu extends javax.swing.JFrame {
                                 "B. HTML, Body, Title, Head",
                                 "C. HTML, Title, Head, Body",
                                 "D. HTML, Head, Title, Body"
-                            }
+                            },
+                                {"A. Html, Head, Title, Body",
+                                "B. Body, Title, Head, Html",
+                                "C. Html, Title, Head, Body",
+                                "D. Title, Head, Body, Html"
+                            },
+                                {"A. <h6>",
+                                "B. <h4>",
+                                "C. <h5>",
+                                "D. <h1>"
+                            },                                
+                                {"A. <li>",
+                                "B. <i>",
+                                "C. <b>",
+				"D. <br>"
+                            },
+                                {"A. <break>",
+				"B. <br>",
+				"C. <rb>",
+				"D. </br/>"
+                            },
+                                {"A. <i>",
+				"B. <important>",
+				"C. <em>",
+				"D. <emphasized>"
+                            },         
+                                {"A. 5",
+				"B. 7",
+				"C. 4",
+				"D. 6"
+                            },   
+                                {"A. True",
+				"B. False",
+                                "C. None of the Above",
+                                "D. Not True and Not False"                                       
+                            },   
+                                {"A. .",
+				"B. /",
+				"C. \\",
+				"D. !"
+                            },                                   
                                 }
                             };
     String[][] htmlCorrect = {
-                            {"C","D"}, 
+                            {"C","D","A","D","C","B","C","D","A","B"}, 
                             {}
                             };
     /**
@@ -1853,7 +1901,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
             quizSubmit.setEnabled(false);
             reattempt.start();
         }            
-        System.out.println(percentage);
 
     }
     
