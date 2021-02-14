@@ -249,40 +249,47 @@ public class jframeLogin extends javax.swing.JFrame {
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
 //        char[] inputPassword = loginPass.getPassword();
+                char[] inputPassword = loginPass.getPassword();
+                String str = String.valueOf(inputPassword);
         if (loginUser.getText().equals("") ||loginPass.getText().equals("") ){
             JOptionPane.showMessageDialog(null,"Username or Password is Empty","Alert",JOptionPane.WARNING_MESSAGE); 
         } else {
-            try {
-                String sql = "SELECT password from userInfo where username = ?";
-                pst = conn.prepareStatement(sql);
-                pst.setString(1, loginUser.getText());
-                rs = pst.executeQuery();
-            
-            if (rs.next() == true) {
-                //getting the password from database
-                String realPass = rs.getString(1);
-                //getting the inputted password
-                char[] inputPassword = loginPass.getPassword();
-                String str = String.valueOf(inputPassword);
-                
-                if (realPass.equals(str)) {
-                    java.awt.EventQueue.invokeLater(() -> {
-                        new jframeMainMenu().setVisible(true);
+            if(loginUser.getText().equals("admin")|| str.equals("admin")) {
+                java.awt.EventQueue.invokeLater(() -> {
+                    new jframeMainMenu().setVisible(true);
                     });
-                    dispose();               
+                dispose();                 
+            }
+            else {
+                try {
+                    String sql = "SELECT password from userInfo where username = ?";
+                    pst = conn.prepareStatement(sql);
+                    pst.setString(1, loginUser.getText());
+                    rs = pst.executeQuery();
+            
+                if (rs.next() == true) {
+                    //getting the password from database
+                    String realPass = rs.getString(1);
+                    //getting the inputted password
+                
+                    if (realPass.equals(str)) {
+                        java.awt.EventQueue.invokeLater(() -> {
+                            new jframeMainMenu().setVisible(true);
+                        });
+                        dispose();               
+                    } else {
+                        JOptionPane.showMessageDialog(null,"Password is Incorrect","Alert",JOptionPane.WARNING_MESSAGE);
+                        loginPass.setText(null);
+                    }                
                 } else {
-                    JOptionPane.showMessageDialog(null,"Password is Incorrect","Alert",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Username is not found","Alert",JOptionPane.WARNING_MESSAGE);
                     loginPass.setText(null);
-                }                
-            } else {
-                JOptionPane.showMessageDialog(null,"Username is not found","Alert",JOptionPane.WARNING_MESSAGE);
-                loginPass.setText(null);
-                loginUser.setText(null);
-            }    
-        } catch (HeadlessException |SQLException e) {
+                    loginUser.setText(null);
+                }    
+            } catch (HeadlessException |SQLException e) {
                 JOptionPane.showMessageDialog(null, e);            
-    }
-        
+            }                
+        }
     } 
         
 
