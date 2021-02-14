@@ -25,10 +25,12 @@ import org.icepdf.ri.common.SwingViewBuilder;
 import org.icepdf.ri.util.PropertiesManager;
 
 public class jframeMainMenu extends javax.swing.JFrame {
-
+    
+    String Answer;
     boolean a = false;
-    static int i = -1,limit,j,score,times ;
-    static int count = 0, seconds = 10;
+    static int i = -1,limit,j,times,count = 0, attempt = 0,  prevcount = 0, no = 0,score = 0;
+    static double percentage = 0;
+    int seconds = 10, secondReattempt = 180;
     CardLayout cardLayout, cardLayout2;
     JPanel buttonShow, buttonShow2,viewHtml,viewCss,viewJs,viewSql,sideHtml,sideCss,sideJs,sideSql;
     Color colorHover = new Color(212,212,212);
@@ -42,11 +44,35 @@ public class jframeMainMenu extends javax.swing.JFrame {
                         "src//project1_resources//html//HTML-Week-4.pdf",
                         "src//project1_resources//html//HTML-Week-5.pdf",
                         "src//project1_resources//html//HTML-Week-6.pdf",
-                        "src//project1_resources//html//HTML-Week-7.pdf"} ;
-    String[] cssArray = {};
-    String[] jsArray = {};
-    String[] sqlArray = {};
-
+                        "src//project1_resources//html//HTML-Week-7.pdf"},
+            cssArray = {"src//project1_resources//html//HTML-Week-1.pdf"},
+            jsArray = {},
+            sqlArray = {};
+    String[][] htmlQuestion = {
+                            {"What does HTML stand for?", 
+                                "The correct sequence of HTML tags for starting a webpage is -"
+                                }, 
+                            { 
+                                }
+                            };
+    String[][][] htmlAnswer = {
+                            { 
+                                {"A. HighText Machine Language",
+                                "B. HyperText and links Markup Language",
+                                "C. HyperText Markup Language",
+                                "D. None of these"   
+                            },
+                                {"A. Head, Title, HTML, Body",
+                                "B. HTML, Body, Title, Head",
+                                "C. HTML, Title, Head, Body",
+                                "D. HTML, Head, Title, Body"
+                            }
+                                }
+                            };
+    String[][] htmlCorrect = {
+                            {"C","D"}, 
+                            {}
+                            };
     /**
      *
      */
@@ -156,25 +182,25 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         htmlSelect = new javax.swing.JPanel();
         htmlWeek1 = new javax.swing.JPanel();
-        jLabel45 = new javax.swing.JLabel();
+        htmlW1 = new javax.swing.JLabel();
         htmlSelect1 = new javax.swing.JPanel();
         htmlWeek2 = new javax.swing.JPanel();
-        jLabel46 = new javax.swing.JLabel();
+        htmlW2 = new javax.swing.JLabel();
         htmlSelect2 = new javax.swing.JPanel();
         htmlWeek3 = new javax.swing.JPanel();
-        jLabel47 = new javax.swing.JLabel();
+        htmlW3 = new javax.swing.JLabel();
         htmlSelect3 = new javax.swing.JPanel();
         htmlWeek4 = new javax.swing.JPanel();
-        jLabel48 = new javax.swing.JLabel();
+        htmlW4 = new javax.swing.JLabel();
         htmlSelect4 = new javax.swing.JPanel();
         htmlWeek5 = new javax.swing.JPanel();
-        jLabel49 = new javax.swing.JLabel();
+        htmlW5 = new javax.swing.JLabel();
         htmlSelect5 = new javax.swing.JPanel();
         htmlWeek6 = new javax.swing.JPanel();
-        jLabel50 = new javax.swing.JLabel();
+        htmlW6 = new javax.swing.JLabel();
         htmlSelect6 = new javax.swing.JPanel();
         htmlWeek7 = new javax.swing.JPanel();
-        jLabel51 = new javax.swing.JLabel();
+        htmlW7 = new javax.swing.JLabel();
         htmlSelect7 = new javax.swing.JPanel();
         htmlRight = new javax.swing.JPanel();
         htmlNav = new javax.swing.JPanel();
@@ -197,7 +223,12 @@ public class jframeMainMenu extends javax.swing.JFrame {
         quizChoiceC = new javax.swing.JRadioButton();
         quizChoiceD = new javax.swing.JRadioButton();
         jPanel19 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        quizSubmit = new javax.swing.JButton();
+        jPanel29 = new javax.swing.JPanel();
+        quizScoreLabel = new javax.swing.JLabel();
+        quizScore = new javax.swing.JLabel();
+        quizReattemptLabel = new javax.swing.JLabel();
+        quizReattempt = new javax.swing.JLabel();
         dashProfile = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         profileInfo = new javax.swing.JPanel();
@@ -927,10 +958,10 @@ public class jframeMainMenu extends javax.swing.JFrame {
         });
         htmlWeek1.setLayout(new java.awt.BorderLayout());
 
-        jLabel45.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel45.setText("  WEEK 1");
-        jLabel45.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek1.add(jLabel45, java.awt.BorderLayout.CENTER);
+        htmlW1.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW1.setText("  WEEK 1");
+        htmlW1.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek1.add(htmlW1, java.awt.BorderLayout.CENTER);
 
         htmlSelect1.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -964,10 +995,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         });
         htmlWeek2.setLayout(new java.awt.BorderLayout());
 
-        jLabel46.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel46.setText("  WEEK 2");
-        jLabel46.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek2.add(jLabel46, java.awt.BorderLayout.CENTER);
+        htmlW2.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW2.setText("  WEEK 2");
+        htmlW2.setEnabled(false);
+        htmlW2.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek2.add(htmlW2, java.awt.BorderLayout.CENTER);
 
         htmlSelect2.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1001,10 +1033,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         });
         htmlWeek3.setLayout(new java.awt.BorderLayout());
 
-        jLabel47.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel47.setText("  WEEK 3");
-        jLabel47.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek3.add(jLabel47, java.awt.BorderLayout.CENTER);
+        htmlW3.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW3.setText("  WEEK 3");
+        htmlW3.setEnabled(false);
+        htmlW3.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek3.add(htmlW3, java.awt.BorderLayout.CENTER);
 
         htmlSelect3.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1038,10 +1071,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         });
         htmlWeek4.setLayout(new java.awt.BorderLayout());
 
-        jLabel48.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel48.setText("  WEEK 4");
-        jLabel48.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek4.add(jLabel48, java.awt.BorderLayout.CENTER);
+        htmlW4.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW4.setText("  WEEK 4");
+        htmlW4.setEnabled(false);
+        htmlW4.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek4.add(htmlW4, java.awt.BorderLayout.CENTER);
 
         htmlSelect4.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1075,10 +1109,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         });
         htmlWeek5.setLayout(new java.awt.BorderLayout());
 
-        jLabel49.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel49.setText("  WEEK 5");
-        jLabel49.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek5.add(jLabel49, java.awt.BorderLayout.CENTER);
+        htmlW5.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW5.setText("  WEEK 5");
+        htmlW5.setEnabled(false);
+        htmlW5.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek5.add(htmlW5, java.awt.BorderLayout.CENTER);
 
         htmlSelect5.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1112,10 +1147,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         });
         htmlWeek6.setLayout(new java.awt.BorderLayout());
 
-        jLabel50.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel50.setText("  WEEK 6");
-        jLabel50.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek6.add(jLabel50, java.awt.BorderLayout.CENTER);
+        htmlW6.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW6.setText("  WEEK 6");
+        htmlW6.setEnabled(false);
+        htmlW6.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek6.add(htmlW6, java.awt.BorderLayout.CENTER);
 
         htmlSelect6.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1149,10 +1185,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         });
         htmlWeek7.setLayout(new java.awt.BorderLayout());
 
-        jLabel51.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel51.setText("  WEEK 7");
-        jLabel51.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek7.add(jLabel51, java.awt.BorderLayout.CENTER);
+        htmlW7.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW7.setText("  WEEK 7");
+        htmlW7.setEnabled(false);
+        htmlW7.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek7.add(htmlW7, java.awt.BorderLayout.CENTER);
 
         htmlSelect7.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1262,7 +1299,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         quizTimer.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         quizTimer.setText("10");
         quizTimer.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        quizTimer.setPreferredSize(new java.awt.Dimension(30, 30));
+        quizTimer.setPreferredSize(new java.awt.Dimension(40, 30));
         htmlQuiz.add(quizTimer);
 
         quizInstructions.setEditable(false);
@@ -1341,14 +1378,55 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         htmlQuiz.add(jPanel19);
 
-        jButton1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        jButton1.setText("Start");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        quizSubmit.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        quizSubmit.setText("Start");
+        quizSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        quizSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                quizSubmitActionPerformed(evt);
             }
         });
-        htmlQuiz.add(jButton1);
+        htmlQuiz.add(quizSubmit);
+
+        jPanel29.setPreferredSize(new java.awt.Dimension(600, 30));
+
+        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
+        jPanel29.setLayout(jPanel29Layout);
+        jPanel29Layout.setHorizontalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        jPanel29Layout.setVerticalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        htmlQuiz.add(jPanel29);
+
+        quizScoreLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizScoreLabel.setText("Score:");
+        quizScoreLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizScoreLabel.setPreferredSize(new java.awt.Dimension(80, 30));
+        htmlQuiz.add(quizScoreLabel);
+
+        quizScore.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizScore.setText("0");
+        quizScore.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizScore.setPreferredSize(new java.awt.Dimension(40, 30));
+        htmlQuiz.add(quizScore);
+
+        quizReattemptLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizReattemptLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        quizReattemptLabel.setText("Reattempt Timer:");
+        quizReattemptLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizReattemptLabel.setPreferredSize(new java.awt.Dimension(520, 30));
+        htmlQuiz.add(quizReattemptLabel);
+
+        quizReattempt.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizReattempt.setText("180");
+        quizReattempt.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizReattempt.setPreferredSize(new java.awt.Dimension(55, 30));
+        htmlQuiz.add(quizReattempt);
 
         htmlViewer.add(htmlQuiz, "htmlQuiz");
 
@@ -1678,20 +1756,145 @@ public class jframeMainMenu extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1040, 679));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    
+
     Timer timer = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             seconds --;
-            quizTimer.setText(String.valueOf(seconds));
             if (seconds <=0){
-                 timer.stop();
-                 seconds = 10;
-                 quizTimer.setText(String.valueOf(seconds));
+                quizChoices.clearSelection();
+                timer.stop();
+                if (htmlQuestion[i].length > (no+1)){
+                    pause.setRepeats(false);
+                    pause.start(); 
+                } else 
+                    quizReset();    
+            }
+            quizTimer.setText(String.valueOf(seconds));
+        }
+    });
+
+    Timer reattempt = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            secondReattempt --;
+            quizReattempt.setText(String.valueOf(secondReattempt));
+            if (secondReattempt <= 0){
+                reattempt.stop();
+                attempt = 0;
+                quizSubmit.setEnabled(true);
             }
         }
     });
     
-    public void controllerNext(CardLayout controlLayout, String card, String card2, int grade, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
+    Timer pause = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            no ++;
+            quizPrinting();  
+            seconds = 10;
+            quizTimer.setText(String.valueOf(seconds));
+        }
+    });
+    
+    public void quizReset() {
+        timer.stop();
+        quizSubmit.setText("Start");
+        quizChoices.clearSelection();
+        quizChoiceA.setEnabled(false);
+        quizChoiceB.setEnabled(false);
+        quizChoiceC.setEnabled(false);
+        quizChoiceD.setEnabled(false);   
+        quizNo.setText("Question");
+        quizQuestion.setText("Once you click the start button, the question will appear in this part.");
+        quizChoiceA.setText("Choice A");
+        quizChoiceB.setText("Choice B");
+        quizChoiceC.setText("Choice C");
+        quizChoiceD.setText("Choice D");  
+        seconds = 10;
+        quizTimer.setText(String.valueOf(seconds));
+        attempt ++;
+        percentage = (percentage + score) / (no+1);
+        no = 0;
+        score = 0;
+        
+        if (attempt != 3){
+            if (percentage >= .7 ){
+                //sql
+                switch(i) {
+                    case 0: htmlW2.setEnabled(true); break;
+                    case 1: htmlW3.setEnabled(true); break;
+                    case 2: htmlW4.setEnabled(true); break;
+                    case 3: htmlW5.setEnabled(true); break;
+                    case 4: htmlW6.setEnabled(true); break;
+                    case 5: htmlW7.setEnabled(true); break;
+                    default: break;
+                }
+                switch(i) {
+                        case 0: {
+                            if (htmlW2.isEnabled()){
+                               buttonNext.setEnabled(true);
+                            }
+                        } break;
+                        case 1: htmlW3.setEnabled(true); break;
+                        case 2: htmlW4.setEnabled(true); break;
+                        case 3: htmlW5.setEnabled(true); break;
+                        case 4: htmlW6.setEnabled(true); break;
+                        case 5: htmlW7.setEnabled(true); break;
+                        default: break;
+                }
+            } else {
+                percentage = 0;
+                quizScore.setText(String.valueOf(score));
+            }
+        } else {
+            quizSubmit.setEnabled(false);
+            reattempt.start();
+        }            
+        System.out.println(percentage);
+
+    }
+    
+    public void quizPrinting() {
+        timer.start();
+        if (!quizChoiceA.isEnabled()){
+            quizChoiceA.setEnabled(true);
+            quizChoiceB.setEnabled(true);
+            quizChoiceC.setEnabled(true);
+            quizChoiceD.setEnabled(true);   
+        }
+        quizNo.setText("Question No. " + (no+1));
+        quizQuestion.setText(htmlQuestion[i][no]);
+        quizChoiceA.setText(htmlAnswer[i][no][0]);
+        quizChoiceB.setText(htmlAnswer[i][no][1]);
+        quizChoiceC.setText(htmlAnswer[i][no][2]);
+        quizChoiceD.setText(htmlAnswer[i][no][3]);
+    }
+    
+    public void quizSelection () {       
+        if (quizChoiceA.isSelected()){
+            Answer = "A";
+        } else if (quizChoiceB.isSelected()){
+            Answer = "B";
+        } else if (quizChoiceC.isSelected()){
+            Answer = "C";
+        } else if (quizChoiceD.isSelected()){
+            Answer = "D";
+        } else {
+            Answer = " ";
+        }
+    }
+    public void quizLogic() {
+        quizSelection();
+        if (Answer.equals(htmlCorrect[i][no])) {
+            score ++;
+            quizScore.setText(String.valueOf(score));
+        }
+    }
+
+    public void controllerNext(CardLayout controlLayout, String card, String card2, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
         if (i != max){
             i = i+1;
@@ -1700,24 +1903,28 @@ public class jframeMainMenu extends javax.swing.JFrame {
                 if (count == 0){
                     ctrl.openDocument(lesson[i]);
                     prev.setEnabled(true);
-                    count = 1;                    
+                    count = 1;  
+                    prevcount = 0;
                 } else if (count == 1) {
                     next.setEnabled(false);
                     controlLayout.show(containerParent,card2);
                     count = 0;
-                    timer.start();
+                    prevcount = 1;
                     i = i -1;
                 }
 
             } else if (i <= max) {
                 if (count == 0){
+                    controlLayout.show(containerParent,card);
                     ctrl.openDocument(lesson[i]);
                     count = 1;
+                    prevcount = 0;
                 } else if (count == 1) {
                     next.setEnabled(false);
                     controlLayout.show(containerParent,card2);
+                    quizWeek.setText("Week " + i + " - Quiz");
                     count = 0;
-                    timer.start();
+                    prevcount = 1;
                     i = i -1;
                 }
                 if (i == max) {
@@ -1726,34 +1933,40 @@ public class jframeMainMenu extends javax.swing.JFrame {
             } 
         }
     } 
-    
-    public static void quizLogic () {
-	int i;
-	score = 0;
-	times = 0;
-	double percent = 0;
         
-    }
-    
-    public static void quiz() {
-        
-    }
-    public void timer() {
-
-                
-    }
-    public void controllerPrev(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
+    public void controllerPrev(CardLayout controlLayout, String card, String card2,JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
         if (i != -1) {
             i = i-1;
             if (i > -1) {
-                ctrl.openDocument(lesson[i]);
+                if (prevcount == 1) {
+                    controlLayout.show(containerParent,card2);
+                    prevcount = 0;
+                    count = 1;
+                    i = i+1; 
+                    next.setEnabled(true);
+                    ctrl.openDocument(lesson[i]);
+                } else if (prevcount == 0) {
+                    ctrl.openDocument(lesson[i]);
+                    count = 1;
+                }
+                
                 if (i == max-1)
                     next.setEnabled(true);  
             }
             if (i == -1) {
-                prev.setEnabled(false);
-                controlLayout.show(containerParent,card);                
+                if (prevcount == 1) {
+                    controlLayout.show(containerParent,card2);
+                    prevcount = 0;
+                    count = 1;
+                    i = i+1;
+                    next.setEnabled(true);
+                } else if (prevcount == 0) {
+                    prev.setEnabled(false);
+                    controlLayout.show(containerParent,card);  
+                    count = 0;
+                }
+             
             }
         }
     }
@@ -2017,7 +2230,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_videoHTMLMouseClicked
 
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
-        controllerNext(cardLayout2,"html1","htmlQuiz",score,htmlViewer,htmlArray,6,buttonNext,buttonPrev);
+        controllerNext(cardLayout2,"html1","htmlQuiz",htmlViewer,htmlArray,6,buttonNext,buttonPrev);
         if (count == 1){
             switch(i) {
                 case -1: dashSelect(htmlView,htmlSelect,1); break;
@@ -2052,7 +2265,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlViewMouseExited
 
     private void buttonPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrevActionPerformed
-        controllerPrev(cardLayout2,"html",htmlViewer,htmlArray,6,buttonNext,buttonPrev);
+        controllerPrev(cardLayout2,"html","html1",htmlViewer,htmlArray,6,buttonNext,buttonPrev);
         switch(i) {
             case -1: dashSelect(htmlView,htmlSelect,1); break;
             case 0: dashSelect(htmlWeek1,htmlSelect1,1); break;
@@ -2067,11 +2280,15 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPrevActionPerformed
 
     private void htmlWeek1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek1MouseClicked
-        dashSelect(htmlWeek1,htmlSelect1,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=0;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW1.isEnabled()) {
+            dashSelect(htmlWeek1,htmlSelect1,1);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=0;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);   
+        }
+
     }//GEN-LAST:event_htmlWeek1MouseClicked
 
     private void htmlWeek1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek1MouseEntered
@@ -2083,11 +2300,15 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlWeek1MouseExited
 
     private void htmlWeek2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek2MouseClicked
-        dashSelect(htmlWeek2,htmlSelect2,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=1;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW2.isEnabled()){
+            dashSelect(htmlWeek2,htmlSelect2,1);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=1;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);            
+        }
+
     }//GEN-LAST:event_htmlWeek2MouseClicked
 
     private void htmlWeek2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek2MouseEntered
@@ -2099,11 +2320,14 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlWeek2MouseExited
 
     private void htmlWeek3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek3MouseClicked
-        dashSelect(htmlWeek3,htmlSelect3,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=2;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW3.isEnabled()) {
+            dashSelect(htmlWeek3,htmlSelect3,1);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=2;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);            
+        }
     }//GEN-LAST:event_htmlWeek3MouseClicked
 
     private void htmlWeek3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek3MouseEntered
@@ -2115,11 +2339,14 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlWeek3MouseExited
 
     private void htmlWeek4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek4MouseClicked
-        dashSelect(htmlWeek4,htmlSelect4,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=3;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW4.isEnabled()) {
+            dashSelect(htmlWeek4,htmlSelect4,1);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=3;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);
+        }
     }//GEN-LAST:event_htmlWeek4MouseClicked
 
     private void htmlWeek4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek4MouseEntered
@@ -2131,11 +2358,14 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlWeek4MouseExited
 
     private void htmlWeek5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek5MouseClicked
-        dashSelect(htmlWeek5,htmlSelect5,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=4;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW5.isEnabled()) {
+            dashSelect(htmlWeek5,htmlSelect5,1);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=4;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);
+        }
     }//GEN-LAST:event_htmlWeek5MouseClicked
 
     private void htmlWeek5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek5MouseEntered
@@ -2147,11 +2377,14 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlWeek5MouseExited
 
     private void htmlWeek6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek6MouseClicked
-        dashSelect(htmlWeek6,htmlSelect6,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=5;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW6.isEnabled()) {
+            dashSelect(htmlWeek6,htmlSelect6,1);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=5;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);
+        }
     }//GEN-LAST:event_htmlWeek6MouseClicked
 
     private void htmlWeek6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek6MouseEntered
@@ -2163,11 +2396,14 @@ public class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlWeek6MouseExited
 
     private void htmlWeek7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek7MouseClicked
-        dashSelect(htmlWeek7,htmlSelect7,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(false);
-        i=6;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW7.isEnabled()) {
+            dashSelect(htmlWeek7,htmlSelect7,1);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(false);
+            i=6;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);
+        }
     }//GEN-LAST:event_htmlWeek7MouseClicked
 
     private void htmlWeek7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek7MouseEntered
@@ -2183,9 +2419,27 @@ public class jframeMainMenu extends javax.swing.JFrame {
         selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);
     }//GEN-LAST:event_jLabel22MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void quizSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quizSubmitActionPerformed
+        if (!quizChoiceA.isEnabled()){
+            quizSubmit.setText("Submit");       
+        }
+        if (seconds == 10){
+            quizPrinting();
+        }
+        else if (seconds < 10) {
+                quizLogic();
+                if (htmlQuestion[i].length == (no+1))
+                    quizReset();
+                else {
+                    timer.stop();
+                    quizChoices.clearSelection();
+                    pause.setRepeats(false);
+                    pause.start();                    
+                }
+
+        }
+
+    }//GEN-LAST:event_quizSubmitActionPerformed
 
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
@@ -2238,6 +2492,13 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel htmlSelect7;
     private javax.swing.JPanel htmlView;
     private javax.swing.JPanel htmlViewer;
+    private javax.swing.JLabel htmlW1;
+    private javax.swing.JLabel htmlW2;
+    private javax.swing.JLabel htmlW3;
+    private javax.swing.JLabel htmlW4;
+    private javax.swing.JLabel htmlW5;
+    private javax.swing.JLabel htmlW6;
+    private javax.swing.JLabel htmlW7;
     private javax.swing.JPanel htmlWeek1;
     private javax.swing.JPanel htmlWeek2;
     private javax.swing.JPanel htmlWeek3;
@@ -2246,7 +2507,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel htmlWeek6;
     private javax.swing.JPanel htmlWeek7;
     private javax.swing.JPanel htmlmenuTitle;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2284,14 +2544,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2317,6 +2570,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -2343,6 +2597,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JTextArea quizInstructions;
     private javax.swing.JLabel quizNo;
     private javax.swing.JTextArea quizQuestion;
+    private javax.swing.JLabel quizReattempt;
+    private javax.swing.JLabel quizReattemptLabel;
+    private javax.swing.JLabel quizScore;
+    private javax.swing.JLabel quizScoreLabel;
+    private javax.swing.JButton quizSubmit;
     private javax.swing.JLabel quizTimer;
     private javax.swing.JLabel quizTimerLabel;
     private javax.swing.JLabel quizWeek;
