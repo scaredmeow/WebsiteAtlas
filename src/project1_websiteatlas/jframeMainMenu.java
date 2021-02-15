@@ -22,7 +22,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
@@ -36,7 +35,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     
     String Answer,name;
     boolean a = false;
-    static int i = -1,limit,j,times,count = 0, attempt = 0,  prevcount = 0, no = 0,score = 0,accessID = 0;
+    static int i = -1,limit,j,times,count = 0, attempt = 0,  prevcount = 0, no = 0,score = 0,accessID = 0,currentPathway =0 ;
     static double percentage = 0;
     int seconds = 10, secondReattempt = 180;
     CardLayout cardLayout, cardLayout2;
@@ -148,6 +147,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 //        this.sideJs = htmlView;
         openpdf(htmlLesson);
         getAccessName();
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -202,13 +202,13 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         homeSpace = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
+        htmlButton = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
+        cssButton = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
+        jsButton = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
+        sqlButton = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
@@ -296,9 +296,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         profileUsername = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        profileEmail2 = new javax.swing.JLabel();
+        profileActivation = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
-        profileEmail3 = new javax.swing.JLabel();
+        profilePathway = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         profileName1 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
@@ -696,14 +696,14 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         jPanel2.add(homeSpace);
 
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoHTML.png"))); // NOI18N
-        jLabel22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+        htmlButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoHTML.png"))); // NOI18N
+        htmlButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel22MouseClicked(evt);
+                htmlButtonMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel22);
+        jPanel2.add(htmlButton);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -718,9 +718,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3);
 
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoCSS.png"))); // NOI18N
-        jLabel23.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(jLabel23);
+        cssButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoCSS.png"))); // NOI18N
+        cssButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.add(cssButton);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -735,9 +735,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4);
 
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoJS.png"))); // NOI18N
-        jLabel24.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(jLabel24);
+        jsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoJS.png"))); // NOI18N
+        jsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.add(jsButton);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -752,9 +752,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
 
         jPanel2.add(jPanel5);
 
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoSQL.png"))); // NOI18N
-        jLabel25.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(jLabel25);
+        sqlButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoSQL.png"))); // NOI18N
+        sqlButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.add(sqlButton);
 
         homePathway.add(jPanel2);
 
@@ -1533,7 +1533,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         profileInfo.add(jLabel38);
 
         profileUsername.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        profileUsername.setText("Neilriego3@gmail.com");
+        profileUsername.setText("SampleUserName");
         profileUsername.setPreferredSize(new java.awt.Dimension(180, 20));
         profileInfo.add(profileUsername);
 
@@ -1542,21 +1542,22 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel39.setPreferredSize(new java.awt.Dimension(110, 20));
         profileInfo.add(jLabel39);
 
-        profileEmail2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        profileEmail2.setText("Neilriego3@gmail.com");
-        profileEmail2.setPreferredSize(new java.awt.Dimension(150, 20));
-        profileInfo.add(profileEmail2);
+        profileActivation.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profileActivation.setText("ABCD-1234-EFGH-56");
+        profileActivation.setPreferredSize(new java.awt.Dimension(150, 20));
+        profileInfo.add(profileActivation);
 
         jLabel40.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel40.setText("Current Pathway:");
         jLabel40.setPreferredSize(new java.awt.Dimension(120, 20));
         profileInfo.add(jLabel40);
 
-        profileEmail3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        profileEmail3.setText("Neilriego3@gmail.com");
-        profileEmail3.setPreferredSize(new java.awt.Dimension(140, 20));
-        profileInfo.add(profileEmail3);
+        profilePathway.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profilePathway.setText("None");
+        profilePathway.setPreferredSize(new java.awt.Dimension(140, 20));
+        profileInfo.add(profilePathway);
 
+        jPanel6.setOpaque(false);
         jPanel6.setPreferredSize(new java.awt.Dimension(260, 20));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1990,11 +1991,24 @@ public class jframeMainMenu extends javax.swing.JFrame {
     
     public void getAccessName(){
         jframeLogin abc = new jframeLogin();
-        name = abc.getNameInfo();
-        profileName.setText(name);
-        String trial[] = abc.gettrialArray();
-        for (int i = 0; i<4; i++)
-            System.out.println(trial[i]);
+        String userInfo[] = abc.getuserArray();
+        profileName.setText(userInfo[0]);
+        profileEmail.setText(userInfo[1]);
+        profileUsername.setText(userInfo[2]);
+        profileActivation.setText(userInfo[3]);    
+        currentPathway = Integer.valueOf(userInfo[4]);
+        switch(currentPathway) {
+            case 0: profilePathway.setText("None"); break;
+            case 1: profilePathway.setText("HTML Path"); break;
+            case 2: profilePathway.setText("CSS Path"); break;
+            case 3: profilePathway.setText("JS Path"); break;
+            case 4: profilePathway.setText("SQL Path"); break;
+            default: break;
+        }
+    }
+    
+    public void getStorayArray(){
+        
     }
     
     public void controllerNext(CardLayout controlLayout, String card, String card2, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
@@ -2517,20 +2531,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
         dashHover(htmlWeek7,htmlSelect7,colorSelected,1);
     }//GEN-LAST:event_htmlWeek7MouseExited
 
-    private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
+    private void htmlButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlButtonMouseClicked
         cardLayout.show(dashMain,"dashStudy");
         selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);
-//        String sql = "UPDATE userInfo SET pathchoice = ? WHERE name = ?";
-//        try {           
-//            pst = conn.prepareStatement (sql);
-//            pst.setInt(1, accessID);
-//            pst.setString(2, name);
-//            pst.execute();
-//            JOptionPane.showMessageDialog(null, "Inserted");
-//        } catch(Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
-    }//GEN-LAST:event_jLabel22MouseClicked
+
+    }//GEN-LAST:event_htmlButtonMouseClicked
 
     private void quizSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quizSubmitActionPerformed
         if (!quizChoiceA.isEnabled()){
@@ -2575,6 +2580,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel buttonProfile1;
     private javax.swing.JPanel buttonStudy;
     private javax.swing.JPanel buttonStudy1;
+    private javax.swing.JLabel cssButton;
     private javax.swing.JPanel dashBoard;
     private javax.swing.JPanel dashContact;
     private javax.swing.JPanel dashDiscussion;
@@ -2589,6 +2595,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel homeSpace;
     private javax.swing.JPanel homeSpace1;
     private javax.swing.JPanel homeTitlePath;
+    private javax.swing.JLabel htmlButton;
     private javax.swing.JPanel htmlLesson;
     private javax.swing.JPanel htmlMenu;
     private javax.swing.JPanel htmlNav;
@@ -2634,10 +2641,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -2695,11 +2698,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel jsButton;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelSpace;
+    private javax.swing.JLabel profileActivation;
     private javax.swing.JLabel profileEmail;
-    private javax.swing.JLabel profileEmail2;
-    private javax.swing.JLabel profileEmail3;
     private javax.swing.JPanel profileInfo;
     private javax.swing.JLabel profileName;
     private javax.swing.JLabel profileName1;
@@ -2708,6 +2711,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel profileOverall3;
     private javax.swing.JPanel profileOverall4;
     private javax.swing.JPanel profileOverall5;
+    private javax.swing.JLabel profilePathway;
     private javax.swing.JLabel profileUsername;
     private javax.swing.JRadioButton quizChoiceA;
     private javax.swing.JRadioButton quizChoiceB;
@@ -2725,6 +2729,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel quizTimer;
     private javax.swing.JLabel quizTimerLabel;
     private javax.swing.JLabel quizWeek;
+    private javax.swing.JLabel sqlButton;
     private javax.swing.JPanel studyHTML;
     private javax.swing.JPanel titleMenu;
     private javax.swing.JPanel titleMenu1;

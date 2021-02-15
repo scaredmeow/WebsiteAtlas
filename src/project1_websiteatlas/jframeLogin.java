@@ -14,8 +14,7 @@ public class jframeLogin extends javax.swing.JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    static String[] trialArray = {"","","",""};
-    static String accessName;
+    static String[] userArray = new String[5];
     public jframeLogin() {
         initComponents();
         setIcon();
@@ -240,14 +239,9 @@ public class jframeLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
-    public String getNameInfo(){
-        return accessName;
+    public String[] getuserArray() {
+        return userArray;
     }
-    public String[] gettrialArray() {
-        return trialArray;
-    }
-    
 
     private void buttonSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignUpActionPerformed
         java.awt.EventQueue.invokeLater(() -> {
@@ -270,7 +264,7 @@ public class jframeLogin extends javax.swing.JFrame {
             }
             else {
                 try {
-                    String sql = "SELECT password, name, activationkey, pathchoice from userInfo where username = ?";
+                    String sql = "SELECT password, name, email,activationkey, pathchoice from userInfo where username = ?";
                     pst = conn.prepareStatement(sql);
                     pst.setString(1, loginUser.getText());
                     rs = pst.executeQuery();
@@ -279,16 +273,17 @@ public class jframeLogin extends javax.swing.JFrame {
                     //getting the password from database
                     String realPass = rs.getString(1);
                     String realName = rs.getString(2);
-                    String activationKey = rs.getString(3);
-                    String currentPath = rs.getString(4);
+                    String email = rs.getString(3);
+                    String activationKey = rs.getString(4);
+                    String currentPath = rs.getString(5);
                     //getting the inputted password
                     
                     if (realPass.equals(str)) { 
-                        accessName = realName;
-                        trialArray[0] = accessName;
-                        trialArray[1] = loginUser.getText();
-                        trialArray[2] = activationKey;
-                        trialArray[3] = currentPath;
+                        userArray[0] = realName;
+                        userArray[1] = email;
+                        userArray[2] = loginUser.getText();
+                        userArray[3] = activationKey.toUpperCase();
+                        userArray[4] = currentPath;
                         java.awt.EventQueue.invokeLater(() -> {
                             new jframeMainMenu().setVisible(true);
                         });
