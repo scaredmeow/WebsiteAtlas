@@ -291,9 +291,16 @@ public class jframeMainMenu extends javax.swing.JFrame {
         profileInfo = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         profileName = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
+        profileEmail = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
+        profileUsername = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        profileEmail2 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        profileEmail3 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        profileName1 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         profileOverall = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -1510,36 +1517,66 @@ public class jframeMainMenu extends javax.swing.JFrame {
         profileName.setPreferredSize(new java.awt.Dimension(276, 30));
         profileInfo.add(profileName);
 
-        jPanel6.setOpaque(false);
-        jPanel6.setPreferredSize(new java.awt.Dimension(260, 100));
-
-        jLabel36.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel36.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel36.setText("Email: ");
+        jLabel36.setPreferredSize(new java.awt.Dimension(50, 20));
+        profileInfo.add(jLabel36);
 
-        jLabel38.setText("Neilriego3@gmail.com");
+        profileEmail.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profileEmail.setText("Sample@gmail.com");
+        profileEmail.setPreferredSize(new java.awt.Dimension(210, 20));
+        profileInfo.add(profileEmail);
+
+        jLabel38.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel38.setText("Username: ");
+        jLabel38.setPreferredSize(new java.awt.Dimension(80, 20));
+        profileInfo.add(jLabel38);
+
+        profileUsername.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profileUsername.setText("Neilriego3@gmail.com");
+        profileUsername.setPreferredSize(new java.awt.Dimension(180, 20));
+        profileInfo.add(profileUsername);
+
+        jLabel39.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel39.setText("Activation Key: ");
+        jLabel39.setPreferredSize(new java.awt.Dimension(110, 20));
+        profileInfo.add(jLabel39);
+
+        profileEmail2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profileEmail2.setText("Neilriego3@gmail.com");
+        profileEmail2.setPreferredSize(new java.awt.Dimension(150, 20));
+        profileInfo.add(profileEmail2);
+
+        jLabel40.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel40.setText("Current Pathway:");
+        jLabel40.setPreferredSize(new java.awt.Dimension(120, 20));
+        profileInfo.add(jLabel40);
+
+        profileEmail3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profileEmail3.setText("Neilriego3@gmail.com");
+        profileEmail3.setPreferredSize(new java.awt.Dimension(140, 20));
+        profileInfo.add(profileEmail3);
+
+        jPanel6.setPreferredSize(new java.awt.Dimension(260, 20));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel36)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel38)
-                .addContainerGap())
+            .addGap(0, 260, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel38)
-                    .addComponent(jLabel36))
-                .addGap(80, 80, 80))
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         profileInfo.add(jPanel6);
+
+        profileName1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        profileName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profileName1.setText("PROFILE BADGE");
+        profileName1.setPreferredSize(new java.awt.Dimension(276, 30));
+        profileInfo.add(profileName1);
 
         jPanel22.add(profileInfo, java.awt.BorderLayout.LINE_START);
 
@@ -1847,7 +1884,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         }
     });
     
-    Timer pause = new Timer(1000, new ActionListener() {
+    Timer pause = new Timer(500, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             no ++;
@@ -1953,8 +1990,11 @@ public class jframeMainMenu extends javax.swing.JFrame {
     
     public void getAccessName(){
         jframeLogin abc = new jframeLogin();
-        name = abc.getName();
+        name = abc.getNameInfo();
         profileName.setText(name);
+        String trial[] = abc.gettrialArray();
+        for (int i = 0; i<4; i++)
+            System.out.println(trial[i]);
     }
     
     public void controllerNext(CardLayout controlLayout, String card, String card2, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
@@ -2611,7 +2651,9 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
@@ -2655,13 +2697,18 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelSpace;
+    private javax.swing.JLabel profileEmail;
+    private javax.swing.JLabel profileEmail2;
+    private javax.swing.JLabel profileEmail3;
     private javax.swing.JPanel profileInfo;
     private javax.swing.JLabel profileName;
+    private javax.swing.JLabel profileName1;
     private javax.swing.JPanel profileOverall;
     private javax.swing.JPanel profileOverall2;
     private javax.swing.JPanel profileOverall3;
     private javax.swing.JPanel profileOverall4;
     private javax.swing.JPanel profileOverall5;
+    private javax.swing.JLabel profileUsername;
     private javax.swing.JRadioButton quizChoiceA;
     private javax.swing.JRadioButton quizChoiceB;
     private javax.swing.JRadioButton quizChoiceC;

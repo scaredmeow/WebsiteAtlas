@@ -14,6 +14,7 @@ public class jframeLogin extends javax.swing.JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+    static String[] trialArray = {"","","",""};
     static String accessName;
     public jframeLogin() {
         initComponents();
@@ -240,8 +241,11 @@ public class jframeLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    public String getName(){
+    public String getNameInfo(){
         return accessName;
+    }
+    public String[] gettrialArray() {
+        return trialArray;
     }
     
 
@@ -266,7 +270,7 @@ public class jframeLogin extends javax.swing.JFrame {
             }
             else {
                 try {
-                    String sql = "SELECT password, name from userInfo where username = ?";
+                    String sql = "SELECT password, name, activationkey, pathchoice from userInfo where username = ?";
                     pst = conn.prepareStatement(sql);
                     pst.setString(1, loginUser.getText());
                     rs = pst.executeQuery();
@@ -275,10 +279,16 @@ public class jframeLogin extends javax.swing.JFrame {
                     //getting the password from database
                     String realPass = rs.getString(1);
                     String realName = rs.getString(2);
+                    String activationKey = rs.getString(3);
+                    String currentPath = rs.getString(4);
                     //getting the inputted password
                     
                     if (realPass.equals(str)) { 
                         accessName = realName;
+                        trialArray[0] = accessName;
+                        trialArray[1] = loginUser.getText();
+                        trialArray[2] = activationKey;
+                        trialArray[3] = currentPath;
                         java.awt.EventQueue.invokeLater(() -> {
                             new jframeMainMenu().setVisible(true);
                         });
