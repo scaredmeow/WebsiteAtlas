@@ -15,10 +15,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
@@ -26,9 +30,13 @@ import org.icepdf.ri.util.PropertiesManager;
 
 public class jframeMainMenu extends javax.swing.JFrame {
     
-    String Answer;
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
+    String Answer,name;
     boolean a = false;
-    static int i = -1,limit,j,times,count = 0, attempt = 0,  prevcount = 0, no = 0,score = 0;
+    static int i = -1,limit,j,times,count = 0, attempt = 0,  prevcount = 0, no = 0,score = 0,accessID = 0;
     static double percentage = 0;
     int seconds = 10, secondReattempt = 180;
     CardLayout cardLayout, cardLayout2;
@@ -139,6 +147,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
 //        this.sideSql = htmlView;
 //        this.sideJs = htmlView;
         openpdf(htmlLesson);
+        getAccessName();
     }
     
     @SuppressWarnings("unchecked")
@@ -281,7 +290,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jPanel22 = new javax.swing.JPanel();
         profileInfo = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
+        profileName = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
@@ -1495,12 +1504,13 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/school_director_96px.png"))); // NOI18N
         profileInfo.add(jLabel37);
 
-        jLabel31.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setText("JUAN DELA CRUZ");
-        jLabel31.setPreferredSize(new java.awt.Dimension(276, 14));
-        profileInfo.add(jLabel31);
+        profileName.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        profileName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profileName.setText("JUAN DELA CRUZ");
+        profileName.setPreferredSize(new java.awt.Dimension(276, 30));
+        profileInfo.add(profileName);
 
+        jPanel6.setOpaque(false);
         jPanel6.setPreferredSize(new java.awt.Dimension(260, 100));
 
         jLabel36.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -1940,7 +1950,13 @@ public class jframeMainMenu extends javax.swing.JFrame {
             quizScore.setText(String.valueOf(score));
         }
     }
-
+    
+    public void getAccessName(){
+        jframeLogin abc = new jframeLogin();
+        name = abc.getName();
+        profileName.setText(name);
+    }
+    
     public void controllerNext(CardLayout controlLayout, String card, String card2, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
         if (i != max){
@@ -2464,6 +2480,16 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
         cardLayout.show(dashMain,"dashStudy");
         selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);
+//        String sql = "UPDATE userInfo SET pathchoice = ? WHERE name = ?";
+//        try {           
+//            pst = conn.prepareStatement (sql);
+//            pst.setInt(1, accessID);
+//            pst.setString(2, name);
+//            pst.execute();
+//            JOptionPane.showMessageDialog(null, "Inserted");
+//        } catch(Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
     }//GEN-LAST:event_jLabel22MouseClicked
 
     private void quizSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quizSubmitActionPerformed
@@ -2578,7 +2604,6 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -2631,6 +2656,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelSpace;
     private javax.swing.JPanel profileInfo;
+    private javax.swing.JLabel profileName;
     private javax.swing.JPanel profileOverall;
     private javax.swing.JPanel profileOverall2;
     private javax.swing.JPanel profileOverall3;

@@ -2388,7 +2388,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel31">
+                        <Component class="javax.swing.JLabel" name="profileName">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="SansSerif" size="18" style="1"/>
@@ -2396,12 +2396,13 @@
                             <Property name="horizontalAlignment" type="int" value="0"/>
                             <Property name="text" type="java.lang.String" value="JUAN DELA CRUZ"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[276, 14]"/>
+                              <Dimension value="[276, 30]"/>
                             </Property>
                           </Properties>
                         </Component>
                         <Container class="javax.swing.JPanel" name="jPanel6">
                           <Properties>
+                            <Property name="opaque" type="boolean" value="false"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[260, 100]"/>
                             </Property>

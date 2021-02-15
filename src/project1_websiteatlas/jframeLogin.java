@@ -14,7 +14,7 @@ public class jframeLogin extends javax.swing.JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+    static String accessName;
     public jframeLogin() {
         initComponents();
         setIcon();
@@ -239,6 +239,12 @@ public class jframeLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+
+    public String getName(){
+        return accessName;
+    }
+    
+
     private void buttonSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignUpActionPerformed
         java.awt.EventQueue.invokeLater(() -> {
             new jframeSignUp().setVisible(true);
@@ -260,7 +266,7 @@ public class jframeLogin extends javax.swing.JFrame {
             }
             else {
                 try {
-                    String sql = "SELECT password from userInfo where username = ?";
+                    String sql = "SELECT password, name from userInfo where username = ?";
                     pst = conn.prepareStatement(sql);
                     pst.setString(1, loginUser.getText());
                     rs = pst.executeQuery();
@@ -268,13 +274,15 @@ public class jframeLogin extends javax.swing.JFrame {
                 if (rs.next() == true) {
                     //getting the password from database
                     String realPass = rs.getString(1);
+                    String realName = rs.getString(2);
                     //getting the inputted password
-                
-                    if (realPass.equals(str)) {
+                    
+                    if (realPass.equals(str)) { 
+                        accessName = realName;
                         java.awt.EventQueue.invokeLater(() -> {
                             new jframeMainMenu().setVisible(true);
                         });
-                        dispose();               
+                        dispose();       
                     } else {
                         JOptionPane.showMessageDialog(null,"Password is Incorrect","Alert",JOptionPane.WARNING_MESSAGE);
                         loginPass.setText(null);
@@ -285,11 +293,11 @@ public class jframeLogin extends javax.swing.JFrame {
                     loginUser.setText(null);
                 }    
             } catch (HeadlessException |SQLException e) {
-                JOptionPane.showMessageDialog(null, e);            
+                JOptionPane.showMessageDialog(null, e);  
+                
             }                
         }
-    } 
-        
+    }     
 
     }//GEN-LAST:event_buttonLoginActionPerformed
 
