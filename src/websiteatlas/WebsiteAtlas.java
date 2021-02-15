@@ -1,5 +1,5 @@
 
-package project1_websiteatlas;
+package websiteatlas;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,13 +11,13 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 
-public class Project1_WebsiteAtlas {
+public class WebsiteAtlas {
 
     public static Connection ConnectDb() {
         //Sqlite connection 
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:javaDatabase.db");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:./javaDatabase.db"); 
             System.out.println("Connected Successfully to" + conn);
             return conn;
         } catch (ClassNotFoundException | SQLException e) {
@@ -30,7 +30,7 @@ public class Project1_WebsiteAtlas {
         try {
             UIManager.setLookAndFeel("de.javasoft.synthetica.simple2d.SyntheticaSimple2DLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Project1_WebsiteAtlas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WebsiteAtlas.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
         java.awt.EventQueue.invokeLater(() -> {

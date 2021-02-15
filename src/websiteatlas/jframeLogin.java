@@ -1,5 +1,5 @@
 
-package project1_websiteatlas;
+package websiteatlas;
 
 import java.awt.HeadlessException;
 import java.sql.Connection;
@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 public class jframeLogin extends javax.swing.JFrame {
@@ -18,7 +19,7 @@ public class jframeLogin extends javax.swing.JFrame {
     public jframeLogin() {
         initComponents();
         setIcon();
-        conn = Project1_WebsiteAtlas.ConnectDb();
+        conn = WebsiteAtlas.ConnectDb();
     }
 
     @SuppressWarnings("unchecked")
@@ -80,7 +81,7 @@ public class jframeLogin extends javax.swing.JFrame {
         panelTitle.setLayout(new java.awt.BorderLayout());
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoApplication.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icoApplication.png"))); // NOI18N
         panelTitle.add(jLabel2, java.awt.BorderLayout.PAGE_END);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -190,7 +191,7 @@ public class jframeLogin extends javax.swing.JFrame {
         panelUserSignUp.setLayout(new java.awt.BorderLayout());
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/Line.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Line.png"))); // NOI18N
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         panelUserSignUp.add(jLabel3, java.awt.BorderLayout.PAGE_START);
 
@@ -257,10 +258,12 @@ public class jframeLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Username or Password is Empty","Alert",JOptionPane.WARNING_MESSAGE); 
         } else {
             if(loginUser.getText().equals("admin")|| str.equals("admin")) {
+                Arrays.fill(userArray, "Admin");
+                userArray[4] = "-1";
                 java.awt.EventQueue.invokeLater(() -> {
                     new jframeMainMenu().setVisible(true);
                     });
-                dispose();                 
+                dispose();         
             }
             else {
                 try {
@@ -300,7 +303,15 @@ public class jframeLogin extends javax.swing.JFrame {
             } catch (HeadlessException |SQLException e) {
                 JOptionPane.showMessageDialog(null, e);  
                 
-            }                
+            } finally {
+                try{
+                    rs.close();
+                    pst.close();
+                    conn.close();                       
+                } catch (HeadlessException |SQLException e) {
+                    JOptionPane.showMessageDialog(null, e);   
+                }
+            }
         }
     }     
 

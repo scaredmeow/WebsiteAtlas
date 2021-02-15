@@ -1,5 +1,5 @@
 
-package project1_websiteatlas;
+package websiteatlas;
 
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
@@ -24,7 +24,7 @@ public class jframeSignUp extends javax.swing.JFrame {
     public jframeSignUp() {
         initComponents();
         setIcon();
-        conn = Project1_WebsiteAtlas.ConnectDb();
+        conn = WebsiteAtlas.ConnectDb();
     }
 
     @SuppressWarnings("unchecked")
@@ -93,7 +93,7 @@ public class jframeSignUp extends javax.swing.JFrame {
         panelTitle.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_websiteatlas/icoApplication.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icoApplication.png"))); // NOI18N
         panelTitle.add(jLabel2, java.awt.BorderLayout.PAGE_END);
 
         mainWindow.add(panelTitle);
@@ -281,6 +281,14 @@ public class jframeSignUp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Successfully Registered");
         } catch(HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
+        } finally {
+            try{
+                rs.close();
+                pst.close();
+                conn.close();                       
+            } catch (HeadlessException |SQLException e) {
+                JOptionPane.showMessageDialog(null, e);   
+            }
         }
     }
     

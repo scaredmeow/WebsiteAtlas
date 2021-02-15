@@ -1,5 +1,5 @@
 
-package project1_websiteatlas;
+package websiteatlas;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -11,40 +11,141 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.net.URI;
 import java.awt.Desktop;
+import java.awt.Font;
+import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.UIManager;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
 import org.icepdf.ri.util.PropertiesManager;
 
-public class jframeGuestLogin extends javax.swing.JFrame {
-
+public final class jframeMainMenu extends javax.swing.JFrame {
+    
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
+    String Answer;
+    static String name;
     boolean a = false;
-    static int i = -1,limit,j;
+    static int i = -1,limit,j,times,count = 0, attempt = 0,  prevcount = 0, no = 0,score = 0,accessID = 0,currentPathway=-1 ;
+    static double percentage = 0;
+    int seconds = 10, secondReattempt = 180;
     CardLayout cardLayout, cardLayout2;
     JPanel buttonShow, buttonShow2,viewHtml,viewCss,viewJs,viewSql,sideHtml,sideCss,sideJs,sideSql;
     Color colorHover = new Color(212,212,212);
     Color colorNormal = new Color(224,224,224);
     Color colorSelected = new Color(240,240,240);
     Color colorSide = new Color(50,50,250);
-    SwingController ctrl = new SwingController();   
+    SwingController ctrl = new SwingController(); 
+    String[] pathway = {"HTML Pathway", "CSS Pathway", "JS Pathway", "SQL Pathway"};
     String[] htmlArray ={"src//project1_resources//html//HTML-Week-1.pdf",
                         "src//project1_resources//html//HTML-Week-2.pdf",
                         "src//project1_resources//html//HTML-Week-3.pdf",
                         "src//project1_resources//html//HTML-Week-4.pdf",
                         "src//project1_resources//html//HTML-Week-5.pdf",
                         "src//project1_resources//html//HTML-Week-6.pdf",
-                        "src//project1_resources//html//HTML-Week-7.pdf"} ;
-    String[] cssArray = {};
-    String[] jsArray = {};
-    String[] sqlArray = {};
-    public jframeGuestLogin() {
+                        "src//project1_resources//html//HTML-Week-7.pdf"},
+            cssArray = {"src//project1_resources//html//HTML-Week-1.pdf"},
+            jsArray = {},
+            sqlArray = {};
+    String[][] htmlQuestion = {
+                            {"What does HTML stand for?", 
+                                "The correct sequence of HTML tags for starting a webpage is -",
+                                "Which is the correct sequence of HTML tags?",
+                                "Which is the correct HTML element for the largest heading?",
+                                "Which of the following HTML elements is used for making any text bold?",
+                                "Which of the following HTML elements is used for inserting a line break?",
+                                "Choose the correct HTML element to define emphasized text",
+                                "How many heading tags are there in HTML5?",
+                                "HTML comments start with <!-- and end with -->",
+                                "Which of the following characters indicate closing of a tag?"
+                                }, 
+                            { 
+                                }
+                            };
+    String[][][] htmlAnswer = {
+                            { 
+                                {"A. HighText Machine Language",
+                                "B. HyperText and links Markup Language",
+                                "C. HyperText Markup Language",
+                                "D. None of these"   
+                            },
+                                {"A. Head, Title, HTML, Body",
+                                "B. HTML, Body, Title, Head",
+                                "C. HTML, Title, Head, Body",
+                                "D. HTML, Head, Title, Body"
+                            },
+                                {"A. Html, Head, Title, Body",
+                                "B. Body, Title, Head, Html",
+                                "C. Html, Title, Head, Body",
+                                "D. Title, Head, Body, Html"
+                            },
+                                {"A. <h6>",
+                                "B. <h4>",
+                                "C. <h5>",
+                                "D. <h1>"
+                            },                                
+                                {"A. <li>",
+                                "B. <i>",
+                                "C. <b>",
+				"D. <br>"
+                            },
+                                {"A. <break>",
+				"B. <br>",
+				"C. <rb>",
+				"D. </br/>"
+                            },
+                                {"A. <i>",
+				"B. <important>",
+				"C. <em>",
+				"D. <emphasized>"
+                            },         
+                                {"A. 5",
+				"B. 7",
+				"C. 4",
+				"D. 6"
+                            },   
+                                {"A. True",
+				"B. False",
+                                "C. None of the Above",
+                                "D. Not True and Not False"                                       
+                            },   
+                                {"A. .",
+				"B. /",
+				"C. \\",
+				"D. !"
+                            },                                   
+                                }
+                            };
+    String[][] htmlCorrect = {
+                            {"C","D","A","D","C","B","C","D","A","B"}, 
+                            {}
+                            };
+    String[][] pdfStorage;
+    /**
+     *
+     */
+    public jframeMainMenu() {
         initComponents();
         setIcon();
+        conn = WebsiteAtlas.ConnectDb();
         cardLayout = (CardLayout) (dashMain.getLayout());
         this.buttonShow = buttonHome;
         this.buttonShow2 = buttonHome1;  
@@ -57,12 +158,15 @@ public class jframeGuestLogin extends javax.swing.JFrame {
 //        this.sideSql = htmlView;
 //        this.sideJs = htmlView;
         openpdf(htmlLesson);
+        getAccessName();
+        getStorageArray();
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        quizChoices = new javax.swing.ButtonGroup();
         panelMenu = new javax.swing.JPanel();
         titleMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -73,8 +177,8 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         buttonStudy = new javax.swing.JPanel();
         buttonStudy1 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        studyCurrent = new javax.swing.JLabel();
+        studyIcon = new javax.swing.JLabel();
         buttonProfile = new javax.swing.JPanel();
         buttonProfile1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -110,13 +214,13 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         homeSpace = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
+        htmlButton = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
+        cssButton = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
+        jsButton = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
+        sqlButton = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
@@ -147,25 +251,25 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         htmlSelect = new javax.swing.JPanel();
         htmlWeek1 = new javax.swing.JPanel();
-        jLabel45 = new javax.swing.JLabel();
+        htmlW1 = new javax.swing.JLabel();
         htmlSelect1 = new javax.swing.JPanel();
         htmlWeek2 = new javax.swing.JPanel();
-        jLabel46 = new javax.swing.JLabel();
+        htmlW2 = new javax.swing.JLabel();
         htmlSelect2 = new javax.swing.JPanel();
         htmlWeek3 = new javax.swing.JPanel();
-        jLabel47 = new javax.swing.JLabel();
+        htmlW3 = new javax.swing.JLabel();
         htmlSelect3 = new javax.swing.JPanel();
         htmlWeek4 = new javax.swing.JPanel();
-        jLabel48 = new javax.swing.JLabel();
+        htmlW4 = new javax.swing.JLabel();
         htmlSelect4 = new javax.swing.JPanel();
         htmlWeek5 = new javax.swing.JPanel();
-        jLabel49 = new javax.swing.JLabel();
+        htmlW5 = new javax.swing.JLabel();
         htmlSelect5 = new javax.swing.JPanel();
         htmlWeek6 = new javax.swing.JPanel();
-        jLabel50 = new javax.swing.JLabel();
+        htmlW6 = new javax.swing.JLabel();
         htmlSelect6 = new javax.swing.JPanel();
         htmlWeek7 = new javax.swing.JPanel();
-        jLabel51 = new javax.swing.JLabel();
+        htmlW7 = new javax.swing.JLabel();
         htmlSelect7 = new javax.swing.JPanel();
         htmlRight = new javax.swing.JPanel();
         htmlNav = new javax.swing.JPanel();
@@ -174,16 +278,41 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         htmlViewer = new javax.swing.JPanel();
         htmlOverview = new javax.swing.JPanel();
         jLabel42 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
+        jTextArea1 = new javax.swing.JTextArea();
         htmlLesson = new javax.swing.JPanel();
+        htmlQuiz = new javax.swing.JPanel();
+        quizWeek = new javax.swing.JLabel();
+        quizTimerLabel = new javax.swing.JLabel();
+        quizTimer = new javax.swing.JLabel();
+        quizInstructions = new javax.swing.JTextArea();
+        quizNo = new javax.swing.JLabel();
+        quizQuestion = new javax.swing.JTextArea();
+        quizChoiceA = new javax.swing.JRadioButton();
+        quizChoiceB = new javax.swing.JRadioButton();
+        quizChoiceC = new javax.swing.JRadioButton();
+        quizChoiceD = new javax.swing.JRadioButton();
+        jPanel19 = new javax.swing.JPanel();
+        quizSubmit = new javax.swing.JButton();
+        jPanel29 = new javax.swing.JPanel();
+        quizScoreLabel = new javax.swing.JLabel();
+        quizScore = new javax.swing.JLabel();
+        quizReattemptLabel = new javax.swing.JLabel();
+        quizReattempt = new javax.swing.JLabel();
         dashProfile = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         profileInfo = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        profileName = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
+        profileEmail = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
+        profileUsername = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        profileActivation = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        profilePathway = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        profileName1 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         profileOverall = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -233,7 +362,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel1.setText("MENU");
         titleMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 40));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/Line2.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Line2.png"))); // NOI18N
         jLabel3.setMaximumSize(new java.awt.Dimension(250, 2));
         jLabel3.setMinimumSize(new java.awt.Dimension(250, 2));
         titleMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 250, 10));
@@ -263,7 +392,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel4.setText("   HOME");
         buttonHome1.add(jLabel4, java.awt.BorderLayout.CENTER);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/home_20px.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home_20px.png"))); // NOI18N
         buttonHome1.add(jLabel5, java.awt.BorderLayout.LINE_START);
 
         buttonHome.add(buttonHome1);
@@ -271,7 +400,6 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         panelMenu.add(buttonHome);
 
         buttonStudy.setBackground(new java.awt.Color(224, 224, 224));
-        buttonStudy.setEnabled(false);
         buttonStudy.setPreferredSize(new java.awt.Dimension(300, 50));
         buttonStudy.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
@@ -291,22 +419,21 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         });
         buttonStudy1.setLayout(new java.awt.BorderLayout());
 
-        jLabel16.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel16.setText("   CURRENT PATHWAY");
-        jLabel16.setEnabled(false);
-        buttonStudy1.add(jLabel16, java.awt.BorderLayout.CENTER);
+        studyCurrent.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        studyCurrent.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        studyCurrent.setText("   CURRENT PATHWAY");
+        studyCurrent.setEnabled(false);
+        buttonStudy1.add(studyCurrent, java.awt.BorderLayout.CENTER);
 
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/study_20px.png"))); // NOI18N
-        jLabel17.setEnabled(false);
-        buttonStudy1.add(jLabel17, java.awt.BorderLayout.LINE_START);
+        studyIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/study_20px.png"))); // NOI18N
+        studyIcon.setEnabled(false);
+        buttonStudy1.add(studyIcon, java.awt.BorderLayout.LINE_START);
 
         buttonStudy.add(buttonStudy1);
 
         panelMenu.add(buttonStudy);
 
         buttonProfile.setBackground(new java.awt.Color(224, 224, 224));
-        buttonProfile.setEnabled(false);
         buttonProfile.setPreferredSize(new java.awt.Dimension(300, 50));
         buttonProfile.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
@@ -329,11 +456,9 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("   PROFILE");
-        jLabel6.setEnabled(false);
         buttonProfile1.add(jLabel6, java.awt.BorderLayout.CENTER);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/profile_20px.png"))); // NOI18N
-        jLabel7.setEnabled(false);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile_20px.png"))); // NOI18N
         buttonProfile1.add(jLabel7, java.awt.BorderLayout.LINE_START);
 
         buttonProfile.add(buttonProfile1);
@@ -368,7 +493,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel10.setEnabled(false);
         buttonDiscussion1.add(jLabel10, java.awt.BorderLayout.CENTER);
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/communicate_20px_1.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/communicate_20px_1.png"))); // NOI18N
         jLabel11.setEnabled(false);
         buttonDiscussion1.add(jLabel11, java.awt.BorderLayout.LINE_START);
 
@@ -401,7 +526,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel14.setText("   CONTACT US");
         buttonContact1.add(jLabel14, java.awt.BorderLayout.CENTER);
 
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/file_20px.png"))); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/file_20px.png"))); // NOI18N
         buttonContact1.add(jLabel15, java.awt.BorderLayout.LINE_START);
 
         buttonContact.add(buttonContact1);
@@ -428,7 +553,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         titleMenu1.setPreferredSize(new java.awt.Dimension(300, 20));
         titleMenu1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/Line2.png"))); // NOI18N
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Line2.png"))); // NOI18N
         jLabel19.setMaximumSize(new java.awt.Dimension(250, 2));
         jLabel19.setMinimumSize(new java.awt.Dimension(250, 2));
         titleMenu1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 250, 10));
@@ -460,7 +585,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel18.setText("   LOG OUT");
         buttonLogout1.add(jLabel18, java.awt.BorderLayout.CENTER);
 
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/logout_20px.png"))); // NOI18N
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout_20px.png"))); // NOI18N
         buttonLogout1.add(jLabel20, java.awt.BorderLayout.LINE_START);
 
         buttonLogout.add(buttonLogout1);
@@ -501,7 +626,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
 
         buttonMenu.setBackground(new java.awt.Color(51, 51, 0));
         buttonMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        buttonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/menu_32px.png"))); // NOI18N
+        buttonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu_32px.png"))); // NOI18N
         buttonMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonMenu.setRequestFocusEnabled(false);
         buttonMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -531,7 +656,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
 
         dashHeader.add(buttonHover, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 30));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLongGrey.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LineLongGrey.png"))); // NOI18N
         jLabel8.setMaximumSize(new java.awt.Dimension(1024, 2));
         jLabel8.setMinimumSize(new java.awt.Dimension(1024, 2));
         jLabel8.setPreferredSize(new java.awt.Dimension(1024, 2));
@@ -559,7 +684,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel2.setText("PATHWAYS AVAILABLE");
         homeTitlePath.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 21));
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLong.png"))); // NOI18N
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LineLong.png"))); // NOI18N
         jLabel21.setMaximumSize(new java.awt.Dimension(300, 2));
         jLabel21.setMinimumSize(new java.awt.Dimension(300, 2));
         jLabel21.setPreferredSize(new java.awt.Dimension(300, 2));
@@ -585,10 +710,15 @@ public class jframeGuestLogin extends javax.swing.JFrame {
 
         jPanel2.add(homeSpace);
 
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoHTML.png"))); // NOI18N
-        jLabel22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel22.setEnabled(false);
-        jPanel2.add(jLabel22);
+        htmlButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icoHTML.png"))); // NOI18N
+        htmlButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        htmlButton.setEnabled(false);
+        htmlButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                htmlButtonMouseClicked(evt);
+            }
+        });
+        jPanel2.add(htmlButton);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -603,10 +733,10 @@ public class jframeGuestLogin extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3);
 
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoCSS.png"))); // NOI18N
-        jLabel23.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel23.setEnabled(false);
-        jPanel2.add(jLabel23);
+        cssButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icoCSS.png"))); // NOI18N
+        cssButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cssButton.setEnabled(false);
+        jPanel2.add(cssButton);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -621,10 +751,10 @@ public class jframeGuestLogin extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4);
 
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoJS.png"))); // NOI18N
-        jLabel24.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel24.setEnabled(false);
-        jPanel2.add(jLabel24);
+        jsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icoJS.png"))); // NOI18N
+        jsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jsButton.setEnabled(false);
+        jPanel2.add(jsButton);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -639,10 +769,10 @@ public class jframeGuestLogin extends javax.swing.JFrame {
 
         jPanel2.add(jPanel5);
 
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/icoSQL.png"))); // NOI18N
-        jLabel25.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel25.setEnabled(false);
-        jPanel2.add(jLabel25);
+        sqlButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icoSQL.png"))); // NOI18N
+        sqlButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sqlButton.setEnabled(false);
+        jPanel2.add(sqlButton);
 
         homePathway.add(jPanel2);
 
@@ -651,7 +781,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel27.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         jLabel27.setText("LATEST TUTORIAL VIDEOS");
 
-        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLong.png"))); // NOI18N
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LineLong.png"))); // NOI18N
         jLabel28.setMaximumSize(new java.awt.Dimension(300, 2));
         jLabel28.setMinimumSize(new java.awt.Dimension(300, 2));
         jLabel28.setPreferredSize(new java.awt.Dimension(300, 2));
@@ -696,7 +826,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel8.setLayout(new java.awt.BorderLayout());
 
         videoCSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoCSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoCSS.jpg"))); // NOI18N
+        videoCSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoCSS.jpg"))); // NOI18N
         videoCSS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoCSS.setPreferredSize(new java.awt.Dimension(977, 140));
         videoCSS.setRequestFocusEnabled(false);
@@ -713,7 +843,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel10.setLayout(new java.awt.BorderLayout());
 
         videoSQL2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoSQL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoSQL2.jpg"))); // NOI18N
+        videoSQL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoSQL2.jpg"))); // NOI18N
         videoSQL2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoSQL2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoSQL2.setRequestFocusEnabled(false);
@@ -730,7 +860,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel11.setLayout(new java.awt.BorderLayout());
 
         videoCSS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoCSS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoCSS2.jpg"))); // NOI18N
+        videoCSS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoCSS2.jpg"))); // NOI18N
         videoCSS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoCSS2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoCSS2.setRequestFocusEnabled(false);
@@ -747,7 +877,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel12.setLayout(new java.awt.BorderLayout());
 
         videoJS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoJS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoJS2.jpg"))); // NOI18N
+        videoJS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoJS2.jpg"))); // NOI18N
         videoJS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoJS2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoJS2.setRequestFocusEnabled(false);
@@ -764,7 +894,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel13.setLayout(new java.awt.BorderLayout());
 
         videoHTML2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoHTML2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoHTML2.jpg"))); // NOI18N
+        videoHTML2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoHTML2.jpg"))); // NOI18N
         videoHTML2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoHTML2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoHTML2.setRequestFocusEnabled(false);
@@ -781,7 +911,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel14.setLayout(new java.awt.BorderLayout());
 
         videoSQL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoSQL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoSQL.jpg"))); // NOI18N
+        videoSQL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoSQL.jpg"))); // NOI18N
         videoSQL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoSQL.setPreferredSize(new java.awt.Dimension(977, 140));
         videoSQL.setRequestFocusEnabled(false);
@@ -798,7 +928,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel15.setLayout(new java.awt.BorderLayout());
 
         videoJS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoJS.jpg"))); // NOI18N
+        videoJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoJS.jpg"))); // NOI18N
         videoJS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoJS.setPreferredSize(new java.awt.Dimension(977, 140));
         videoJS.setRequestFocusEnabled(false);
@@ -815,7 +945,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel16.setLayout(new java.awt.BorderLayout());
 
         videoHTML.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoHTML.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/videoHTML.jpg"))); // NOI18N
+        videoHTML.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoHTML.jpg"))); // NOI18N
         videoHTML.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         videoHTML.setPreferredSize(new java.awt.Dimension(977, 140));
         videoHTML.setRequestFocusEnabled(false);
@@ -849,8 +979,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel41.setText("<html> Hypertext Markup<br> Language [HTML] </html>");
         htmlmenuTitle.add(jLabel41);
 
-        jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLongGrey.png"))); // NOI18N
-        jLabel44.setText("jLabel44");
+        jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LineLongGrey.png"))); // NOI18N
         jLabel44.setPreferredSize(new java.awt.Dimension(248, 14));
         htmlmenuTitle.add(jLabel44);
 
@@ -910,10 +1039,10 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         });
         htmlWeek1.setLayout(new java.awt.BorderLayout());
 
-        jLabel45.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel45.setText("  WEEK 1");
-        jLabel45.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek1.add(jLabel45, java.awt.BorderLayout.CENTER);
+        htmlW1.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW1.setText("  WEEK 1");
+        htmlW1.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek1.add(htmlW1, java.awt.BorderLayout.CENTER);
 
         htmlSelect1.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -947,10 +1076,11 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         });
         htmlWeek2.setLayout(new java.awt.BorderLayout());
 
-        jLabel46.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel46.setText("  WEEK 2");
-        jLabel46.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek2.add(jLabel46, java.awt.BorderLayout.CENTER);
+        htmlW2.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW2.setText("  WEEK 2");
+        htmlW2.setEnabled(false);
+        htmlW2.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek2.add(htmlW2, java.awt.BorderLayout.CENTER);
 
         htmlSelect2.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -984,10 +1114,11 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         });
         htmlWeek3.setLayout(new java.awt.BorderLayout());
 
-        jLabel47.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel47.setText("  WEEK 3");
-        jLabel47.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek3.add(jLabel47, java.awt.BorderLayout.CENTER);
+        htmlW3.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW3.setText("  WEEK 3");
+        htmlW3.setEnabled(false);
+        htmlW3.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek3.add(htmlW3, java.awt.BorderLayout.CENTER);
 
         htmlSelect3.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1021,10 +1152,11 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         });
         htmlWeek4.setLayout(new java.awt.BorderLayout());
 
-        jLabel48.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel48.setText("  WEEK 4");
-        jLabel48.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek4.add(jLabel48, java.awt.BorderLayout.CENTER);
+        htmlW4.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW4.setText("  WEEK 4");
+        htmlW4.setEnabled(false);
+        htmlW4.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek4.add(htmlW4, java.awt.BorderLayout.CENTER);
 
         htmlSelect4.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1058,10 +1190,11 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         });
         htmlWeek5.setLayout(new java.awt.BorderLayout());
 
-        jLabel49.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel49.setText("  WEEK 5");
-        jLabel49.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek5.add(jLabel49, java.awt.BorderLayout.CENTER);
+        htmlW5.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW5.setText("  WEEK 5");
+        htmlW5.setEnabled(false);
+        htmlW5.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek5.add(htmlW5, java.awt.BorderLayout.CENTER);
 
         htmlSelect5.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1095,10 +1228,11 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         });
         htmlWeek6.setLayout(new java.awt.BorderLayout());
 
-        jLabel50.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel50.setText("  WEEK 6");
-        jLabel50.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek6.add(jLabel50, java.awt.BorderLayout.CENTER);
+        htmlW6.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW6.setText("  WEEK 6");
+        htmlW6.setEnabled(false);
+        htmlW6.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek6.add(htmlW6, java.awt.BorderLayout.CENTER);
 
         htmlSelect6.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1132,10 +1266,11 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         });
         htmlWeek7.setLayout(new java.awt.BorderLayout());
 
-        jLabel51.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel51.setText("  WEEK 7");
-        jLabel51.setPreferredSize(new java.awt.Dimension(104, 20));
-        htmlWeek7.add(jLabel51, java.awt.BorderLayout.CENTER);
+        htmlW7.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        htmlW7.setText("  WEEK 7");
+        htmlW7.setEnabled(false);
+        htmlW7.setPreferredSize(new java.awt.Dimension(104, 20));
+        htmlWeek7.add(htmlW7, java.awt.BorderLayout.CENTER);
 
         htmlSelect7.setPreferredSize(new java.awt.Dimension(10, 50));
 
@@ -1207,17 +1342,174 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel42.setText("Instructor's Note");
         htmlOverview.add(jLabel42);
 
-        jLabel40.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel40.setText("<html>\n<style> p {   text-transform: uppercase; text-align: justify;} </style> </head>\n<p>\nWelcome to the HTML pathway! So you’ve decided you want to learn some HTML? Well, you have come to the right place! Learning HTML is something every web developer should learn. After all, HTML is the basic skeleton of all web pages. Without HTML skills, web developers wouldn’t be able to add text, add images, or even add videos to your favorite websites. HTML is the very foundation of everything you need to know in order to create an engaging web page!\n<br><br>\nIn this pathway, you will learn all the common HTML tags used to structure HTML pages. You will also learn how to add links and images to your web pages. Plus, some basics on how to create HTML tables, forms, lists, and iFrames. \n<br><br>\nIf ever you encountered some issues, have inquiries or suggestions, please do not hesitate to get in touch with our support team in the contact us section. We would love to hear from you!\n<br><br>\nWhat website do you wish existed but doesn't yet? Whatever that may be, hopefully, by the end of this pathway, you will be able to create your very own web page! Goodluck on starting your HTML journey and continue building your imagination!\n\n</p>\n\n\n</html>");
-        jLabel40.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel40.setPreferredSize(new java.awt.Dimension(710, 500));
-        htmlOverview.add(jLabel40);
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Welcome to the HTML pathway! So you’ve decided you want to learn some HTML? Well, you have come to the right place! Learning HTML is something every web developer should learn. After all, HTML is the basic skeleton of all web pages. Without HTML skills, web developers wouldn’t be able to add text, add images, or even add videos to your favorite websites. HTML is the very foundation of everything you need to know in order to create an engaging web page!\n\nIn this pathway, you will learn all the common HTML tags used to structure HTML pages. You will also learn how to add links and images to your web pages. Plus, some basics on how to create HTML tables, forms, lists, and iFrames.\n\nIf ever you encountered some issues, have inquiries or suggestions, please do not hesitate to get in touch with our support team in the contact us section. We would love to hear from you!\n\nWhat website do you wish existed but doesn't yet? Whatever that may be, hopefully, by the end of this pathway, you will be able to create your very own web page! Goodluck on starting your HTML journey and continue building your imagination!  ");
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setMaximumSize(new java.awt.Dimension(100, 100));
+        jTextArea1.setMinimumSize(new java.awt.Dimension(100, 22));
+        jTextArea1.setPreferredSize(new java.awt.Dimension(710, 450));
+        htmlOverview.add(jTextArea1);
 
         htmlViewer.add(htmlOverview, "html");
 
         htmlLesson.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         htmlLesson.setLayout(new java.awt.BorderLayout());
         htmlViewer.add(htmlLesson, "html1");
+
+        htmlQuiz.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        htmlQuiz.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        quizWeek.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizWeek.setText("Week 1 - Quiz");
+        quizWeek.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizWeek.setPreferredSize(new java.awt.Dimension(160, 30));
+        htmlQuiz.add(quizWeek);
+
+        quizTimerLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizTimerLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        quizTimerLabel.setText("Timer:");
+        quizTimerLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizTimerLabel.setPreferredSize(new java.awt.Dimension(500, 30));
+        htmlQuiz.add(quizTimerLabel);
+
+        quizTimer.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizTimer.setText("10");
+        quizTimer.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizTimer.setPreferredSize(new java.awt.Dimension(40, 30));
+        htmlQuiz.add(quizTimer);
+
+        quizInstructions.setEditable(false);
+        quizInstructions.setBackground(new java.awt.Color(240, 240, 240));
+        quizInstructions.setColumns(20);
+        quizInstructions.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        quizInstructions.setLineWrap(true);
+        quizInstructions.setRows(1);
+        quizInstructions.setText("All of the quizzes will have a timer per number in order for you not to cheat and apply your learnings from the lesson created by the instructors for you. \n\nIn order to assess your learning in this week you must pass the quiz with a score of above 70%. You will be given three (3) attempts to answer the quiz. In the event that you fail all of the three attempts, there will be a time penalty which is approximately 3 minutes before you can reattempt to answer again.\n\nNote: Closing the app while the reattempt timer is not done will reset it back to 3 minutes.\n\n");
+        quizInstructions.setWrapStyleWord(true);
+        quizInstructions.setMaximumSize(new java.awt.Dimension(710, 50));
+        quizInstructions.setMinimumSize(new java.awt.Dimension(710, 50));
+        quizInstructions.setPreferredSize(new java.awt.Dimension(710, 170));
+        quizInstructions.setRequestFocusEnabled(false);
+        htmlQuiz.add(quizInstructions);
+
+        quizNo.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        quizNo.setText("Question ");
+        quizNo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizNo.setPreferredSize(new java.awt.Dimension(710, 30));
+        htmlQuiz.add(quizNo);
+
+        quizQuestion.setEditable(false);
+        quizQuestion.setBackground(new java.awt.Color(240, 240, 240));
+        quizQuestion.setColumns(20);
+        quizQuestion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        quizQuestion.setLineWrap(true);
+        quizQuestion.setRows(1);
+        quizQuestion.setText("Once you click the start button, the question will appear in this part.");
+        quizQuestion.setWrapStyleWord(true);
+        quizQuestion.setMaximumSize(new java.awt.Dimension(710, 50));
+        quizQuestion.setMinimumSize(new java.awt.Dimension(710, 50));
+        quizQuestion.setPreferredSize(new java.awt.Dimension(710, 40));
+        htmlQuiz.add(quizQuestion);
+
+        quizChoices.add(quizChoiceA);
+        quizChoiceA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        quizChoiceA.setText("Choice A");
+        quizChoiceA.setEnabled(false);
+        quizChoiceA.setPreferredSize(new java.awt.Dimension(710, 23));
+        htmlQuiz.add(quizChoiceA);
+
+        quizChoices.add(quizChoiceB);
+        quizChoiceB.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        quizChoiceB.setText("Choice B");
+        quizChoiceB.setEnabled(false);
+        quizChoiceB.setPreferredSize(new java.awt.Dimension(710, 23));
+        htmlQuiz.add(quizChoiceB);
+
+        quizChoices.add(quizChoiceC);
+        quizChoiceC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        quizChoiceC.setText("Choice C");
+        quizChoiceC.setEnabled(false);
+        quizChoiceC.setPreferredSize(new java.awt.Dimension(710, 23));
+        htmlQuiz.add(quizChoiceC);
+
+        quizChoices.add(quizChoiceD);
+        quizChoiceD.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        quizChoiceD.setText("Choice D");
+        quizChoiceD.setEnabled(false);
+        quizChoiceD.setPreferredSize(new java.awt.Dimension(710, 23));
+        htmlQuiz.add(quizChoiceD);
+
+        jPanel19.setPreferredSize(new java.awt.Dimension(710, 20));
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 710, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        htmlQuiz.add(jPanel19);
+
+        quizSubmit.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        quizSubmit.setText("Start");
+        quizSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        quizSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quizSubmitActionPerformed(evt);
+            }
+        });
+        htmlQuiz.add(quizSubmit);
+
+        jPanel29.setPreferredSize(new java.awt.Dimension(600, 30));
+
+        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
+        jPanel29.setLayout(jPanel29Layout);
+        jPanel29Layout.setHorizontalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        jPanel29Layout.setVerticalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        htmlQuiz.add(jPanel29);
+
+        quizScoreLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizScoreLabel.setText("Score:");
+        quizScoreLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizScoreLabel.setPreferredSize(new java.awt.Dimension(80, 30));
+        htmlQuiz.add(quizScoreLabel);
+
+        quizScore.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizScore.setText("0");
+        quizScore.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizScore.setPreferredSize(new java.awt.Dimension(40, 30));
+        htmlQuiz.add(quizScore);
+
+        quizReattemptLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizReattemptLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        quizReattemptLabel.setText("Reattempt Timer:");
+        quizReattemptLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizReattemptLabel.setPreferredSize(new java.awt.Dimension(520, 30));
+        htmlQuiz.add(quizReattemptLabel);
+
+        quizReattempt.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        quizReattempt.setText("180");
+        quizReattempt.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        quizReattempt.setPreferredSize(new java.awt.Dimension(55, 30));
+        htmlQuiz.add(quizReattempt);
+
+        htmlViewer.add(htmlQuiz, "htmlQuiz");
 
         htmlRight.add(htmlViewer, java.awt.BorderLayout.CENTER);
 
@@ -1233,44 +1525,76 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         profileInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         profileInfo.setPreferredSize(new java.awt.Dimension(280, 550));
 
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/school_director_96px.png"))); // NOI18N
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/school_director_96px.png"))); // NOI18N
         profileInfo.add(jLabel37);
 
-        jLabel31.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setText("JUAN DELA CRUZ");
-        jLabel31.setPreferredSize(new java.awt.Dimension(276, 14));
-        profileInfo.add(jLabel31);
+        profileName.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        profileName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profileName.setText("JUAN DELA CRUZ");
+        profileName.setPreferredSize(new java.awt.Dimension(276, 30));
+        profileInfo.add(profileName);
 
-        jPanel6.setPreferredSize(new java.awt.Dimension(260, 100));
-
-        jLabel36.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel36.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel36.setText("Email: ");
+        jLabel36.setPreferredSize(new java.awt.Dimension(50, 20));
+        profileInfo.add(jLabel36);
 
-        jLabel38.setText("Neilriego3@gmail.com");
+        profileEmail.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profileEmail.setText("Sample@gmail.com");
+        profileEmail.setPreferredSize(new java.awt.Dimension(210, 20));
+        profileInfo.add(profileEmail);
+
+        jLabel38.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel38.setText("Username: ");
+        jLabel38.setPreferredSize(new java.awt.Dimension(80, 20));
+        profileInfo.add(jLabel38);
+
+        profileUsername.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profileUsername.setText("SampleUserName");
+        profileUsername.setPreferredSize(new java.awt.Dimension(180, 20));
+        profileInfo.add(profileUsername);
+
+        jLabel39.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel39.setText("Activation Key: ");
+        jLabel39.setPreferredSize(new java.awt.Dimension(110, 20));
+        profileInfo.add(jLabel39);
+
+        profileActivation.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profileActivation.setText("ABCD-1234-EFGH-56");
+        profileActivation.setPreferredSize(new java.awt.Dimension(150, 20));
+        profileInfo.add(profileActivation);
+
+        jLabel40.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel40.setText("Current Pathway:");
+        jLabel40.setPreferredSize(new java.awt.Dimension(120, 20));
+        profileInfo.add(jLabel40);
+
+        profilePathway.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        profilePathway.setText("None");
+        profilePathway.setPreferredSize(new java.awt.Dimension(140, 20));
+        profileInfo.add(profilePathway);
+
+        jPanel6.setOpaque(false);
+        jPanel6.setPreferredSize(new java.awt.Dimension(260, 20));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel36)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel38)
-                .addContainerGap())
+            .addGap(0, 260, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel38)
-                    .addComponent(jLabel36))
-                .addGap(80, 80, 80))
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         profileInfo.add(jPanel6);
+
+        profileName1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        profileName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profileName1.setText("PROFILE BADGE");
+        profileName1.setPreferredSize(new java.awt.Dimension(276, 30));
+        profileInfo.add(profileName1);
 
         jPanel22.add(profileInfo, java.awt.BorderLayout.LINE_START);
 
@@ -1281,7 +1605,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         profileOverall.setPreferredSize(new java.awt.Dimension(690, 90));
         profileOverall.setLayout(new java.awt.BorderLayout());
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/futures_96px.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/futures_96px.png"))); // NOI18N
         profileOverall.add(jLabel9, java.awt.BorderLayout.LINE_START);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1319,7 +1643,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jLabel29.setPreferredSize(new java.awt.Dimension(696, 30));
         jPanel17.add(jLabel29);
 
-        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLong.png"))); // NOI18N
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LineLong.png"))); // NOI18N
         jLabel30.setPreferredSize(new java.awt.Dimension(680, 10));
         jPanel17.add(jLabel30);
 
@@ -1342,7 +1666,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         profileOverall2.setPreferredSize(new java.awt.Dimension(690, 90));
         profileOverall2.setLayout(new java.awt.BorderLayout());
 
-        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/html_5_96px.png"))); // NOI18N
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/html_5_96px.png"))); // NOI18N
         profileOverall2.add(jLabel32, java.awt.BorderLayout.LINE_START);
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
@@ -1379,7 +1703,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         profileOverall3.setPreferredSize(new java.awt.Dimension(690, 90));
         profileOverall3.setLayout(new java.awt.BorderLayout());
 
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/css3_logo_96px.png"))); // NOI18N
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/css3_logo_96px.png"))); // NOI18N
         profileOverall3.add(jLabel33, java.awt.BorderLayout.LINE_START);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -1416,7 +1740,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         profileOverall4.setPreferredSize(new java.awt.Dimension(690, 90));
         profileOverall4.setLayout(new java.awt.BorderLayout());
 
-        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/node_js_96px.png"))); // NOI18N
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/node_js_96px.png"))); // NOI18N
         profileOverall4.add(jLabel34, java.awt.BorderLayout.LINE_START);
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
@@ -1454,7 +1778,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         profileOverall5.setLayout(new java.awt.BorderLayout());
 
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/database_import_72px_1.png"))); // NOI18N
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/database_import_72px_1.png"))); // NOI18N
         jLabel35.setPreferredSize(new java.awt.Dimension(96, 96));
         profileOverall5.add(jLabel35, java.awt.BorderLayout.LINE_START);
 
@@ -1516,11 +1840,11 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel1.setRequestFocusEnabled(false);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/jP0gVmpXQruvR0jfNGlu_contactuswhite_1.png"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/jP0gVmpXQruvR0jfNGlu_contactuswhite_1.png"))); // NOI18N
         jLabel12.setPreferredSize(new java.awt.Dimension(997, 330));
         jPanel1.add(jLabel12);
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project1_images/LineLongGrey.png"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LineLongGrey.png"))); // NOI18N
         jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel13.setPreferredSize(new java.awt.Dimension(700, 50));
         jPanel1.add(jLabel13);
@@ -1545,36 +1869,294 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1040, 679));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
     
-    public void controllerNext(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
+
+    Timer timer = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            seconds --;
+            if (seconds <=0){
+                quizChoices.clearSelection();
+                timer.stop();
+                if (htmlQuestion[i].length > (no+1)){
+                    pause.setRepeats(false);
+                    pause.start(); 
+                } else 
+                    quizReset();    
+            }
+            quizTimer.setText(String.valueOf(seconds));
+        }
+    });
+
+    Timer reattempt = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            secondReattempt --;
+            quizReattempt.setText(String.valueOf(secondReattempt));
+            if (secondReattempt <= 0){
+                reattempt.stop();
+                attempt = 0;
+                quizSubmit.setEnabled(true);
+            }
+        }
+    });
+    
+    Timer pause = new Timer(500, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            no ++;
+            quizPrinting();  
+            seconds = 10;
+            quizTimer.setText(String.valueOf(seconds));
+        }
+    });
+    
+    public void quizReset() {
+        timer.stop();
+        quizSubmit.setText("Start");
+        quizChoices.clearSelection();
+        quizChoiceA.setEnabled(false);
+        quizChoiceB.setEnabled(false);
+        quizChoiceC.setEnabled(false);
+        quizChoiceD.setEnabled(false);   
+        quizNo.setText("Question");
+        quizQuestion.setText("Once you click the start button, the question will appear in this part.");
+        quizChoiceA.setText("Choice A");
+        quizChoiceB.setText("Choice B");
+        quizChoiceC.setText("Choice C");
+        quizChoiceD.setText("Choice D");  
+        seconds = 10;
+        quizTimer.setText(String.valueOf(seconds));
+        attempt ++;
+        percentage = (percentage + score) / (no+1);
+        no = 0;
+        score = 0;
+        
+        if (attempt != 3){
+            if (percentage >= .7 ){
+                //sql
+                switch(i) {
+                    case 0: htmlW2.setEnabled(true); break;
+                    case 1: htmlW3.setEnabled(true); break;
+                    case 2: htmlW4.setEnabled(true); break;
+                    case 3: htmlW5.setEnabled(true); break;
+                    case 4: htmlW6.setEnabled(true); break;
+                    case 5: htmlW7.setEnabled(true); break;
+                    default: break;
+                }
+                switch(i) {
+                        case 0: {
+                            if (htmlW2.isEnabled()){
+                               buttonNext.setEnabled(true);
+                            }
+                        } break;
+                        case 1: htmlW3.setEnabled(true); break;
+                        case 2: htmlW4.setEnabled(true); break;
+                        case 3: htmlW5.setEnabled(true); break;
+                        case 4: htmlW6.setEnabled(true); break;
+                        case 5: htmlW7.setEnabled(true); break;
+                        default: break;
+                }
+            } else {
+                percentage = 0;
+                quizScore.setText(String.valueOf(score));
+            }
+        } else {
+            quizSubmit.setEnabled(false);
+            reattempt.start();
+        }            
+
+    }
+    
+    public void quizPrinting() {
+        timer.start();
+        if (!quizChoiceA.isEnabled()){
+            quizChoiceA.setEnabled(true);
+            quizChoiceB.setEnabled(true);
+            quizChoiceC.setEnabled(true);
+            quizChoiceD.setEnabled(true);   
+        }
+        quizNo.setText("Question No. " + (no+1));
+        quizQuestion.setText(htmlQuestion[i][no]);
+        quizChoiceA.setText(htmlAnswer[i][no][0]);
+        quizChoiceB.setText(htmlAnswer[i][no][1]);
+        quizChoiceC.setText(htmlAnswer[i][no][2]);
+        quizChoiceD.setText(htmlAnswer[i][no][3]);
+    }
+    
+    public void quizSelection () {       
+        if (quizChoiceA.isSelected()){
+            Answer = "A";
+        } else if (quizChoiceB.isSelected()){
+            Answer = "B";
+        } else if (quizChoiceC.isSelected()){
+            Answer = "C";
+        } else if (quizChoiceD.isSelected()){
+            Answer = "D";
+        } else {
+            Answer = " ";
+        }
+    }
+    public void quizLogic() {
+        quizSelection();
+        if (Answer.equals(htmlCorrect[i][no])) {
+            score ++;
+            quizScore.setText(String.valueOf(score));
+        }
+    }
+    
+    public void getAccessName(){
+        jframeLogin abc = new jframeLogin();
+        String userInfo[] = abc.getuserArray();
+        name = userInfo[0];
+        profileName.setText(name);
+        profileEmail.setText(userInfo[1]);
+        profileUsername.setText(userInfo[2]);
+        profileActivation.setText(userInfo[3]);    
+        currentPathway = Integer.valueOf(userInfo[4]);
+        choicePathway();
+    }
+    
+    public void choicePathway() {
+       switch(currentPathway) {
+            case -1: {
+                profilePathway.setText("None");
+                htmlButton.setEnabled(true);
+                cssButton.setEnabled(true);
+                jsButton.setEnabled(true);
+                sqlButton.setEnabled(true);
+            } break;
+            case 0: {
+                profilePathway.setText(pathway[currentPathway]);
+                htmlButton.setEnabled(true);
+            } break;
+            case 1: {
+                profilePathway.setText(pathway[currentPathway]);
+                cssButton.setEnabled(true);
+            } break;
+            case 2: {
+                profilePathway.setText(pathway[currentPathway]);
+                jsButton.setEnabled(true);
+            } break;
+            case 3: {
+                profilePathway.setText(pathway[currentPathway]);
+                sqlButton.setEnabled(true);
+            } break;
+            default: break;
+        }        
+    }
+    
+    public void getStorageArray(){
+        arrayStorage abc = new arrayStorage();
+        pdfStorage = abc.arrayPDFStorage();
+//        for (int ctr=0; ctr<pdfStorage[currentPathway].length;ctr++)
+//            System.out.println(pdfStorage[currentPathway][ctr]);
+    }
+    
+    public void sqlUpdate (int updateValue) {  
+        
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure to pick " + String.valueOf(pathway[updateValue]));
+        if (confirm == JOptionPane.YES_OPTION) {
+            System.out.println(JOptionPane.YES_OPTION);
+            String sql = "UPDATE userInfo SET pathchoice = ? WHERE name = ?";
+            try {
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, String.valueOf(updateValue));
+                pst.setString(2, name);
+                pst.execute();
+                currentPathway = updateValue;
+                choicePathway();
+            } catch(HeadlessException |SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            } 
+//            finally {
+//                try{
+//                    rs.close();
+//                    pst.close();
+//                    conn.close();                       
+//                } catch (HeadlessException |SQLException e) {
+//                    JOptionPane.showMessageDialog(null, e);   
+//                }
+//            }           
+        }
+
+    } 
+    
+    public void controllerNext(CardLayout controlLayout, String card, String card2, JPanel containerParent,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
         if (i != max){
             i = i+1;
             if (i == 0) {
                 controlLayout.show(containerParent,card);
-                ctrl.openDocument(lesson[i]);
-                prev.setEnabled(true);
+                if (count == 0){
+                    InputStream url = getClass().getResourceAsStream("resources/html/HTML-Week-1.pdf");
+                    ctrl.openDocument(url,"HTML-Week-1.pdf",null);
+                    prev.setEnabled(true);
+                    count = 1;  
+                    prevcount = 0;
+                } else if (count == 1) {
+                    next.setEnabled(false);
+                    controlLayout.show(containerParent,card2);
+                    count = 0;
+                    prevcount = 1;
+                    i = i -1;
+                }
+
             } else if (i <= max) {
-                ctrl.openDocument(lesson[i]);
+                if (count == 0){
+                    controlLayout.show(containerParent,card);
+                    ctrl.openDocument(pdfStorage[currentPathway][i]);
+                    count = 1;
+                    prevcount = 0;
+                } else if (count == 1) {
+                    next.setEnabled(false);
+                    controlLayout.show(containerParent,card2);
+                    quizWeek.setText("Week " + i + " - Quiz");
+                    count = 0;
+                    prevcount = 1;
+                    i = i -1;
+                }
                 if (i == max) {
                     next.setEnabled(false);
                 }  
             } 
         }
     } 
-    
-    public void controllerPrev(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
+        
+    public void controllerPrev(CardLayout controlLayout, String card, String card2,JPanel containerParent,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
         if (i != -1) {
             i = i-1;
             if (i > -1) {
-                ctrl.openDocument(lesson[i]);
-                if (i == max)
+                if (prevcount == 1) {
+                    controlLayout.show(containerParent,card2);
+                    prevcount = 0;
+                    count = 1;
+                    i = i+1; 
+                    next.setEnabled(true);
+                    ctrl.openDocument(pdfStorage[currentPathway][i]);
+                } else if (prevcount == 0) {
+                    ctrl.openDocument(pdfStorage[currentPathway][i]);
+                    count = 1;
+                }
+                
+                if (i == max-1)
                     next.setEnabled(true);  
             }
             if (i == -1) {
-                prev.setEnabled(false);
-                controlLayout.show(containerParent,card);                
+                if (prevcount == 1) {
+                    controlLayout.show(containerParent,card2);
+                    prevcount = 0;
+                    count = 1;
+                    i = i+1;
+                    next.setEnabled(true);
+                } else if (prevcount == 0) {
+                    prev.setEnabled(false);
+                    controlLayout.show(containerParent,card);  
+                    count = 0;
+                }
+             
             }
         }
     }
@@ -1589,44 +2171,44 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         }
     }
     public void dashHover (JPanel state, JPanel side,Color mousestate,int frame) {
-        if (state != viewHtml && frame == 1 ) {
+        if (state != viewHtml && frame == 0 ) {
             state.setBackground(mousestate);
             side.setBackground(mousestate);
-        } else if (state != viewCss && frame == 2) {
+        } else if (state != viewCss && frame == 1) {
             state.setBackground(mousestate);
             side.setBackground(mousestate);
-        } else if (state != viewJs && frame == 3) {
+        } else if (state != viewJs && frame == 2) {
             state.setBackground(mousestate);
             side.setBackground(mousestate);            
-        } else if (state != viewSql && frame == 4) {
+        } else if (state != viewSql && frame == 3) {
             state.setBackground(mousestate);
             side.setBackground(mousestate);            
         }
     }
            
     public void dashSelect (JPanel state, JPanel side,int frame) {
-        if (state != viewHtml && frame == 1) {
+        if (state != viewHtml && frame == 0) {
             viewHtml.setBackground(colorSelected);
             sideHtml.setBackground(colorSelected);
             state.setBackground(colorNormal);
             side.setBackground(colorSide);
             viewHtml = state;
             sideHtml = side;
-        } else if (state != viewCss && frame == 2) {
+        } else if (state != viewCss && frame == 1) {
             viewCss.setBackground(colorSelected);
             sideCss.setBackground(colorSelected);
             state.setBackground(colorNormal);
             side.setBackground(colorSide);
             viewCss = state;
             sideCss = side;
-        } else if (state != viewJs && frame == 3) {
+        } else if (state != viewJs && frame == 2) {
             viewJs.setBackground(colorSelected);
             sideJs.setBackground(colorSelected);
             state.setBackground(colorNormal);
             side.setBackground(colorSide);   
             viewJs = state;
             sideJs = side;
-        } else if (state != viewSql && frame == 4) {
+        } else if (state != viewSql && frame == 3) {
             viewSql.setBackground(colorSelected);
             sideSql.setBackground(colorSelected);
             state.setBackground(colorNormal);
@@ -1670,11 +2252,11 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     public void hideshow(JPanel menushowhide, boolean dashboard, JLabel button){
         if(dashboard == true){
             menushowhide.setPreferredSize(new Dimension(0, menushowhide.getHeight()));
-            changeimage(button, "/project1_images/menu_32px.png");
+            changeimage(button, "/images/menu_32px.png");
         }
         else{
             menushowhide.setPreferredSize(new Dimension(300, menushowhide.getHeight()));
-            changeimage(button, "/project1_images/back_32px.png");
+            changeimage(button, "/images/back_32px.png");
         }
     }
     
@@ -1698,7 +2280,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
             URI newURI = new URI(link);
             Desktop.getDesktop().browse(newURI);
         } catch (URISyntaxException | IOException ex) {
-            Logger.getLogger(jframeGuestLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jframeMainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -1739,8 +2321,8 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonHome1MouseExited
 
     private void buttonProfile1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonProfile1MouseClicked
-//        cardLayout.show(dashMain,"dashProfile");
-//        selectShow(buttonProfile, buttonProfile,buttonProfile1,colorSelected,colorNormal);
+        cardLayout.show(dashMain,"dashProfile");
+        selectShow(buttonProfile, buttonProfile,buttonProfile1,colorSelected,colorNormal);
     }//GEN-LAST:event_buttonProfile1MouseClicked
 
     private void buttonProfile1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonProfile1MouseEntered
@@ -1801,8 +2383,11 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonStudy1MouseEntered
 
     private void buttonStudy1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStudy1MouseClicked
-//        cardLayout.show(dashMain,"dashStudy");
-//        selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);
+        if (studyCurrent.isEnabled()){
+            cardLayout.show(dashMain,"dashStudy");
+            selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);            
+        }
+
     }//GEN-LAST:event_buttonStudy1MouseClicked
 
     private void videoCSSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoCSSMouseClicked
@@ -1838,22 +2423,25 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_videoHTMLMouseClicked
 
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
-        controllerNext(cardLayout2,"html1",htmlViewer,htmlArray,6,buttonNext,buttonPrev);
-        switch(i) {
-            case -1: dashSelect(htmlView,htmlSelect,1); break;
-            case 0: dashSelect(htmlWeek1,htmlSelect1,1); break;
-            case 1: dashSelect(htmlWeek2,htmlSelect2,1); break;
-            case 2: dashSelect(htmlWeek3,htmlSelect3,1); break;
-            case 3: dashSelect(htmlWeek4,htmlSelect4,1); break;
-            case 4: dashSelect(htmlWeek5,htmlSelect5,1); break;
-            case 5: dashSelect(htmlWeek6,htmlSelect6,1); break;
-            case 6: dashSelect(htmlWeek7,htmlSelect7,1); break;
-            default: break;
+        controllerNext(cardLayout2,"html1","htmlQuiz",htmlViewer,6,buttonNext,buttonPrev);
+        if (count == 1){
+            switch(i) {
+                case -1: dashSelect(htmlView,htmlSelect,currentPathway); break;
+                case 0: dashSelect(htmlWeek1,htmlSelect1,currentPathway); break;
+                case 1: dashSelect(htmlWeek2,htmlSelect2,currentPathway); break;
+                case 2: dashSelect(htmlWeek3,htmlSelect3,currentPathway); break;
+                case 3: dashSelect(htmlWeek4,htmlSelect4,currentPathway); break;
+                case 4: dashSelect(htmlWeek5,htmlSelect5,currentPathway); break;
+                case 5: dashSelect(htmlWeek6,htmlSelect6,currentPathway); break;
+                case 6: dashSelect(htmlWeek7,htmlSelect7,currentPathway); break;
+                default: break;
+            }            
         }
+
     }//GEN-LAST:event_buttonNextActionPerformed
 
     private void htmlViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlViewMouseClicked
-        dashSelect(htmlView,htmlSelect,1);
+        dashSelect(htmlView,htmlSelect,currentPathway);
         buttonPrev.setEnabled(false);
         buttonNext.setEnabled(true);
         i = -1;
@@ -1862,139 +2450,198 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlViewMouseClicked
 
     private void htmlViewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlViewMouseEntered
-        dashHover(htmlView,htmlSelect,colorHover,1);
+        dashHover(htmlView,htmlSelect,colorHover,currentPathway);
     }//GEN-LAST:event_htmlViewMouseEntered
 
     private void htmlViewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlViewMouseExited
-        dashHover(htmlView,htmlSelect,colorSelected,1);
+        dashHover(htmlView,htmlSelect,colorSelected,currentPathway);
     }//GEN-LAST:event_htmlViewMouseExited
 
     private void buttonPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrevActionPerformed
-        controllerPrev(cardLayout2,"html",htmlViewer,htmlArray,6,buttonNext,buttonPrev);
+        controllerPrev(cardLayout2,"html","html1",htmlViewer,6,buttonNext,buttonPrev);
         switch(i) {
-            case -1: dashSelect(htmlView,htmlSelect,1); break;
-            case 0: dashSelect(htmlWeek1,htmlSelect1,1); break;
-            case 1: dashSelect(htmlWeek2,htmlSelect2,1); break;
-            case 2: dashSelect(htmlWeek3,htmlSelect3,1); break;
-            case 3: dashSelect(htmlWeek4,htmlSelect4,1); break;
-            case 4: dashSelect(htmlWeek5,htmlSelect5,1); break;
-            case 5: dashSelect(htmlWeek6,htmlSelect6,1); break;
-            case 6: dashSelect(htmlWeek7,htmlSelect7,1); break;
+            case -1: dashSelect(htmlView,htmlSelect,currentPathway); break;
+            case 0: dashSelect(htmlWeek1,htmlSelect1,currentPathway); break;
+            case 1: dashSelect(htmlWeek2,htmlSelect2,currentPathway); break;
+            case 2: dashSelect(htmlWeek3,htmlSelect3,currentPathway); break;
+            case 3: dashSelect(htmlWeek4,htmlSelect4,currentPathway); break;
+            case 4: dashSelect(htmlWeek5,htmlSelect5,currentPathway); break;
+            case 5: dashSelect(htmlWeek6,htmlSelect6,currentPathway); break;
+            case 6: dashSelect(htmlWeek7,htmlSelect7,currentPathway); break;
             default: break;
         }
     }//GEN-LAST:event_buttonPrevActionPerformed
 
     private void htmlWeek1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek1MouseClicked
-        dashSelect(htmlWeek1,htmlSelect1,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=0;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW1.isEnabled()) {
+            dashSelect(htmlWeek1,htmlSelect1,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=0;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);   
+        }
     }//GEN-LAST:event_htmlWeek1MouseClicked
 
     private void htmlWeek1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek1MouseEntered
-        dashHover(htmlWeek1,htmlSelect1,colorHover,1);
+        dashHover(htmlWeek1,htmlSelect1,colorHover,currentPathway);
     }//GEN-LAST:event_htmlWeek1MouseEntered
 
     private void htmlWeek1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek1MouseExited
-        dashHover(htmlWeek1,htmlSelect1,colorSelected,1);
+        dashHover(htmlWeek1,htmlSelect1,colorSelected,currentPathway);
     }//GEN-LAST:event_htmlWeek1MouseExited
 
     private void htmlWeek2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek2MouseClicked
-        dashSelect(htmlWeek2,htmlSelect2,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=1;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW2.isEnabled()){
+            dashSelect(htmlWeek2,htmlSelect2,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=1;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);            
+        }
     }//GEN-LAST:event_htmlWeek2MouseClicked
 
     private void htmlWeek2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek2MouseEntered
-        dashHover(htmlWeek2,htmlSelect2,colorHover,1);
+        dashHover(htmlWeek2,htmlSelect2,colorHover,currentPathway);
     }//GEN-LAST:event_htmlWeek2MouseEntered
 
     private void htmlWeek2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek2MouseExited
-        dashHover(htmlWeek2,htmlSelect2,colorSelected,1);
+        dashHover(htmlWeek2,htmlSelect2,colorSelected,currentPathway);
     }//GEN-LAST:event_htmlWeek2MouseExited
 
     private void htmlWeek3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek3MouseClicked
-        dashSelect(htmlWeek3,htmlSelect3,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=2;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW3.isEnabled()) {
+            dashSelect(htmlWeek3,htmlSelect3,1);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=2;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);            
+        }
     }//GEN-LAST:event_htmlWeek3MouseClicked
 
     private void htmlWeek3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek3MouseEntered
-        dashHover(htmlWeek3,htmlSelect3,colorHover,1);
+        dashHover(htmlWeek3,htmlSelect3,colorHover,currentPathway);
     }//GEN-LAST:event_htmlWeek3MouseEntered
 
     private void htmlWeek3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek3MouseExited
-        dashHover(htmlWeek3,htmlSelect3,colorSelected,1);
+        dashHover(htmlWeek3,htmlSelect3,colorSelected,currentPathway);
     }//GEN-LAST:event_htmlWeek3MouseExited
 
     private void htmlWeek4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek4MouseClicked
-        dashSelect(htmlWeek4,htmlSelect4,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=3;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW4.isEnabled()) {
+            dashSelect(htmlWeek4,htmlSelect4,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=3;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);
+        }
     }//GEN-LAST:event_htmlWeek4MouseClicked
 
     private void htmlWeek4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek4MouseEntered
-        dashHover(htmlWeek4,htmlSelect4,colorHover,1);
+        dashHover(htmlWeek4,htmlSelect4,colorHover,currentPathway);
     }//GEN-LAST:event_htmlWeek4MouseEntered
 
     private void htmlWeek4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek4MouseExited
-        dashHover(htmlWeek4,htmlSelect4,colorSelected,1);
+        dashHover(htmlWeek4,htmlSelect4,colorSelected,currentPathway);
     }//GEN-LAST:event_htmlWeek4MouseExited
 
     private void htmlWeek5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek5MouseClicked
-        dashSelect(htmlWeek5,htmlSelect5,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=4;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW5.isEnabled()) {
+            dashSelect(htmlWeek5,htmlSelect5,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=4;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);
+        }
     }//GEN-LAST:event_htmlWeek5MouseClicked
 
     private void htmlWeek5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek5MouseEntered
-        dashHover(htmlWeek5,htmlSelect5,colorHover,1);
+        dashHover(htmlWeek5,htmlSelect5,colorHover,currentPathway);
     }//GEN-LAST:event_htmlWeek5MouseEntered
 
     private void htmlWeek5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek5MouseExited
-        dashHover(htmlWeek5,htmlSelect5,colorSelected,1);
+        dashHover(htmlWeek5,htmlSelect5,colorSelected,currentPathway);
     }//GEN-LAST:event_htmlWeek5MouseExited
 
     private void htmlWeek6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek6MouseClicked
-        dashSelect(htmlWeek6,htmlSelect6,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(true);
-        i=5;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW6.isEnabled()) {
+            dashSelect(htmlWeek6,htmlSelect6,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=5;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);
+        }
     }//GEN-LAST:event_htmlWeek6MouseClicked
 
     private void htmlWeek6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek6MouseEntered
-        dashHover(htmlWeek6,htmlSelect6,colorHover,1);
+        dashHover(htmlWeek6,htmlSelect6,colorHover,currentPathway);
     }//GEN-LAST:event_htmlWeek6MouseEntered
 
     private void htmlWeek6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek6MouseExited
-        dashHover(htmlWeek6,htmlSelect6,colorSelected,1);
+        dashHover(htmlWeek6,htmlSelect6,colorSelected,currentPathway);
     }//GEN-LAST:event_htmlWeek6MouseExited
 
     private void htmlWeek7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek7MouseClicked
-        dashSelect(htmlWeek7,htmlSelect7,1);
-        buttonPrev.setEnabled(true);
-        buttonNext.setEnabled(false);
-        i=6;
-        controllerShow(cardLayout2,i,"html1",htmlViewer);
+        if (htmlW7.isEnabled()) {
+            dashSelect(htmlWeek7,htmlSelect7,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(false);
+            i=6;
+            count = 1;
+            controllerShow(cardLayout2,i,"html1",htmlViewer);
+        }
     }//GEN-LAST:event_htmlWeek7MouseClicked
 
     private void htmlWeek7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek7MouseEntered
-        dashHover(htmlWeek7,htmlSelect7,colorHover,1);
+        dashHover(htmlWeek7,htmlSelect7,colorHover,currentPathway);
     }//GEN-LAST:event_htmlWeek7MouseEntered
 
     private void htmlWeek7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek7MouseExited
-        dashHover(htmlWeek7,htmlSelect7,colorSelected,1);
+        dashHover(htmlWeek7,htmlSelect7,colorSelected,currentPathway);
     }//GEN-LAST:event_htmlWeek7MouseExited
+
+    private void htmlButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlButtonMouseClicked
+        if (!name.equals("Admin")) {
+            if (htmlButton.isEnabled() && currentPathway == -1)
+                sqlUpdate(0); 
+            if (htmlButton.isEnabled() && currentPathway == 0){
+                cardLayout.show(dashMain,"dashStudy");
+                selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);                       
+            }            
+        } else {
+            currentPathway = 0;
+            cardLayout.show(dashMain,"dashStudy");
+            selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal); 
+        }
+
+    }//GEN-LAST:event_htmlButtonMouseClicked
+
+    private void quizSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quizSubmitActionPerformed
+        if (!quizChoiceA.isEnabled()){
+            quizSubmit.setText("Submit");       
+        }
+        if (seconds == 10){
+            quizPrinting();
+        }
+        else if (seconds < 10) {
+                quizLogic();
+                if (htmlQuestion[i].length == (no+1))
+                    quizReset();
+                else {
+                    timer.stop();
+                    quizChoices.clearSelection();
+                    pause.setRepeats(false);
+                    pause.start();                    
+                }
+
+        }
+
+    }//GEN-LAST:event_quizSubmitActionPerformed
 
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
@@ -2017,6 +2664,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JPanel buttonProfile1;
     private javax.swing.JPanel buttonStudy;
     private javax.swing.JPanel buttonStudy1;
+    private javax.swing.JLabel cssButton;
     private javax.swing.JPanel dashBoard;
     private javax.swing.JPanel dashContact;
     private javax.swing.JPanel dashDiscussion;
@@ -2031,10 +2679,12 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JPanel homeSpace;
     private javax.swing.JPanel homeSpace1;
     private javax.swing.JPanel homeTitlePath;
+    private javax.swing.JLabel htmlButton;
     private javax.swing.JPanel htmlLesson;
     private javax.swing.JPanel htmlMenu;
     private javax.swing.JPanel htmlNav;
     private javax.swing.JPanel htmlOverview;
+    private javax.swing.JPanel htmlQuiz;
     private javax.swing.JPanel htmlRight;
     private javax.swing.JPanel htmlSelect;
     private javax.swing.JPanel htmlSelect1;
@@ -2046,6 +2696,13 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JPanel htmlSelect7;
     private javax.swing.JPanel htmlView;
     private javax.swing.JPanel htmlViewer;
+    private javax.swing.JLabel htmlW1;
+    private javax.swing.JLabel htmlW2;
+    private javax.swing.JLabel htmlW3;
+    private javax.swing.JLabel htmlW4;
+    private javax.swing.JLabel htmlW5;
+    private javax.swing.JLabel htmlW6;
+    private javax.swing.JLabel htmlW7;
     private javax.swing.JPanel htmlWeek1;
     private javax.swing.JPanel htmlWeek2;
     private javax.swing.JPanel htmlWeek3;
@@ -2061,24 +2718,17 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -2086,20 +2736,14 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2114,6 +2758,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
@@ -2124,6 +2769,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -2133,15 +2779,42 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel jsButton;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelSpace;
+    private javax.swing.JLabel profileActivation;
+    private javax.swing.JLabel profileEmail;
     private javax.swing.JPanel profileInfo;
+    private javax.swing.JLabel profileName;
+    private javax.swing.JLabel profileName1;
     private javax.swing.JPanel profileOverall;
     private javax.swing.JPanel profileOverall2;
     private javax.swing.JPanel profileOverall3;
     private javax.swing.JPanel profileOverall4;
     private javax.swing.JPanel profileOverall5;
+    private javax.swing.JLabel profilePathway;
+    private javax.swing.JLabel profileUsername;
+    private javax.swing.JRadioButton quizChoiceA;
+    private javax.swing.JRadioButton quizChoiceB;
+    private javax.swing.JRadioButton quizChoiceC;
+    private javax.swing.JRadioButton quizChoiceD;
+    private javax.swing.ButtonGroup quizChoices;
+    private javax.swing.JTextArea quizInstructions;
+    private javax.swing.JLabel quizNo;
+    private javax.swing.JTextArea quizQuestion;
+    private javax.swing.JLabel quizReattempt;
+    private javax.swing.JLabel quizReattemptLabel;
+    private javax.swing.JLabel quizScore;
+    private javax.swing.JLabel quizScoreLabel;
+    private javax.swing.JButton quizSubmit;
+    private javax.swing.JLabel quizTimer;
+    private javax.swing.JLabel quizTimerLabel;
+    private javax.swing.JLabel quizWeek;
+    private javax.swing.JLabel sqlButton;
+    private javax.swing.JLabel studyCurrent;
     private javax.swing.JPanel studyHTML;
+    private javax.swing.JLabel studyIcon;
     private javax.swing.JPanel titleMenu;
     private javax.swing.JPanel titleMenu1;
     private javax.swing.JLabel videoCSS;
