@@ -11,42 +11,46 @@ package websiteatlas;
  */
 public class arrayStorage {
         String[][] pdfStorage ={
-                        {"src//project1_resources//html//HTML-Week-1.pdf",
-                        "src//project1_resources//html//HTML-Week-2.pdf",
-                        "src//project1_resources//html//HTML-Week-3.pdf",
-                        "src//project1_resources//html//HTML-Week-4.pdf",
-                        "src//project1_resources//html//HTML-Week-5.pdf",
-                        "src//project1_resources//html//HTML-Week-6.pdf",
-                        "src//project1_resources//html//HTML-Week-7.pdf"},            
-                        {"src//project1_resources//css//CSS-Week-1.pdf",
-                        "src//project1_resources//css//CSS-Week-2.pdf",
-                        "src//project1_resources//css//CSS-Week-3.pdf",
-                        "src//project1_resources//css//CSS-Week-4.pdf"},
-                        {"src//project1_resources//js//JS-Week-1.pdf",
-                        "src//project1_resources//js//JS-Week-2.pdf",
-                        "src//project1_resources//js//JS-Week-3.pdf",
-                        "src//project1_resources//js//JS-Week-4.pdf"},
-                        {"src//project1_resources//sql//SQL-Week-1.pdf",
-                        "src//project1_resources//sql//SQL-Week-2.pdf",
-                        "src//project1_resources//sql//SQL-Week-3.pdf"}
-                        };
-                
-    String[][] htmlQuestion = {
-                            {"What does HTML stand for?", 
-                                "The correct sequence of HTML tags for starting a webpage is -",
-                                "Which is the correct sequence of HTML tags?",
-                                "Which is the correct HTML element for the largest heading?",
-                                "Which of the following HTML elements is used for making any text bold?",
-                                "Which of the following HTML elements is used for inserting a line break?",
-                                "Choose the correct HTML element to define emphasized text",
-                                "How many heading tags are there in HTML5?",
-                                "HTML comments start with <!-- and end with -->",
-                                "Which of the following characters indicate closing of a tag?"
-                                }, 
-                            { 
-                                }
-                            };
-    String[][][] htmlAnswer = {
+            {"resources/html/HTML-Week-1.pdf",
+            "resources/html/HTML-Week-2.pdf",
+            "resources/html/HTML-Week-3.pdf",
+            "resources/html/HTML-Week-4.pdf",
+            "resources/html/HTML-Week-5.pdf",
+            "resources/html/HTML-Week-6.pdf",
+            "resources/html/HTML-Week-7.pdf"},            
+            {"resources/css/CSS-Week-1.pdf",
+            "resources/css/CSS-Week-2.pdf",
+            "resources/css/CSS-Week-3.pdf",
+            "resources/css/CSS-Week-4.pdf"},
+            {"resources/js/JS-Week-1.pdf",
+            "resources/js/JS-Week-2.pdf",
+            "resources/js/JS-Week-3.pdf",
+            "resources/js/JS-Week-4.pdf"},
+            {"resources/sql/SQL-Week-1.pdf",
+            "resources/sql/SQL-Week-2.pdf",
+            "resources/sql/SQL-Week-3.pdf"}
+            };               
+    String[][][] Question = {
+        {
+            {"What does HTML stand for?", 
+            "The correct sequence of HTML tags for starting a webpage is -",
+            "Which is the correct sequence of HTML tags?",
+            "Which is the correct HTML element for the largest heading?",
+            "Which of the following HTML elements is used for making any text bold?",
+            "Which of the following HTML elements is used for inserting a line break?",
+            "Choose the correct HTML element to define emphasized text",
+            "How many heading tags are there in HTML5?",
+            "HTML comments start with <!-- and end with -->",
+            "Which of the following characters indicate closing of a tag?"}, 
+            {},
+            {}},
+         {{
+            },
+          {
+        }}};
+
+    String[][][][] Answer = {
+        {
                             { 
                                 {"A. HighText Machine Language",
                                 "B. HyperText and links Markup Language",
@@ -99,16 +103,19 @@ public class arrayStorage {
 				"D. !"
                             },                                   
                                 }
+        }
                             };
-    String[][] htmlCorrect = {
+    String[][][] Correct = {
+        {
                             {"C","D","A","D","C","B","C","D","A","B"}, 
                             {}
+        }
                             };
     public String[][] arrayPDFStorage(){
         return pdfStorage;
     }
     public String[][][] arrayQuestionStorage() {
-        return htmlAnswer;
+        return Question;
     }
 }
 

@@ -2091,7 +2091,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                 controlLayout.show(containerParent,card);
                 if (count == 0){
                     InputStream url = getClass().getResourceAsStream("resources/html/HTML-Week-1.pdf");
-                    ctrl.openDocument(url,"HTML-Week-1.pdf",null);
+                    ctrl.openDocument(url,"PDF",null);
                     prev.setEnabled(true);
                     count = 1;  
                     prevcount = 0;
