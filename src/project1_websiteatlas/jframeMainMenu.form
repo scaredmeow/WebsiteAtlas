@@ -2010,7 +2010,7 @@
                                       <Dimension value="[100, 22]"/>
                                     </Property>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[710, 460]"/>
+                                      <Dimension value="[710, 450]"/>
                                     </Property>
                                   </Properties>
                                 </Component>

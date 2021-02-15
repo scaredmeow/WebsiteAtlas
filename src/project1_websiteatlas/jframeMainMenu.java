@@ -1319,7 +1319,7 @@ public class jframeMainMenu extends javax.swing.JFrame {
         jTextArea1.setWrapStyleWord(true);
         jTextArea1.setMaximumSize(new java.awt.Dimension(100, 100));
         jTextArea1.setMinimumSize(new java.awt.Dimension(100, 22));
-        jTextArea1.setPreferredSize(new java.awt.Dimension(710, 460));
+        jTextArea1.setPreferredSize(new java.awt.Dimension(710, 450));
         htmlOverview.add(jTextArea1);
 
         htmlViewer.add(htmlOverview, "html");
