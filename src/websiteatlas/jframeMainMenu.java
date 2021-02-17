@@ -11,15 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.net.URI;
 import java.awt.Desktop;
-import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +27,6 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import javax.swing.UIManager;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
 import org.icepdf.ri.util.PropertiesManager;
@@ -40,105 +36,24 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+    static String[] userQuiz = new String [18];
     String Answer;
     static String name;
     boolean a = false;
-    static int i = -1,limit,j,times,count = 0, attempt = 0,  prevcount = 0, no = 0,score = 0,accessID = 0,currentPathway=-1 ;
+    static int i = -1,limit,j,times,count = 0, attempt = 0,  prevcount = 0, no = 0,score = 0,accessID = 0,currentPathway=-1,currentRetry = 0 ;
     static double percentage = 0;
     int seconds = 10, secondReattempt = 180;
-    CardLayout cardLayout, cardLayout2;
+    CardLayout cardLayout, cardLayout2,cardLayout3;
     JPanel buttonShow, buttonShow2,viewHtml,viewCss,viewJs,viewSql,sideHtml,sideCss,sideJs,sideSql;
     Color colorHover = new Color(212,212,212);
     Color colorNormal = new Color(224,224,224);
     Color colorSelected = new Color(240,240,240);
     Color colorSide = new Color(50,50,250);
     SwingController ctrl = new SwingController(); 
-    String[] pathway = {"HTML Pathway", "CSS Pathway", "JS Pathway", "SQL Pathway"};
-    String[] htmlArray ={"src//project1_resources//html//HTML-Week-1.pdf",
-                        "src//project1_resources//html//HTML-Week-2.pdf",
-                        "src//project1_resources//html//HTML-Week-3.pdf",
-                        "src//project1_resources//html//HTML-Week-4.pdf",
-                        "src//project1_resources//html//HTML-Week-5.pdf",
-                        "src//project1_resources//html//HTML-Week-6.pdf",
-                        "src//project1_resources//html//HTML-Week-7.pdf"},
-            cssArray = {"src//project1_resources//html//HTML-Week-1.pdf"},
-            jsArray = {},
-            sqlArray = {};
-    String[][] htmlQuestion = {
-                            {"What does HTML stand for?", 
-                                "The correct sequence of HTML tags for starting a webpage is -",
-                                "Which is the correct sequence of HTML tags?",
-                                "Which is the correct HTML element for the largest heading?",
-                                "Which of the following HTML elements is used for making any text bold?",
-                                "Which of the following HTML elements is used for inserting a line break?",
-                                "Choose the correct HTML element to define emphasized text",
-                                "How many heading tags are there in HTML5?",
-                                "HTML comments start with <!-- and end with -->",
-                                "Which of the following characters indicate closing of a tag?"
-                                }, 
-                            { 
-                                }
-                            };
-    String[][][] htmlAnswer = {
-                            { 
-                                {"A. HighText Machine Language",
-                                "B. HyperText and links Markup Language",
-                                "C. HyperText Markup Language",
-                                "D. None of these"   
-                            },
-                                {"A. Head, Title, HTML, Body",
-                                "B. HTML, Body, Title, Head",
-                                "C. HTML, Title, Head, Body",
-                                "D. HTML, Head, Title, Body"
-                            },
-                                {"A. Html, Head, Title, Body",
-                                "B. Body, Title, Head, Html",
-                                "C. Html, Title, Head, Body",
-                                "D. Title, Head, Body, Html"
-                            },
-                                {"A. <h6>",
-                                "B. <h4>",
-                                "C. <h5>",
-                                "D. <h1>"
-                            },                                
-                                {"A. <li>",
-                                "B. <i>",
-                                "C. <b>",
-				"D. <br>"
-                            },
-                                {"A. <break>",
-				"B. <br>",
-				"C. <rb>",
-				"D. </br/>"
-                            },
-                                {"A. <i>",
-				"B. <important>",
-				"C. <em>",
-				"D. <emphasized>"
-                            },         
-                                {"A. 5",
-				"B. 7",
-				"C. 4",
-				"D. 6"
-                            },   
-                                {"A. True",
-				"B. False",
-                                "C. None of the Above",
-                                "D. Not True and Not False"                                       
-                            },   
-                                {"A. .",
-				"B. /",
-				"C. \\",
-				"D. !"
-                            },                                   
-                                }
-                            };
-    String[][] htmlCorrect = {
-                            {"C","D","A","D","C","B","C","D","A","B"}, 
-                            {}
-                            };
-    String[][] pdfStorage;
+    String[] instructorNote= new String[4],pathway = {"HTML Pathway", "CSS Pathway", "JS Pathway", "SQL Pathway"},cardLayoutStudy = {"studyHtml","studyCss","studyJs","studySql"};
+    String[][] pdfStorage, currentWeek,mainTab,sideColor;
+    String[][][] question, correct;
+    String[][][][] answer;
     /**
      *
      */
@@ -147,19 +62,22 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         setIcon();
         conn = WebsiteAtlas.ConnectDb();
         cardLayout = (CardLayout) (dashMain.getLayout());
+        cardLayout3 = (CardLayout) (studyMenu.getLayout());
         this.buttonShow = buttonHome;
         this.buttonShow2 = buttonHome1;  
         this.viewHtml = htmlView;
-//        this.viewCss = htmlView;
-//        this.viewSql = htmlView;
-//        this.viewJs = htmlView;
+        this.viewCss = cssView;
+        this.viewSql = sqlView;
+        this.viewJs = jsView;
         this.sideHtml = htmlSelect;
-//        this.sideCss = htmlView;
-//        this.sideSql = htmlView;
-//        this.sideJs = htmlView;
-        openpdf(htmlLesson);
+        this.sideCss = cssView;
+        this.sideSql = sqlView;
+        this.sideJs = jsView;
+        openpdf(lesson);
         getAccessName();
         getStorageArray();
+        weekInitialize();
+        quizRetry();
     }
     
     @SuppressWarnings("unchecked")
@@ -243,6 +161,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         videoHTML = new javax.swing.JLabel();
         dashStudy = new javax.swing.JPanel();
         studyHTML = new javax.swing.JPanel();
+        studyMenu = new javax.swing.JPanel();
         htmlMenu = new javax.swing.JPanel();
         htmlmenuTitle = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
@@ -271,16 +190,70 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         htmlWeek7 = new javax.swing.JPanel();
         htmlW7 = new javax.swing.JLabel();
         htmlSelect7 = new javax.swing.JPanel();
-        htmlRight = new javax.swing.JPanel();
-        htmlNav = new javax.swing.JPanel();
+        cssMenu = new javax.swing.JPanel();
+        cssmenuTitle = new javax.swing.JPanel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        cssView = new javax.swing.JPanel();
+        jLabel47 = new javax.swing.JLabel();
+        cssSelect = new javax.swing.JPanel();
+        cssWeek1 = new javax.swing.JPanel();
+        cssW1 = new javax.swing.JLabel();
+        cssSelect1 = new javax.swing.JPanel();
+        cssWeek2 = new javax.swing.JPanel();
+        cssW2 = new javax.swing.JLabel();
+        cssSelect2 = new javax.swing.JPanel();
+        cssWeek3 = new javax.swing.JPanel();
+        cssW3 = new javax.swing.JLabel();
+        cssSelect3 = new javax.swing.JPanel();
+        cssWeek4 = new javax.swing.JPanel();
+        cssW4 = new javax.swing.JLabel();
+        cssSelect4 = new javax.swing.JPanel();
+        jsMenu = new javax.swing.JPanel();
+        jsmenuTitle = new javax.swing.JPanel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jsView = new javax.swing.JPanel();
+        jLabel50 = new javax.swing.JLabel();
+        jsSelect = new javax.swing.JPanel();
+        jsWeek1 = new javax.swing.JPanel();
+        jsW1 = new javax.swing.JLabel();
+        jsSelect1 = new javax.swing.JPanel();
+        jsWeek2 = new javax.swing.JPanel();
+        jsW2 = new javax.swing.JLabel();
+        jsSelect2 = new javax.swing.JPanel();
+        jsWeek3 = new javax.swing.JPanel();
+        jsW3 = new javax.swing.JLabel();
+        jsSelect3 = new javax.swing.JPanel();
+        jsWeek4 = new javax.swing.JPanel();
+        jsW4 = new javax.swing.JLabel();
+        jsSelect4 = new javax.swing.JPanel();
+        sqlMenu = new javax.swing.JPanel();
+        sqlmenuTitle = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        sqlView = new javax.swing.JPanel();
+        jLabel53 = new javax.swing.JLabel();
+        sqlSelect = new javax.swing.JPanel();
+        sqlWeek1 = new javax.swing.JPanel();
+        sqlW1 = new javax.swing.JLabel();
+        sqlSelect1 = new javax.swing.JPanel();
+        sqlWeek2 = new javax.swing.JPanel();
+        sqlW2 = new javax.swing.JLabel();
+        sqlSelect2 = new javax.swing.JPanel();
+        sqlWeek3 = new javax.swing.JPanel();
+        sqlW3 = new javax.swing.JLabel();
+        sqlSelect3 = new javax.swing.JPanel();
+        studyViewer = new javax.swing.JPanel();
+        buttonNav = new javax.swing.JPanel();
         buttonPrev = new javax.swing.JButton();
         buttonNext = new javax.swing.JButton();
-        htmlViewer = new javax.swing.JPanel();
-        htmlOverview = new javax.swing.JPanel();
+        lessonViewer = new javax.swing.JPanel();
+        overview = new javax.swing.JPanel();
         jLabel42 = new javax.swing.JLabel();
-        jTextArea1 = new javax.swing.JTextArea();
-        htmlLesson = new javax.swing.JPanel();
-        htmlQuiz = new javax.swing.JPanel();
+        overviewNote = new javax.swing.JTextArea();
+        lesson = new javax.swing.JPanel();
+        quiz = new javax.swing.JPanel();
         quizWeek = new javax.swing.JLabel();
         quizTimerLabel = new javax.swing.JLabel();
         quizTimer = new javax.swing.JLabel();
@@ -736,6 +709,11 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         cssButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icoCSS.png"))); // NOI18N
         cssButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cssButton.setEnabled(false);
+        cssButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cssButtonMouseClicked(evt);
+            }
+        });
         jPanel2.add(cssButton);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -754,6 +732,11 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         jsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icoJS.png"))); // NOI18N
         jsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jsButton.setEnabled(false);
+        jsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jsButtonMouseClicked(evt);
+            }
+        });
         jPanel2.add(jsButton);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -772,6 +755,11 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         sqlButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icoSQL.png"))); // NOI18N
         sqlButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sqlButton.setEnabled(false);
+        sqlButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sqlButtonMouseClicked(evt);
+            }
+        });
         jPanel2.add(sqlButton);
 
         homePathway.add(jPanel2);
@@ -967,6 +955,9 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         dashStudy.setLayout(new java.awt.CardLayout());
 
         studyHTML.setLayout(new java.awt.BorderLayout(20, 0));
+
+        studyMenu.setPreferredSize(new java.awt.Dimension(250, 570));
+        studyMenu.setLayout(new java.awt.CardLayout());
 
         htmlMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         htmlMenu.setPreferredSize(new java.awt.Dimension(250, 570));
@@ -1289,16 +1280,607 @@ public final class jframeMainMenu extends javax.swing.JFrame {
 
         htmlMenu.add(htmlWeek7);
 
-        studyHTML.add(htmlMenu, java.awt.BorderLayout.LINE_START);
+        studyMenu.add(htmlMenu, "studyHtml");
 
-        htmlRight.setMaximumSize(new java.awt.Dimension(680, 197));
-        htmlRight.setPreferredSize(new java.awt.Dimension(680, 570));
-        htmlRight.setLayout(new java.awt.BorderLayout(0, 10));
+        cssMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cssMenu.setPreferredSize(new java.awt.Dimension(250, 570));
+        cssMenu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        htmlNav.setMaximumSize(new java.awt.Dimension(680, 40));
-        htmlNav.setMinimumSize(new java.awt.Dimension(680, 40));
-        htmlNav.setPreferredSize(new java.awt.Dimension(710, 50));
-        htmlNav.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        cssmenuTitle.setPreferredSize(new java.awt.Dimension(246, 85));
+        cssmenuTitle.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
+
+        jLabel45.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel45.setText("<html> Cascading Style <br> Sheet [CSS] </html>");
+        cssmenuTitle.add(jLabel45);
+
+        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LineLongGrey.png"))); // NOI18N
+        jLabel46.setPreferredSize(new java.awt.Dimension(248, 14));
+        cssmenuTitle.add(jLabel46);
+
+        cssMenu.add(cssmenuTitle);
+
+        cssView.setBackground(new java.awt.Color(224, 224, 224));
+        cssView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cssView.setPreferredSize(new java.awt.Dimension(246, 40));
+        cssView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cssViewMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cssViewMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cssViewMouseExited(evt);
+            }
+        });
+        cssView.setLayout(new java.awt.BorderLayout());
+
+        jLabel47.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel47.setText("  OVERVIEW");
+        jLabel47.setPreferredSize(new java.awt.Dimension(104, 20));
+        cssView.add(jLabel47, java.awt.BorderLayout.CENTER);
+
+        cssSelect.setBackground(new java.awt.Color(50, 50, 250));
+        cssSelect.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout cssSelectLayout = new javax.swing.GroupLayout(cssSelect);
+        cssSelect.setLayout(cssSelectLayout);
+        cssSelectLayout.setHorizontalGroup(
+            cssSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        cssSelectLayout.setVerticalGroup(
+            cssSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        cssView.add(cssSelect, java.awt.BorderLayout.LINE_START);
+
+        cssMenu.add(cssView);
+
+        cssWeek1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cssWeek1.setPreferredSize(new java.awt.Dimension(246, 40));
+        cssWeek1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cssWeek1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cssWeek1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cssWeek1MouseExited(evt);
+            }
+        });
+        cssWeek1.setLayout(new java.awt.BorderLayout());
+
+        cssW1.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        cssW1.setText("  WEEK 1");
+        cssW1.setPreferredSize(new java.awt.Dimension(104, 20));
+        cssWeek1.add(cssW1, java.awt.BorderLayout.CENTER);
+
+        cssSelect1.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout cssSelect1Layout = new javax.swing.GroupLayout(cssSelect1);
+        cssSelect1.setLayout(cssSelect1Layout);
+        cssSelect1Layout.setHorizontalGroup(
+            cssSelect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        cssSelect1Layout.setVerticalGroup(
+            cssSelect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        cssWeek1.add(cssSelect1, java.awt.BorderLayout.LINE_START);
+
+        cssMenu.add(cssWeek1);
+
+        cssWeek2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cssWeek2.setPreferredSize(new java.awt.Dimension(246, 40));
+        cssWeek2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cssWeek2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cssWeek2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cssWeek2MouseExited(evt);
+            }
+        });
+        cssWeek2.setLayout(new java.awt.BorderLayout());
+
+        cssW2.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        cssW2.setText("  WEEK 2");
+        cssW2.setEnabled(false);
+        cssW2.setPreferredSize(new java.awt.Dimension(104, 20));
+        cssWeek2.add(cssW2, java.awt.BorderLayout.CENTER);
+
+        cssSelect2.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout cssSelect2Layout = new javax.swing.GroupLayout(cssSelect2);
+        cssSelect2.setLayout(cssSelect2Layout);
+        cssSelect2Layout.setHorizontalGroup(
+            cssSelect2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        cssSelect2Layout.setVerticalGroup(
+            cssSelect2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        cssWeek2.add(cssSelect2, java.awt.BorderLayout.LINE_START);
+
+        cssMenu.add(cssWeek2);
+
+        cssWeek3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cssWeek3.setPreferredSize(new java.awt.Dimension(246, 40));
+        cssWeek3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cssWeek3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cssWeek3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cssWeek3MouseExited(evt);
+            }
+        });
+        cssWeek3.setLayout(new java.awt.BorderLayout());
+
+        cssW3.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        cssW3.setText("  WEEK 3");
+        cssW3.setEnabled(false);
+        cssW3.setPreferredSize(new java.awt.Dimension(104, 20));
+        cssWeek3.add(cssW3, java.awt.BorderLayout.CENTER);
+
+        cssSelect3.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout cssSelect3Layout = new javax.swing.GroupLayout(cssSelect3);
+        cssSelect3.setLayout(cssSelect3Layout);
+        cssSelect3Layout.setHorizontalGroup(
+            cssSelect3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        cssSelect3Layout.setVerticalGroup(
+            cssSelect3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        cssWeek3.add(cssSelect3, java.awt.BorderLayout.LINE_START);
+
+        cssMenu.add(cssWeek3);
+
+        cssWeek4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cssWeek4.setPreferredSize(new java.awt.Dimension(246, 40));
+        cssWeek4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cssWeek4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cssWeek4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cssWeek4MouseExited(evt);
+            }
+        });
+        cssWeek4.setLayout(new java.awt.BorderLayout());
+
+        cssW4.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        cssW4.setText("  WEEK 4");
+        cssW4.setEnabled(false);
+        cssW4.setPreferredSize(new java.awt.Dimension(104, 20));
+        cssWeek4.add(cssW4, java.awt.BorderLayout.CENTER);
+
+        cssSelect4.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout cssSelect4Layout = new javax.swing.GroupLayout(cssSelect4);
+        cssSelect4.setLayout(cssSelect4Layout);
+        cssSelect4Layout.setHorizontalGroup(
+            cssSelect4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        cssSelect4Layout.setVerticalGroup(
+            cssSelect4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        cssWeek4.add(cssSelect4, java.awt.BorderLayout.LINE_START);
+
+        cssMenu.add(cssWeek4);
+
+        studyMenu.add(cssMenu, "studyCss");
+
+        jsMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jsMenu.setPreferredSize(new java.awt.Dimension(250, 570));
+        jsMenu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+
+        jsmenuTitle.setPreferredSize(new java.awt.Dimension(246, 85));
+        jsmenuTitle.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
+
+        jLabel48.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel48.setText("<html> JavaScript <br> [JS] </html>");
+        jsmenuTitle.add(jLabel48);
+
+        jLabel49.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LineLongGrey.png"))); // NOI18N
+        jLabel49.setPreferredSize(new java.awt.Dimension(248, 14));
+        jsmenuTitle.add(jLabel49);
+
+        jsMenu.add(jsmenuTitle);
+
+        jsView.setBackground(new java.awt.Color(224, 224, 224));
+        jsView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jsView.setPreferredSize(new java.awt.Dimension(246, 40));
+        jsView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jsViewMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jsViewMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jsViewMouseExited(evt);
+            }
+        });
+        jsView.setLayout(new java.awt.BorderLayout());
+
+        jLabel50.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel50.setText("  OVERVIEW");
+        jLabel50.setPreferredSize(new java.awt.Dimension(104, 20));
+        jsView.add(jLabel50, java.awt.BorderLayout.CENTER);
+
+        jsSelect.setBackground(new java.awt.Color(50, 50, 250));
+        jsSelect.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout jsSelectLayout = new javax.swing.GroupLayout(jsSelect);
+        jsSelect.setLayout(jsSelectLayout);
+        jsSelectLayout.setHorizontalGroup(
+            jsSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jsSelectLayout.setVerticalGroup(
+            jsSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        jsView.add(jsSelect, java.awt.BorderLayout.LINE_START);
+
+        jsMenu.add(jsView);
+
+        jsWeek1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jsWeek1.setPreferredSize(new java.awt.Dimension(246, 40));
+        jsWeek1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jsWeek1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jsWeek1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jsWeek1MouseExited(evt);
+            }
+        });
+        jsWeek1.setLayout(new java.awt.BorderLayout());
+
+        jsW1.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jsW1.setText("  WEEK 1");
+        jsW1.setPreferredSize(new java.awt.Dimension(104, 20));
+        jsWeek1.add(jsW1, java.awt.BorderLayout.CENTER);
+
+        jsSelect1.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout jsSelect1Layout = new javax.swing.GroupLayout(jsSelect1);
+        jsSelect1.setLayout(jsSelect1Layout);
+        jsSelect1Layout.setHorizontalGroup(
+            jsSelect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jsSelect1Layout.setVerticalGroup(
+            jsSelect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        jsWeek1.add(jsSelect1, java.awt.BorderLayout.LINE_START);
+
+        jsMenu.add(jsWeek1);
+
+        jsWeek2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jsWeek2.setPreferredSize(new java.awt.Dimension(246, 40));
+        jsWeek2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jsWeek2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jsWeek2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jsWeek2MouseExited(evt);
+            }
+        });
+        jsWeek2.setLayout(new java.awt.BorderLayout());
+
+        jsW2.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jsW2.setText("  WEEK 2");
+        jsW2.setEnabled(false);
+        jsW2.setPreferredSize(new java.awt.Dimension(104, 20));
+        jsWeek2.add(jsW2, java.awt.BorderLayout.CENTER);
+
+        jsSelect2.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout jsSelect2Layout = new javax.swing.GroupLayout(jsSelect2);
+        jsSelect2.setLayout(jsSelect2Layout);
+        jsSelect2Layout.setHorizontalGroup(
+            jsSelect2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jsSelect2Layout.setVerticalGroup(
+            jsSelect2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        jsWeek2.add(jsSelect2, java.awt.BorderLayout.LINE_START);
+
+        jsMenu.add(jsWeek2);
+
+        jsWeek3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jsWeek3.setPreferredSize(new java.awt.Dimension(246, 40));
+        jsWeek3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jsWeek3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jsWeek3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jsWeek3MouseExited(evt);
+            }
+        });
+        jsWeek3.setLayout(new java.awt.BorderLayout());
+
+        jsW3.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jsW3.setText("  WEEK 3");
+        jsW3.setEnabled(false);
+        jsW3.setPreferredSize(new java.awt.Dimension(104, 20));
+        jsWeek3.add(jsW3, java.awt.BorderLayout.CENTER);
+
+        jsSelect3.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout jsSelect3Layout = new javax.swing.GroupLayout(jsSelect3);
+        jsSelect3.setLayout(jsSelect3Layout);
+        jsSelect3Layout.setHorizontalGroup(
+            jsSelect3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jsSelect3Layout.setVerticalGroup(
+            jsSelect3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        jsWeek3.add(jsSelect3, java.awt.BorderLayout.LINE_START);
+
+        jsMenu.add(jsWeek3);
+
+        jsWeek4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jsWeek4.setPreferredSize(new java.awt.Dimension(246, 40));
+        jsWeek4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jsWeek4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jsWeek4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jsWeek4MouseExited(evt);
+            }
+        });
+        jsWeek4.setLayout(new java.awt.BorderLayout());
+
+        jsW4.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jsW4.setText("  WEEK 4");
+        jsW4.setEnabled(false);
+        jsW4.setPreferredSize(new java.awt.Dimension(104, 20));
+        jsWeek4.add(jsW4, java.awt.BorderLayout.CENTER);
+
+        jsSelect4.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout jsSelect4Layout = new javax.swing.GroupLayout(jsSelect4);
+        jsSelect4.setLayout(jsSelect4Layout);
+        jsSelect4Layout.setHorizontalGroup(
+            jsSelect4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jsSelect4Layout.setVerticalGroup(
+            jsSelect4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        jsWeek4.add(jsSelect4, java.awt.BorderLayout.LINE_START);
+
+        jsMenu.add(jsWeek4);
+
+        studyMenu.add(jsMenu, "studyJs");
+
+        sqlMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        sqlMenu.setPreferredSize(new java.awt.Dimension(250, 570));
+        sqlMenu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+
+        sqlmenuTitle.setPreferredSize(new java.awt.Dimension(246, 85));
+        sqlmenuTitle.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
+
+        jLabel51.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel51.setText("<html> Structured Query <br> Language [SQL] </html>");
+        sqlmenuTitle.add(jLabel51);
+
+        jLabel52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LineLongGrey.png"))); // NOI18N
+        jLabel52.setPreferredSize(new java.awt.Dimension(248, 14));
+        sqlmenuTitle.add(jLabel52);
+
+        sqlMenu.add(sqlmenuTitle);
+
+        sqlView.setBackground(new java.awt.Color(224, 224, 224));
+        sqlView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sqlView.setPreferredSize(new java.awt.Dimension(246, 40));
+        sqlView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sqlViewMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sqlViewMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sqlViewMouseExited(evt);
+            }
+        });
+        sqlView.setLayout(new java.awt.BorderLayout());
+
+        jLabel53.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel53.setText("  OVERVIEW");
+        jLabel53.setPreferredSize(new java.awt.Dimension(104, 20));
+        sqlView.add(jLabel53, java.awt.BorderLayout.CENTER);
+
+        sqlSelect.setBackground(new java.awt.Color(50, 50, 250));
+        sqlSelect.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout sqlSelectLayout = new javax.swing.GroupLayout(sqlSelect);
+        sqlSelect.setLayout(sqlSelectLayout);
+        sqlSelectLayout.setHorizontalGroup(
+            sqlSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        sqlSelectLayout.setVerticalGroup(
+            sqlSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        sqlView.add(sqlSelect, java.awt.BorderLayout.LINE_START);
+
+        sqlMenu.add(sqlView);
+
+        sqlWeek1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sqlWeek1.setPreferredSize(new java.awt.Dimension(246, 40));
+        sqlWeek1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sqlWeek1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sqlWeek1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sqlWeek1MouseExited(evt);
+            }
+        });
+        sqlWeek1.setLayout(new java.awt.BorderLayout());
+
+        sqlW1.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        sqlW1.setText("  WEEK 1");
+        sqlW1.setPreferredSize(new java.awt.Dimension(104, 20));
+        sqlWeek1.add(sqlW1, java.awt.BorderLayout.CENTER);
+
+        sqlSelect1.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout sqlSelect1Layout = new javax.swing.GroupLayout(sqlSelect1);
+        sqlSelect1.setLayout(sqlSelect1Layout);
+        sqlSelect1Layout.setHorizontalGroup(
+            sqlSelect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        sqlSelect1Layout.setVerticalGroup(
+            sqlSelect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        sqlWeek1.add(sqlSelect1, java.awt.BorderLayout.LINE_START);
+
+        sqlMenu.add(sqlWeek1);
+
+        sqlWeek2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sqlWeek2.setPreferredSize(new java.awt.Dimension(246, 40));
+        sqlWeek2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sqlWeek2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sqlWeek2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sqlWeek2MouseExited(evt);
+            }
+        });
+        sqlWeek2.setLayout(new java.awt.BorderLayout());
+
+        sqlW2.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        sqlW2.setText("  WEEK 2");
+        sqlW2.setEnabled(false);
+        sqlW2.setPreferredSize(new java.awt.Dimension(104, 20));
+        sqlWeek2.add(sqlW2, java.awt.BorderLayout.CENTER);
+
+        sqlSelect2.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout sqlSelect2Layout = new javax.swing.GroupLayout(sqlSelect2);
+        sqlSelect2.setLayout(sqlSelect2Layout);
+        sqlSelect2Layout.setHorizontalGroup(
+            sqlSelect2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        sqlSelect2Layout.setVerticalGroup(
+            sqlSelect2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        sqlWeek2.add(sqlSelect2, java.awt.BorderLayout.LINE_START);
+
+        sqlMenu.add(sqlWeek2);
+
+        sqlWeek3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sqlWeek3.setPreferredSize(new java.awt.Dimension(246, 40));
+        sqlWeek3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sqlWeek3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sqlWeek3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sqlWeek3MouseExited(evt);
+            }
+        });
+        sqlWeek3.setLayout(new java.awt.BorderLayout());
+
+        sqlW3.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        sqlW3.setText("  WEEK 3");
+        sqlW3.setEnabled(false);
+        sqlW3.setPreferredSize(new java.awt.Dimension(104, 20));
+        sqlWeek3.add(sqlW3, java.awt.BorderLayout.CENTER);
+
+        sqlSelect3.setPreferredSize(new java.awt.Dimension(10, 50));
+
+        javax.swing.GroupLayout sqlSelect3Layout = new javax.swing.GroupLayout(sqlSelect3);
+        sqlSelect3.setLayout(sqlSelect3Layout);
+        sqlSelect3Layout.setHorizontalGroup(
+            sqlSelect3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        sqlSelect3Layout.setVerticalGroup(
+            sqlSelect3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        sqlWeek3.add(sqlSelect3, java.awt.BorderLayout.LINE_START);
+
+        sqlMenu.add(sqlWeek3);
+
+        studyMenu.add(sqlMenu, "studySql");
+
+        studyHTML.add(studyMenu, java.awt.BorderLayout.LINE_START);
+
+        studyViewer.setMaximumSize(new java.awt.Dimension(680, 197));
+        studyViewer.setPreferredSize(new java.awt.Dimension(680, 570));
+        studyViewer.setLayout(new java.awt.BorderLayout(0, 10));
+
+        buttonNav.setMaximumSize(new java.awt.Dimension(680, 40));
+        buttonNav.setMinimumSize(new java.awt.Dimension(680, 40));
+        buttonNav.setPreferredSize(new java.awt.Dimension(710, 50));
+        buttonNav.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buttonPrev.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         buttonPrev.setText("Previous");
@@ -1312,7 +1894,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                 buttonPrevActionPerformed(evt);
             }
         });
-        htmlNav.add(buttonPrev, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        buttonNav.add(buttonPrev, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         buttonNext.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         buttonNext.setText("Next");
@@ -1325,63 +1907,63 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                 buttonNextActionPerformed(evt);
             }
         });
-        htmlNav.add(buttonNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
+        buttonNav.add(buttonNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
 
-        htmlRight.add(htmlNav, java.awt.BorderLayout.PAGE_END);
+        studyViewer.add(buttonNav, java.awt.BorderLayout.PAGE_END);
 
-        htmlViewer.setMaximumSize(new java.awt.Dimension(680, 40));
-        htmlViewer.setPreferredSize(new java.awt.Dimension(680, 510));
-        htmlViewer.setLayout(new java.awt.CardLayout());
+        lessonViewer.setMaximumSize(new java.awt.Dimension(680, 40));
+        lessonViewer.setPreferredSize(new java.awt.Dimension(680, 510));
+        lessonViewer.setLayout(new java.awt.CardLayout());
 
-        htmlOverview.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        htmlOverview.setMaximumSize(new java.awt.Dimension(680, 40));
-        htmlOverview.setPreferredSize(new java.awt.Dimension(680, 514));
-        htmlOverview.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        overview.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        overview.setMaximumSize(new java.awt.Dimension(680, 40));
+        overview.setPreferredSize(new java.awt.Dimension(680, 514));
+        overview.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel42.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel42.setText("Instructor's Note");
-        htmlOverview.add(jLabel42);
+        overview.add(jLabel42);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(240, 240, 240));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Welcome to the HTML pathway! So you’ve decided you want to learn some HTML? Well, you have come to the right place! Learning HTML is something every web developer should learn. After all, HTML is the basic skeleton of all web pages. Without HTML skills, web developers wouldn’t be able to add text, add images, or even add videos to your favorite websites. HTML is the very foundation of everything you need to know in order to create an engaging web page!\n\nIn this pathway, you will learn all the common HTML tags used to structure HTML pages. You will also learn how to add links and images to your web pages. Plus, some basics on how to create HTML tables, forms, lists, and iFrames.\n\nIf ever you encountered some issues, have inquiries or suggestions, please do not hesitate to get in touch with our support team in the contact us section. We would love to hear from you!\n\nWhat website do you wish existed but doesn't yet? Whatever that may be, hopefully, by the end of this pathway, you will be able to create your very own web page! Goodluck on starting your HTML journey and continue building your imagination!  ");
-        jTextArea1.setWrapStyleWord(true);
-        jTextArea1.setMaximumSize(new java.awt.Dimension(100, 100));
-        jTextArea1.setMinimumSize(new java.awt.Dimension(100, 22));
-        jTextArea1.setPreferredSize(new java.awt.Dimension(710, 450));
-        htmlOverview.add(jTextArea1);
+        overviewNote.setEditable(false);
+        overviewNote.setBackground(new java.awt.Color(240, 240, 240));
+        overviewNote.setColumns(20);
+        overviewNote.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        overviewNote.setLineWrap(true);
+        overviewNote.setRows(5);
+        overviewNote.setText("Welcome to the HTML pathway! So you’ve decided you want to learn some HTML? Well, you have come to the right place! Learning HTML is something every web developer should learn. After all, HTML is the basic skeleton of all web pages. Without HTML skills, web developers wouldn’t be able to add text, add images, or even add videos to your favorite websites. HTML is the very foundation of everything you need to know in order to create an engaging web page!\n\nIn this pathway, you will learn all the common HTML tags used to structure HTML pages. You will also learn how to add links and images to your web pages. Plus, some basics on how to create HTML tables, forms, lists, and iFrames.\n\nIf ever you encountered some issues, have inquiries or suggestions, please do not hesitate to get in touch with our support team in the contact us section. We would love to hear from you!\n\nWhat website do you wish existed but doesn't yet? Whatever that may be, hopefully, by the end of this pathway, you will be able to create your very own web page! Goodluck on starting your HTML journey and continue building your imagination!  ");
+        overviewNote.setWrapStyleWord(true);
+        overviewNote.setMaximumSize(new java.awt.Dimension(100, 100));
+        overviewNote.setMinimumSize(new java.awt.Dimension(100, 22));
+        overviewNote.setPreferredSize(new java.awt.Dimension(710, 450));
+        overview.add(overviewNote);
 
-        htmlViewer.add(htmlOverview, "html");
+        lessonViewer.add(overview, "overview");
 
-        htmlLesson.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        htmlLesson.setLayout(new java.awt.BorderLayout());
-        htmlViewer.add(htmlLesson, "html1");
+        lesson.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lesson.setLayout(new java.awt.BorderLayout());
+        lessonViewer.add(lesson, "lesson");
 
-        htmlQuiz.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        htmlQuiz.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        quiz.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        quiz.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         quizWeek.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         quizWeek.setText("Week 1 - Quiz");
         quizWeek.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         quizWeek.setPreferredSize(new java.awt.Dimension(160, 30));
-        htmlQuiz.add(quizWeek);
+        quiz.add(quizWeek);
 
         quizTimerLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         quizTimerLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         quizTimerLabel.setText("Timer:");
         quizTimerLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         quizTimerLabel.setPreferredSize(new java.awt.Dimension(500, 30));
-        htmlQuiz.add(quizTimerLabel);
+        quiz.add(quizTimerLabel);
 
         quizTimer.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         quizTimer.setText("10");
         quizTimer.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         quizTimer.setPreferredSize(new java.awt.Dimension(40, 30));
-        htmlQuiz.add(quizTimer);
+        quiz.add(quizTimer);
 
         quizInstructions.setEditable(false);
         quizInstructions.setBackground(new java.awt.Color(240, 240, 240));
@@ -1395,13 +1977,13 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         quizInstructions.setMinimumSize(new java.awt.Dimension(710, 50));
         quizInstructions.setPreferredSize(new java.awt.Dimension(710, 170));
         quizInstructions.setRequestFocusEnabled(false);
-        htmlQuiz.add(quizInstructions);
+        quiz.add(quizInstructions);
 
         quizNo.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         quizNo.setText("Question ");
         quizNo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         quizNo.setPreferredSize(new java.awt.Dimension(710, 30));
-        htmlQuiz.add(quizNo);
+        quiz.add(quizNo);
 
         quizQuestion.setEditable(false);
         quizQuestion.setBackground(new java.awt.Color(240, 240, 240));
@@ -1414,35 +1996,35 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         quizQuestion.setMaximumSize(new java.awt.Dimension(710, 50));
         quizQuestion.setMinimumSize(new java.awt.Dimension(710, 50));
         quizQuestion.setPreferredSize(new java.awt.Dimension(710, 40));
-        htmlQuiz.add(quizQuestion);
+        quiz.add(quizQuestion);
 
         quizChoices.add(quizChoiceA);
         quizChoiceA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         quizChoiceA.setText("Choice A");
         quizChoiceA.setEnabled(false);
         quizChoiceA.setPreferredSize(new java.awt.Dimension(710, 23));
-        htmlQuiz.add(quizChoiceA);
+        quiz.add(quizChoiceA);
 
         quizChoices.add(quizChoiceB);
         quizChoiceB.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         quizChoiceB.setText("Choice B");
         quizChoiceB.setEnabled(false);
         quizChoiceB.setPreferredSize(new java.awt.Dimension(710, 23));
-        htmlQuiz.add(quizChoiceB);
+        quiz.add(quizChoiceB);
 
         quizChoices.add(quizChoiceC);
         quizChoiceC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         quizChoiceC.setText("Choice C");
         quizChoiceC.setEnabled(false);
         quizChoiceC.setPreferredSize(new java.awt.Dimension(710, 23));
-        htmlQuiz.add(quizChoiceC);
+        quiz.add(quizChoiceC);
 
         quizChoices.add(quizChoiceD);
         quizChoiceD.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         quizChoiceD.setText("Choice D");
         quizChoiceD.setEnabled(false);
         quizChoiceD.setPreferredSize(new java.awt.Dimension(710, 23));
-        htmlQuiz.add(quizChoiceD);
+        quiz.add(quizChoiceD);
 
         jPanel19.setPreferredSize(new java.awt.Dimension(710, 20));
 
@@ -1457,7 +2039,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        htmlQuiz.add(jPanel19);
+        quiz.add(jPanel19);
 
         quizSubmit.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         quizSubmit.setText("Start");
@@ -1467,7 +2049,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                 quizSubmitActionPerformed(evt);
             }
         });
-        htmlQuiz.add(quizSubmit);
+        quiz.add(quizSubmit);
 
         jPanel29.setPreferredSize(new java.awt.Dimension(600, 30));
 
@@ -1482,38 +2064,38 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        htmlQuiz.add(jPanel29);
+        quiz.add(jPanel29);
 
         quizScoreLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         quizScoreLabel.setText("Score:");
         quizScoreLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         quizScoreLabel.setPreferredSize(new java.awt.Dimension(80, 30));
-        htmlQuiz.add(quizScoreLabel);
+        quiz.add(quizScoreLabel);
 
         quizScore.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         quizScore.setText("0");
         quizScore.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         quizScore.setPreferredSize(new java.awt.Dimension(40, 30));
-        htmlQuiz.add(quizScore);
+        quiz.add(quizScore);
 
         quizReattemptLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         quizReattemptLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         quizReattemptLabel.setText("Reattempt Timer:");
         quizReattemptLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         quizReattemptLabel.setPreferredSize(new java.awt.Dimension(520, 30));
-        htmlQuiz.add(quizReattemptLabel);
+        quiz.add(quizReattemptLabel);
 
         quizReattempt.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         quizReattempt.setText("180");
         quizReattempt.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         quizReattempt.setPreferredSize(new java.awt.Dimension(55, 30));
-        htmlQuiz.add(quizReattempt);
+        quiz.add(quizReattempt);
 
-        htmlViewer.add(htmlQuiz, "htmlQuiz");
+        lessonViewer.add(quiz, "quiz");
 
-        htmlRight.add(htmlViewer, java.awt.BorderLayout.CENTER);
+        studyViewer.add(lessonViewer, java.awt.BorderLayout.CENTER);
 
-        studyHTML.add(htmlRight, java.awt.BorderLayout.CENTER);
+        studyHTML.add(studyViewer, java.awt.BorderLayout.CENTER);
 
         dashStudy.add(studyHTML, "studyHTML");
 
@@ -1870,8 +2452,32 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void getStorageArray(){
+        arrayStorage abc = new arrayStorage();
+        pdfStorage = abc.arrayPDFStorage();
+        currentWeek = abc.currentWeek();
+        question = abc.arrayQuestionStorage();
+        correct = abc.arrayCorrect();
+        answer = abc.arrayAnswer();
+        sideColor = abc.getsideColor();
+        mainTab = abc.getmainTab();
+        instructorNote = abc.getInstructorNote();
+    }  
+     
+    public void getAccessName(){
+        jframeLogin abc = new jframeLogin();
+        String userInfo[] = abc.getuserArray();
+        userQuiz = abc.getScore();
+        name = userInfo[0];
+        profileName.setText(name);
+        profileEmail.setText(userInfo[1]);
+        profileUsername.setText(userInfo[2]);
+        profileActivation.setText(userInfo[3]);    
+        currentPathway = Integer.valueOf(userInfo[4]);
+        currentRetry = Integer.valueOf(userInfo[5]);
+        choicePathway();
+    }
     
-
     Timer timer = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -1879,7 +2485,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             if (seconds <=0){
                 quizChoices.clearSelection();
                 timer.stop();
-                if (htmlQuestion[i].length > (no+1)){
+                if (question[currentPathway][i].length > (no+1)){
                     pause.setRepeats(false);
                     pause.start(); 
                 } else 
@@ -1889,7 +2495,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         }
     });
 
-    Timer reattempt = new Timer(1000, new ActionListener() {
+    Timer reattempt = new Timer(500, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             secondReattempt --;
@@ -1897,6 +2503,8 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             if (secondReattempt <= 0){
                 reattempt.stop();
                 attempt = 0;
+                sqlUpdateRetry();
+                quizReattempt.setText("180");
                 quizSubmit.setEnabled(true);
             }
         }
@@ -1930,43 +2538,269 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         quizTimer.setText(String.valueOf(seconds));
         attempt ++;
         percentage = (percentage + score) / (no+1);
-        no = 0;
-        score = 0;
-        
-        if (attempt != 3){
-            if (percentage >= .7 ){
-                //sql
-                switch(i) {
-                    case 0: htmlW2.setEnabled(true); break;
-                    case 1: htmlW3.setEnabled(true); break;
-                    case 2: htmlW4.setEnabled(true); break;
-                    case 3: htmlW5.setEnabled(true); break;
-                    case 4: htmlW6.setEnabled(true); break;
-                    case 5: htmlW7.setEnabled(true); break;
-                    default: break;
-                }
-                switch(i) {
-                        case 0: {
-                            if (htmlW2.isEnabled()){
-                               buttonNext.setEnabled(true);
-                            }
-                        } break;
-                        case 1: htmlW3.setEnabled(true); break;
-                        case 2: htmlW4.setEnabled(true); break;
-                        case 3: htmlW5.setEnabled(true); break;
-                        case 4: htmlW6.setEnabled(true); break;
-                        case 5: htmlW7.setEnabled(true); break;
-                        default: break;
+        no = 0;       
+            if (attempt != 3){
+                if (percentage >= .7 ){
+                    //sql
+                    sqlUpdateScore(score);
+                    userQuiz[i] = String.valueOf(score);
+                    weekInitialize();
+                    buttonScoreInit();
+                } else {
+                    score = 0; 
+                    quizScore.setText(String.valueOf(score));
                 }
             } else {
-                percentage = 0;
-                quizScore.setText(String.valueOf(score));
+                quizSubmit.setEnabled(false);
+                currentRetry = 1;
+                reattempt.start();                
             }
-        } else {
+        score = 0; 
+        percentage = 0;  
+        
+    }
+    
+    public void weekInitialize() {
+        int ctr = 0,stop=0;
+        while (stop == 0) {
+            if (Integer.valueOf(userQuiz[ctr]) == 0 && ctr <=6){
+                switch(ctr){
+                    case 0: stop = 1; break;
+                    case 1:{
+                        htmlW2.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 2:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 3:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 4:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);                        
+                        htmlW5.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 5:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);   
+                        htmlW5.setEnabled(true);
+                        htmlW6.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 6:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);   
+                        htmlW5.setEnabled(true);
+                        htmlW6.setEnabled(true);
+                        htmlW7.setEnabled(true);
+                        stop = 1;
+                    } break;
+                }
+            } else if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=10 && ctr >=7)){
+                switch(ctr){
+                    case 1:{
+                        htmlW2.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 2:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 3:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 4:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);                        
+                        htmlW5.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 5:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);   
+                        htmlW5.setEnabled(true);
+                        htmlW6.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 6:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);   
+                        htmlW5.setEnabled(true);
+                        htmlW6.setEnabled(true);
+                        htmlW7.setEnabled(true);
+                        stop = 1;
+                    } break;
+                }
+            } else if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=14 && ctr >= 11)){
+                switch(ctr){
+                    case 1:{
+                        htmlW2.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 2:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 3:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 4:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);                        
+                        htmlW5.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 5:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);   
+                        htmlW5.setEnabled(true);
+                        htmlW6.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 6:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);   
+                        htmlW5.setEnabled(true);
+                        htmlW6.setEnabled(true);
+                        htmlW7.setEnabled(true);
+                        stop = 1;
+                    } break;
+                }
+            } else if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=17 && ctr >=15)){
+                switch(ctr){
+                    case 1:{
+                        htmlW2.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 2:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 3:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 4:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);                        
+                        htmlW5.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 5:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);   
+                        htmlW5.setEnabled(true);
+                        htmlW6.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 6:{
+                        htmlW2.setEnabled(true);
+                        htmlW3.setEnabled(true);                        
+                        htmlW4.setEnabled(true);   
+                        htmlW5.setEnabled(true);
+                        htmlW6.setEnabled(true);
+                        htmlW7.setEnabled(true);
+                        stop = 1;
+                    } break;
+                }
+            } else {
+                htmlW2.setEnabled(true);
+                htmlW3.setEnabled(true);                        
+                htmlW4.setEnabled(true);   
+                htmlW5.setEnabled(true);
+                htmlW6.setEnabled(true);
+                htmlW7.setEnabled(true);
+                stop = 1;
+            }
+                
+            ctr ++;
+        }
+    }
+    
+    public void buttonScoreInit() {
+        switch(i) {
+            case 0: {
+                if (htmlW2.isEnabled()){
+                   quizScore.setText(userQuiz[i]);
+                   buttonNext.setEnabled(true);
+                } else 
+                     quizScore.setText("0");
+            } break;
+            case 1: {
+                if (htmlW3.isEnabled()){
+                   quizScore.setText(userQuiz[i]);
+                   buttonNext.setEnabled(true);
+                } else
+                     quizScore.setText("0");
+            } break;
+            case 2: {
+                if (htmlW4.isEnabled()){
+                   quizScore.setText(userQuiz[i]);
+                   buttonNext.setEnabled(true);
+                } else
+                     quizScore.setText("0");
+            } break;
+            case 3: {
+                if (htmlW5.isEnabled()){
+                   quizScore.setText(userQuiz[i]);
+                   buttonNext.setEnabled(true);
+                } else
+                     quizScore.setText("0");
+            } break;
+            case 4: {
+                if (htmlW6.isEnabled()){
+                   quizScore.setText(userQuiz[i]);
+                   buttonNext.setEnabled(true);
+                } else
+                     quizScore.setText("0");
+            } break;
+            case 5: {
+                if (htmlW7.isEnabled()){
+                    quizScore.setText(userQuiz[i]);
+                    buttonNext.setEnabled(true);
+                } else
+                     quizScore.setText("0");
+            } break;
+            case 6: quizScore.setText(userQuiz[i]); break;
+            default:break;
+        }
+    }
+    
+    public void quizRetry() {
+        if (currentRetry == 1){
             quizSubmit.setEnabled(false);
-            reattempt.start();
-        }            
-
+            currentRetry = 0; 
+            reattempt.start();   
+        }        
     }
     
     public void quizPrinting() {
@@ -1978,11 +2812,11 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             quizChoiceD.setEnabled(true);   
         }
         quizNo.setText("Question No. " + (no+1));
-        quizQuestion.setText(htmlQuestion[i][no]);
-        quizChoiceA.setText(htmlAnswer[i][no][0]);
-        quizChoiceB.setText(htmlAnswer[i][no][1]);
-        quizChoiceC.setText(htmlAnswer[i][no][2]);
-        quizChoiceD.setText(htmlAnswer[i][no][3]);
+        quizQuestion.setText(question[currentPathway][i][no]);
+        quizChoiceA.setText(answer[currentPathway][i][no][0]);
+        quizChoiceB.setText(answer[currentPathway][i][no][1]);
+        quizChoiceC.setText(answer[currentPathway][i][no][2]);
+        quizChoiceD.setText(answer[currentPathway][i][no][3]);
     }
     
     public void quizSelection () {       
@@ -1998,25 +2832,14 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             Answer = " ";
         }
     }
+    
     public void quizLogic() {
         quizSelection();
-        if (Answer.equals(htmlCorrect[i][no])) {
+        if (Answer.equals(correct[currentPathway][i][no])) {
             score ++;
             quizScore.setText(String.valueOf(score));
         }
-    }
-    
-    public void getAccessName(){
-        jframeLogin abc = new jframeLogin();
-        String userInfo[] = abc.getuserArray();
-        name = userInfo[0];
-        profileName.setText(name);
-        profileEmail.setText(userInfo[1]);
-        profileUsername.setText(userInfo[2]);
-        profileActivation.setText(userInfo[3]);    
-        currentPathway = Integer.valueOf(userInfo[4]);
-        choicePathway();
-    }
+    }     
     
     public void choicePathway() {
        switch(currentPathway) {
@@ -2028,37 +2851,68 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                 sqlButton.setEnabled(true);
             } break;
             case 0: {
+                studyCurrent.setEnabled(true);
+                overviewNote.setText(instructorNote[currentPathway]);
+                cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+                studyIcon.setEnabled(true);
                 profilePathway.setText(pathway[currentPathway]);
                 htmlButton.setEnabled(true);
             } break;
             case 1: {
+                studyCurrent.setEnabled(true);
+                overviewNote.setText(instructorNote[currentPathway]);
+                cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+                studyIcon.setEnabled(true);
                 profilePathway.setText(pathway[currentPathway]);
                 cssButton.setEnabled(true);
             } break;
             case 2: {
+                studyCurrent.setEnabled(true);
+                overviewNote.setText(instructorNote[currentPathway]);
+                cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+                studyIcon.setEnabled(true);
                 profilePathway.setText(pathway[currentPathway]);
                 jsButton.setEnabled(true);
             } break;
             case 3: {
+                studyCurrent.setEnabled(true);
+                overviewNote.setText(instructorNote[currentPathway]);
+                cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+                studyIcon.setEnabled(true);
                 profilePathway.setText(pathway[currentPathway]);
                 sqlButton.setEnabled(true);
             } break;
             default: break;
         }        
+    }   
+    
+    public void sqlUpdateScore (int weekScore) {          
+        String sql = "UPDATE userQuiz SET "+ currentWeek[currentPathway][i] +" = ? WHERE name = ?";
+        try {
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, String.valueOf(weekScore));
+            pst.setString(2, name);
+            pst.execute();
+        } catch(HeadlessException |SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }         
     }
     
-    public void getStorageArray(){
-        arrayStorage abc = new arrayStorage();
-        pdfStorage = abc.arrayPDFStorage();
-//        for (int ctr=0; ctr<pdfStorage[currentPathway].length;ctr++)
-//            System.out.println(pdfStorage[currentPathway][ctr]);
+    public void sqlUpdateRetry() {          
+        String sql = "UPDATE userInfo SET retry = ? WHERE name = ?";
+        try {
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, String.valueOf(currentRetry));
+            pst.setString(2, name);
+            pst.execute();
+        } catch(HeadlessException |SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }         
     }
     
-    public void sqlUpdate (int updateValue) {  
-        
+    public void sqlUpdatePathway (int updateValue) {     
         int confirm = JOptionPane.showConfirmDialog(null, "Are you sure to pick " + String.valueOf(pathway[updateValue]));
         if (confirm == JOptionPane.YES_OPTION) {
-            System.out.println(JOptionPane.YES_OPTION);
             String sql = "UPDATE userInfo SET pathchoice = ? WHERE name = ?";
             try {
                 pst = conn.prepareStatement(sql);
@@ -2069,59 +2923,50 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                 choicePathway();
             } catch(HeadlessException |SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
-            } 
-//            finally {
-//                try{
-//                    rs.close();
-//                    pst.close();
-//                    conn.close();                       
-//                } catch (HeadlessException |SQLException e) {
-//                    JOptionPane.showMessageDialog(null, e);   
-//                }
-//            }           
+            }          
         }
-
     } 
+    
     
     public void controllerNext(CardLayout controlLayout, String card, String card2, JPanel containerParent,int max,JButton next, JButton prev){
         controlLayout = (CardLayout) (containerParent.getLayout());
-        if (i != max){
+        
             i = i+1;
             if (i == 0) {
                 controlLayout.show(containerParent,card);
                 if (count == 0){
-                    InputStream url = getClass().getResourceAsStream("resources/html/HTML-Week-1.pdf");
+                    InputStream url = getClass().getResourceAsStream(pdfStorage[currentPathway][i]);
                     ctrl.openDocument(url,"PDF",null);
                     prev.setEnabled(true);
                     count = 1;  
                     prevcount = 0;
                 } else if (count == 1) {
-                    next.setEnabled(false);
+                    next.setEnabled(false);                 
                     controlLayout.show(containerParent,card2);
                     count = 0;
                     prevcount = 1;
                     i = i -1;
+                    buttonScoreInit();
                 }
 
             } else if (i <= max) {
                 if (count == 0){
                     controlLayout.show(containerParent,card);
-                    ctrl.openDocument(pdfStorage[currentPathway][i]);
+                    InputStream url = getClass().getResourceAsStream(pdfStorage[currentPathway][i]);
+                    ctrl.openDocument(url,"PDF",null);
                     count = 1;
                     prevcount = 0;
                 } else if (count == 1) {
-                    next.setEnabled(false);
+                    next.setEnabled(false); 
                     controlLayout.show(containerParent,card2);
                     quizWeek.setText("Week " + i + " - Quiz");
                     count = 0;
                     prevcount = 1;
                     i = i -1;
-                }
-                if (i == max) {
-                    next.setEnabled(false);
-                }  
+                    buttonScoreInit();
+                } 
             } 
-        }
+        
     } 
         
     public void controllerPrev(CardLayout controlLayout, String card, String card2,JPanel containerParent,int max,JButton next, JButton prev){
@@ -2135,14 +2980,13 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                     count = 1;
                     i = i+1; 
                     next.setEnabled(true);
-                    ctrl.openDocument(pdfStorage[currentPathway][i]);
+                    InputStream url = getClass().getResourceAsStream(pdfStorage[currentPathway][i]);
+                    ctrl.openDocument(url,"PDF",null);
                 } else if (prevcount == 0) {
-                    ctrl.openDocument(pdfStorage[currentPathway][i]);
+                    InputStream url = getClass().getResourceAsStream(pdfStorage[currentPathway][i]);
+                    ctrl.openDocument(url,"PDF",null);
                     count = 1;
                 }
-                
-                if (i == max-1)
-                    next.setEnabled(true);  
             }
             if (i == -1) {
                 if (prevcount == 1) {
@@ -2167,9 +3011,11 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             controlLayout.show(containerParent,card);
         } else if (state >=0) {
             controlLayout.show(containerParent,card);
-            ctrl.openDocument(htmlArray[state]);
+            InputStream url = getClass().getResourceAsStream(pdfStorage[currentPathway][i]);
+            ctrl.openDocument(url,"PDF",null);
         }
     }
+    
     public void dashHover (JPanel state, JPanel side,Color mousestate,int frame) {
         if (state != viewHtml && frame == 0 ) {
             state.setBackground(mousestate);
@@ -2385,6 +3231,8 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private void buttonStudy1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStudy1MouseClicked
         if (studyCurrent.isEnabled()){
             cardLayout.show(dashMain,"dashStudy");
+            overviewNote.setText(instructorNote[currentPathway]);
+            cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
             selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);            
         }
 
@@ -2423,19 +3271,51 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_videoHTMLMouseClicked
 
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
-        controllerNext(cardLayout2,"html1","htmlQuiz",htmlViewer,6,buttonNext,buttonPrev);
+        controllerNext(cardLayout2,"lesson","quiz",lessonViewer,question[currentPathway].length,buttonNext,buttonPrev);
         if (count == 1){
-            switch(i) {
-                case -1: dashSelect(htmlView,htmlSelect,currentPathway); break;
-                case 0: dashSelect(htmlWeek1,htmlSelect1,currentPathway); break;
-                case 1: dashSelect(htmlWeek2,htmlSelect2,currentPathway); break;
-                case 2: dashSelect(htmlWeek3,htmlSelect3,currentPathway); break;
-                case 3: dashSelect(htmlWeek4,htmlSelect4,currentPathway); break;
-                case 4: dashSelect(htmlWeek5,htmlSelect5,currentPathway); break;
-                case 5: dashSelect(htmlWeek6,htmlSelect6,currentPathway); break;
-                case 6: dashSelect(htmlWeek7,htmlSelect7,currentPathway); break;
-                default: break;
-            }            
+            switch (currentPathway) {
+                case 0:
+                    switch(i) {
+                        case -1: dashSelect(htmlView,htmlSelect,currentPathway); break;
+                        case 0: dashSelect(htmlWeek1,htmlSelect1,currentPathway); break;
+                        case 1: dashSelect(htmlWeek2,htmlSelect2,currentPathway); break;
+                        case 2: dashSelect(htmlWeek3,htmlSelect3,currentPathway); break;
+                        case 3: dashSelect(htmlWeek4,htmlSelect4,currentPathway); break;
+                        case 4: dashSelect(htmlWeek5,htmlSelect5,currentPathway); break;
+                        case 5: dashSelect(htmlWeek6,htmlSelect6,currentPathway); break;
+                        case 6: dashSelect(htmlWeek7,htmlSelect7,currentPathway); break;
+                        default: break;
+                    }   break;
+                case 1:
+                    switch(i) {
+                        case -1: dashSelect(cssView,cssSelect,currentPathway); break;
+                        case 0: dashSelect(cssWeek1,cssSelect1,currentPathway); break;
+                        case 1: dashSelect(cssWeek2,cssSelect2,currentPathway); break;
+                        case 2: dashSelect(cssWeek3,cssSelect3,currentPathway); break;
+                        case 3: dashSelect(cssWeek4,cssSelect4,currentPathway); break;
+                        default: break;
+                    }   break;
+                case 2:
+                    switch(i) {
+                        case -1: dashSelect(jsView,jsSelect,currentPathway); break;
+                        case 0: dashSelect(jsWeek1,jsSelect1,currentPathway); break;
+                        case 1: dashSelect(jsWeek2,jsSelect2,currentPathway); break;
+                        case 2: dashSelect(jsWeek3,jsSelect3,currentPathway); break;
+                        case 3: dashSelect(jsWeek4,jsSelect4,currentPathway); break;
+                        default: break;
+                    }   break;
+                case 3:
+                    switch(i) {
+                        case -1: dashSelect(sqlView,sqlSelect,currentPathway); break;
+                        case 0: dashSelect(sqlWeek1,sqlSelect1,currentPathway); break;
+                        case 1: dashSelect(sqlWeek2,sqlSelect2,currentPathway); break;
+                        case 2: dashSelect(sqlWeek3,sqlSelect3,currentPathway); break;
+                        default: break;                   
+                    }   break;
+                default:
+                    break;
+            }
+          
         }
 
     }//GEN-LAST:event_buttonNextActionPerformed
@@ -2445,8 +3325,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         buttonPrev.setEnabled(false);
         buttonNext.setEnabled(true);
         i = -1;
-        controllerShow(cardLayout2,i,"html",htmlViewer);
-        
+        controllerShow(cardLayout2,i,"overview",lessonViewer);       
     }//GEN-LAST:event_htmlViewMouseClicked
 
     private void htmlViewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlViewMouseEntered
@@ -2458,17 +3337,52 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlViewMouseExited
 
     private void buttonPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrevActionPerformed
-        controllerPrev(cardLayout2,"html","html1",htmlViewer,6,buttonNext,buttonPrev);
-        switch(i) {
-            case -1: dashSelect(htmlView,htmlSelect,currentPathway); break;
-            case 0: dashSelect(htmlWeek1,htmlSelect1,currentPathway); break;
-            case 1: dashSelect(htmlWeek2,htmlSelect2,currentPathway); break;
-            case 2: dashSelect(htmlWeek3,htmlSelect3,currentPathway); break;
-            case 3: dashSelect(htmlWeek4,htmlSelect4,currentPathway); break;
-            case 4: dashSelect(htmlWeek5,htmlSelect5,currentPathway); break;
-            case 5: dashSelect(htmlWeek6,htmlSelect6,currentPathway); break;
-            case 6: dashSelect(htmlWeek7,htmlSelect7,currentPathway); break;
-            default: break;
+        controllerPrev(cardLayout2,"overview","lesson",lessonViewer,question[currentPathway].length,buttonNext,buttonPrev);
+        switch (currentPathway) {
+            case 0:
+                switch(i) {
+                    case -1: dashSelect(htmlView,htmlSelect,currentPathway); break;
+                    case 0: dashSelect(htmlWeek1,htmlSelect1,currentPathway); break;
+                    case 1: dashSelect(htmlWeek2,htmlSelect2,currentPathway); break;
+                    case 2: dashSelect(htmlWeek3,htmlSelect3,currentPathway); break;
+                    case 3: dashSelect(htmlWeek4,htmlSelect4,currentPathway); break;
+                    case 4: dashSelect(htmlWeek5,htmlSelect5,currentPathway); break;
+                    case 5: dashSelect(htmlWeek6,htmlSelect6,currentPathway); break;
+                    case 6: dashSelect(htmlWeek7,htmlSelect7,currentPathway); break;
+                    default: break;
+                }
+                break;
+            case 1:
+                switch(i) {
+                    case -1: dashSelect(cssView,cssSelect,currentPathway); break;
+                    case 0: dashSelect(cssWeek1,cssSelect1,currentPathway); break;
+                    case 1: dashSelect(cssWeek2,cssSelect2,currentPathway); break;
+                    case 2: dashSelect(cssWeek3,cssSelect3,currentPathway); break;
+                    case 3: dashSelect(cssWeek4,cssSelect4,currentPathway); break;
+                    default: break;
+                }
+                break;
+            case 2:
+                switch(i) {
+                    case -1: dashSelect(jsView,jsSelect,currentPathway); break;
+                    case 0: dashSelect(jsWeek1,jsSelect1,currentPathway); break;
+                    case 1: dashSelect(jsWeek2,jsSelect2,currentPathway); break;
+                    case 2: dashSelect(jsWeek3,jsSelect3,currentPathway); break;
+                    case 3: dashSelect(jsWeek4,jsSelect4,currentPathway); break;
+                    default: break;
+                }
+                break;
+            case 3:
+                switch(i) {
+                    case -1: dashSelect(sqlView,sqlSelect,currentPathway); break;
+                    case 0: dashSelect(sqlWeek1,sqlSelect1,currentPathway); break;
+                    case 1: dashSelect(sqlWeek2,sqlSelect2,currentPathway); break;
+                    case 2: dashSelect(sqlWeek3,sqlSelect3,currentPathway); break;
+                    default: break;
+                }
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_buttonPrevActionPerformed
 
@@ -2479,7 +3393,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             buttonNext.setEnabled(true);
             i=0;
             count = 1;
-            controllerShow(cardLayout2,i,"html1",htmlViewer);   
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
         }
     }//GEN-LAST:event_htmlWeek1MouseClicked
 
@@ -2498,7 +3412,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             buttonNext.setEnabled(true);
             i=1;
             count = 1;
-            controllerShow(cardLayout2,i,"html1",htmlViewer);            
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);            
         }
     }//GEN-LAST:event_htmlWeek2MouseClicked
 
@@ -2512,12 +3426,12 @@ public final class jframeMainMenu extends javax.swing.JFrame {
 
     private void htmlWeek3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlWeek3MouseClicked
         if (htmlW3.isEnabled()) {
-            dashSelect(htmlWeek3,htmlSelect3,1);
+            dashSelect(htmlWeek3,htmlSelect3,currentPathway);
             buttonPrev.setEnabled(true);
             buttonNext.setEnabled(true);
             i=2;
             count = 1;
-            controllerShow(cardLayout2,i,"html1",htmlViewer);            
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);            
         }
     }//GEN-LAST:event_htmlWeek3MouseClicked
 
@@ -2536,7 +3450,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             buttonNext.setEnabled(true);
             i=3;
             count = 1;
-            controllerShow(cardLayout2,i,"html1",htmlViewer);
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);
         }
     }//GEN-LAST:event_htmlWeek4MouseClicked
 
@@ -2555,7 +3469,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             buttonNext.setEnabled(true);
             i=4;
             count = 1;
-            controllerShow(cardLayout2,i,"html1",htmlViewer);
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);
         }
     }//GEN-LAST:event_htmlWeek5MouseClicked
 
@@ -2574,7 +3488,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             buttonNext.setEnabled(true);
             i=5;
             count = 1;
-            controllerShow(cardLayout2,i,"html1",htmlViewer);
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);
         }
     }//GEN-LAST:event_htmlWeek6MouseClicked
 
@@ -2590,10 +3504,10 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         if (htmlW7.isEnabled()) {
             dashSelect(htmlWeek7,htmlSelect7,currentPathway);
             buttonPrev.setEnabled(true);
-            buttonNext.setEnabled(false);
+            buttonNext.setEnabled(true);
             i=6;
             count = 1;
-            controllerShow(cardLayout2,i,"html1",htmlViewer);
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);
         }
     }//GEN-LAST:event_htmlWeek7MouseClicked
 
@@ -2608,17 +3522,24 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private void htmlButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlButtonMouseClicked
         if (!name.equals("Admin")) {
             if (htmlButton.isEnabled() && currentPathway == -1)
-                sqlUpdate(0); 
+                sqlUpdatePathway(0);               
             if (htmlButton.isEnabled() && currentPathway == 0){
                 cardLayout.show(dashMain,"dashStudy");
+                overviewNote.setText(instructorNote[currentPathway]);
+                cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+                cardLayout2 = (CardLayout) (lessonViewer.getLayout());
+                cardLayout2.show(lessonViewer, "overview");
                 selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);                       
             }            
         } else {
             currentPathway = 0;
             cardLayout.show(dashMain,"dashStudy");
+            overviewNote.setText(instructorNote[currentPathway]);
+            cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+            cardLayout2 = (CardLayout) (lessonViewer.getLayout());
+            cardLayout2.show(lessonViewer, "overview");
             selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal); 
         }
-
     }//GEN-LAST:event_htmlButtonMouseClicked
 
     private void quizSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quizSubmitActionPerformed
@@ -2629,19 +3550,344 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             quizPrinting();
         }
         else if (seconds < 10) {
-                quizLogic();
-                if (htmlQuestion[i].length == (no+1))
-                    quizReset();
-                else {
-                    timer.stop();
-                    quizChoices.clearSelection();
-                    pause.setRepeats(false);
-                    pause.start();                    
-                }
-
+            quizLogic();
+            if (question[currentPathway][i].length == (no+1))
+                quizReset();
+            else {
+                timer.stop();
+                quizChoices.clearSelection();
+                pause.setRepeats(false);
+                pause.start();                    
+            }
         }
-
     }//GEN-LAST:event_quizSubmitActionPerformed
+
+    private void cssButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssButtonMouseClicked
+        if (!name.equals("Admin")) {
+            if (cssButton.isEnabled() && currentPathway == -1)
+                sqlUpdatePathway(1);               
+            if (cssButton.isEnabled() && currentPathway == 1){
+                cardLayout.show(dashMain,"dashStudy");
+                overviewNote.setText(instructorNote[currentPathway]);
+                cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+                cardLayout2 = (CardLayout) (lessonViewer.getLayout());
+                cardLayout2.show(lessonViewer, "overview");             
+                selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);                       
+            }            
+        } else {
+            currentPathway = 1;
+            overviewNote.setText(instructorNote[currentPathway]);
+            cardLayout.show(dashMain,"dashStudy");
+            cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+            cardLayout2 = (CardLayout) (lessonViewer.getLayout());
+            cardLayout2.show(lessonViewer, "overview");
+            selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal); 
+        }
+    }//GEN-LAST:event_cssButtonMouseClicked
+
+    private void jsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsButtonMouseClicked
+        if (!name.equals("Admin")) {
+            if (jsButton.isEnabled() && currentPathway == -1)
+                sqlUpdatePathway(2);               
+            if (jsButton.isEnabled() && currentPathway == 2){
+                cardLayout.show(dashMain,"dashStudy");
+                overviewNote.setText(instructorNote[currentPathway]);
+                cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+                cardLayout2 = (CardLayout) (lessonViewer.getLayout());
+                cardLayout2.show(lessonViewer, "overview");
+                selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);                       
+            }            
+        } else {
+            currentPathway = 2;
+            cardLayout.show(dashMain,"dashStudy");
+            overviewNote.setText(instructorNote[currentPathway]);
+            cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+            cardLayout2 = (CardLayout) (lessonViewer.getLayout());
+            cardLayout2.show(lessonViewer, "overview");
+            selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal); 
+        }        
+    }//GEN-LAST:event_jsButtonMouseClicked
+
+    private void sqlButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlButtonMouseClicked
+        if (!name.equals("Admin")) {
+            if (sqlButton.isEnabled() && currentPathway == -1)
+                sqlUpdatePathway(3);               
+            if (sqlButton.isEnabled() && currentPathway == 3){
+                cardLayout.show(dashMain,"dashStudy");
+                overviewNote.setText(instructorNote[currentPathway]);
+                cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+                cardLayout2 = (CardLayout) (lessonViewer.getLayout());
+                cardLayout2.show(lessonViewer, "overview");
+                selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);                       
+            }            
+        } else {
+            currentPathway = 3;
+            overviewNote.setText(instructorNote[currentPathway]);
+            cardLayout.show(dashMain,"dashStudy");
+            cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
+            cardLayout2 = (CardLayout) (lessonViewer.getLayout());
+            cardLayout2.show(lessonViewer, "overview");
+            selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal); 
+        }        
+    }//GEN-LAST:event_sqlButtonMouseClicked
+
+    private void cssViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssViewMouseClicked
+        dashSelect(cssView,cssSelect,currentPathway);
+        buttonPrev.setEnabled(false);
+        buttonNext.setEnabled(true);
+        i = -1;
+        controllerShow(cardLayout2,i,"overview",lessonViewer);
+    }//GEN-LAST:event_cssViewMouseClicked
+
+    private void cssViewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssViewMouseEntered
+        dashHover(cssView,cssSelect,colorHover,currentPathway);
+    }//GEN-LAST:event_cssViewMouseEntered
+
+    private void cssViewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssViewMouseExited
+        dashHover(cssView,cssSelect,colorSelected,currentPathway);
+    }//GEN-LAST:event_cssViewMouseExited
+
+    private void cssWeek1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek1MouseClicked
+        if (cssW1.isEnabled()) {
+            dashSelect(cssWeek1,cssSelect1,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=0;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_cssWeek1MouseClicked
+
+    private void cssWeek1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek1MouseEntered
+        dashHover(cssWeek1,cssSelect1,colorHover,currentPathway);
+    }//GEN-LAST:event_cssWeek1MouseEntered
+
+    private void cssWeek1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek1MouseExited
+        dashHover(cssWeek1,cssSelect1,colorSelected,currentPathway);
+    }//GEN-LAST:event_cssWeek1MouseExited
+
+    private void cssWeek2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek2MouseClicked
+        if (cssW2.isEnabled()) {
+            dashSelect(cssWeek2,cssSelect2,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=1;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_cssWeek2MouseClicked
+
+    private void cssWeek2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek2MouseEntered
+        dashHover(cssWeek2,cssSelect2,colorHover,currentPathway);
+    }//GEN-LAST:event_cssWeek2MouseEntered
+
+    private void cssWeek2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek2MouseExited
+        dashHover(cssWeek2,cssSelect2,colorSelected,currentPathway);
+    }//GEN-LAST:event_cssWeek2MouseExited
+
+    private void cssWeek3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek3MouseClicked
+        if (cssW3.isEnabled()) {
+            dashSelect(cssWeek3,cssSelect3,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=2;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_cssWeek3MouseClicked
+
+    private void cssWeek3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek3MouseEntered
+        dashHover(cssWeek3,cssSelect3,colorHover,currentPathway);
+    }//GEN-LAST:event_cssWeek3MouseEntered
+
+    private void cssWeek3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek3MouseExited
+        dashHover(cssWeek3,cssSelect3,colorSelected,currentPathway);
+    }//GEN-LAST:event_cssWeek3MouseExited
+
+    private void cssWeek4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek4MouseClicked
+        if (cssW4.isEnabled()) {
+            dashSelect(cssWeek4,cssSelect4,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=3;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_cssWeek4MouseClicked
+
+    private void cssWeek4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek4MouseEntered
+        dashHover(cssWeek4,cssSelect4,colorHover,currentPathway);
+    }//GEN-LAST:event_cssWeek4MouseEntered
+
+    private void cssWeek4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssWeek4MouseExited
+        dashHover(cssWeek4,cssSelect4,colorSelected,currentPathway);
+    }//GEN-LAST:event_cssWeek4MouseExited
+
+    private void jsViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsViewMouseClicked
+        dashSelect(jsView,jsSelect,currentPathway);
+        buttonPrev.setEnabled(false);
+        buttonNext.setEnabled(true);
+        i = -1;
+        controllerShow(cardLayout2,i,"overview",lessonViewer);
+    }//GEN-LAST:event_jsViewMouseClicked
+
+    private void jsViewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsViewMouseEntered
+        dashHover(jsView,jsSelect,colorHover,currentPathway);
+    }//GEN-LAST:event_jsViewMouseEntered
+
+    private void jsViewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsViewMouseExited
+        dashHover(jsView,jsSelect,colorSelected,currentPathway);
+    }//GEN-LAST:event_jsViewMouseExited
+
+    private void jsWeek1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek1MouseClicked
+        if (jsW1.isEnabled()) {
+            dashSelect(jsWeek1,jsSelect1,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=0;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_jsWeek1MouseClicked
+
+    private void jsWeek1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek1MouseEntered
+        dashHover(jsWeek1,jsSelect1,colorHover,currentPathway);
+    }//GEN-LAST:event_jsWeek1MouseEntered
+
+    private void jsWeek1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek1MouseExited
+        dashHover(jsWeek1,jsSelect1,colorSelected,currentPathway);
+    }//GEN-LAST:event_jsWeek1MouseExited
+
+    private void jsWeek2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek2MouseClicked
+        if (jsW2.isEnabled()) {
+            dashSelect(jsWeek2,jsSelect2,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=1;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_jsWeek2MouseClicked
+
+    private void jsWeek2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek2MouseEntered
+        dashHover(jsWeek2,jsSelect2,colorHover,currentPathway);
+    }//GEN-LAST:event_jsWeek2MouseEntered
+
+    private void jsWeek2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek2MouseExited
+        dashHover(jsWeek2,jsSelect2,colorSelected,currentPathway);
+    }//GEN-LAST:event_jsWeek2MouseExited
+
+    private void jsWeek3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek3MouseClicked
+        if (jsW3.isEnabled()) {
+            dashSelect(jsWeek3,jsSelect3,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=2;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_jsWeek3MouseClicked
+
+    private void jsWeek3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek3MouseEntered
+        dashHover(jsWeek3,jsSelect3,colorHover,currentPathway);
+    }//GEN-LAST:event_jsWeek3MouseEntered
+
+    private void jsWeek3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek3MouseExited
+        dashHover(jsWeek3,jsSelect3,colorSelected,currentPathway);
+    }//GEN-LAST:event_jsWeek3MouseExited
+
+    private void jsWeek4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek4MouseClicked
+        if (jsW4.isEnabled()) {
+            dashSelect(jsWeek4,jsSelect4,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=3;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_jsWeek4MouseClicked
+
+    private void jsWeek4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek4MouseEntered
+        dashHover(jsWeek4,jsSelect4,colorHover,currentPathway);
+    }//GEN-LAST:event_jsWeek4MouseEntered
+
+    private void jsWeek4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsWeek4MouseExited
+        dashHover(jsWeek4,jsSelect4,colorSelected,currentPathway);
+    }//GEN-LAST:event_jsWeek4MouseExited
+
+    private void sqlViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlViewMouseClicked
+        dashSelect(sqlView,sqlSelect,currentPathway);
+        buttonPrev.setEnabled(false);
+        buttonNext.setEnabled(true);
+        i = -1;
+        controllerShow(cardLayout2,i,"overview",lessonViewer);
+    }//GEN-LAST:event_sqlViewMouseClicked
+
+    private void sqlViewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlViewMouseEntered
+        dashHover(sqlView,sqlSelect,colorHover,currentPathway);
+    }//GEN-LAST:event_sqlViewMouseEntered
+
+    private void sqlViewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlViewMouseExited
+        dashHover(sqlView,sqlSelect,colorHover,currentPathway);
+    }//GEN-LAST:event_sqlViewMouseExited
+
+    private void sqlWeek1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlWeek1MouseClicked
+        if (sqlW1.isEnabled()) {
+            dashSelect(sqlWeek1,sqlSelect1,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=0;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_sqlWeek1MouseClicked
+
+    private void sqlWeek1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlWeek1MouseEntered
+        dashHover(sqlWeek1,sqlSelect1,colorHover,currentPathway);
+    }//GEN-LAST:event_sqlWeek1MouseEntered
+
+    private void sqlWeek1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlWeek1MouseExited
+        dashHover(sqlWeek1,sqlSelect1,colorSelected,currentPathway);
+    }//GEN-LAST:event_sqlWeek1MouseExited
+
+    private void sqlWeek2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlWeek2MouseClicked
+        if (sqlW2.isEnabled()) {
+            dashSelect(sqlWeek2,sqlSelect2,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=1;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_sqlWeek2MouseClicked
+
+    private void sqlWeek2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlWeek2MouseEntered
+        dashHover(sqlWeek2,sqlSelect2,colorHover,currentPathway);
+
+    }//GEN-LAST:event_sqlWeek2MouseEntered
+
+    private void sqlWeek2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlWeek2MouseExited
+        dashHover(sqlWeek2,sqlSelect2,colorSelected,currentPathway);
+    }//GEN-LAST:event_sqlWeek2MouseExited
+
+    private void sqlWeek3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlWeek3MouseClicked
+        if (sqlW3.isEnabled()) {
+            dashSelect(sqlWeek3,sqlSelect3,currentPathway);
+            buttonPrev.setEnabled(true);
+            buttonNext.setEnabled(true);
+            i=2;
+            count = 1;
+            controllerShow(cardLayout2,i,"lesson",lessonViewer);   
+        }
+    }//GEN-LAST:event_sqlWeek3MouseClicked
+
+    private void sqlWeek3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlWeek3MouseEntered
+        dashHover(sqlWeek3,sqlSelect3,colorHover,currentPathway);
+    }//GEN-LAST:event_sqlWeek3MouseEntered
+
+    private void sqlWeek3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlWeek3MouseExited
+        dashHover(sqlWeek3,sqlSelect3,colorSelected,currentPathway);
+    }//GEN-LAST:event_sqlWeek3MouseExited
 
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
@@ -2658,6 +3904,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel buttonLogout;
     private javax.swing.JPanel buttonLogout1;
     private javax.swing.JLabel buttonMenu;
+    private javax.swing.JPanel buttonNav;
     private javax.swing.JButton buttonNext;
     private javax.swing.JButton buttonPrev;
     private javax.swing.JPanel buttonProfile;
@@ -2665,6 +3912,22 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel buttonStudy;
     private javax.swing.JPanel buttonStudy1;
     private javax.swing.JLabel cssButton;
+    private javax.swing.JPanel cssMenu;
+    private javax.swing.JPanel cssSelect;
+    private javax.swing.JPanel cssSelect1;
+    private javax.swing.JPanel cssSelect2;
+    private javax.swing.JPanel cssSelect3;
+    private javax.swing.JPanel cssSelect4;
+    private javax.swing.JPanel cssView;
+    private javax.swing.JLabel cssW1;
+    private javax.swing.JLabel cssW2;
+    private javax.swing.JLabel cssW3;
+    private javax.swing.JLabel cssW4;
+    private javax.swing.JPanel cssWeek1;
+    private javax.swing.JPanel cssWeek2;
+    private javax.swing.JPanel cssWeek3;
+    private javax.swing.JPanel cssWeek4;
+    private javax.swing.JPanel cssmenuTitle;
     private javax.swing.JPanel dashBoard;
     private javax.swing.JPanel dashContact;
     private javax.swing.JPanel dashDiscussion;
@@ -2680,12 +3943,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel homeSpace1;
     private javax.swing.JPanel homeTitlePath;
     private javax.swing.JLabel htmlButton;
-    private javax.swing.JPanel htmlLesson;
     private javax.swing.JPanel htmlMenu;
-    private javax.swing.JPanel htmlNav;
-    private javax.swing.JPanel htmlOverview;
-    private javax.swing.JPanel htmlQuiz;
-    private javax.swing.JPanel htmlRight;
     private javax.swing.JPanel htmlSelect;
     private javax.swing.JPanel htmlSelect1;
     private javax.swing.JPanel htmlSelect2;
@@ -2695,7 +3953,6 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel htmlSelect6;
     private javax.swing.JPanel htmlSelect7;
     private javax.swing.JPanel htmlView;
-    private javax.swing.JPanel htmlViewer;
     private javax.swing.JLabel htmlW1;
     private javax.swing.JLabel htmlW2;
     private javax.swing.JLabel htmlW3;
@@ -2743,7 +4000,16 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2779,8 +4045,27 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel jsButton;
+    private javax.swing.JPanel jsMenu;
+    private javax.swing.JPanel jsSelect;
+    private javax.swing.JPanel jsSelect1;
+    private javax.swing.JPanel jsSelect2;
+    private javax.swing.JPanel jsSelect3;
+    private javax.swing.JPanel jsSelect4;
+    private javax.swing.JPanel jsView;
+    private javax.swing.JLabel jsW1;
+    private javax.swing.JLabel jsW2;
+    private javax.swing.JLabel jsW3;
+    private javax.swing.JLabel jsW4;
+    private javax.swing.JPanel jsWeek1;
+    private javax.swing.JPanel jsWeek2;
+    private javax.swing.JPanel jsWeek3;
+    private javax.swing.JPanel jsWeek4;
+    private javax.swing.JPanel jsmenuTitle;
+    private javax.swing.JPanel lesson;
+    private javax.swing.JPanel lessonViewer;
+    private javax.swing.JPanel overview;
+    private javax.swing.JTextArea overviewNote;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelSpace;
     private javax.swing.JLabel profileActivation;
@@ -2795,6 +4080,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel profileOverall5;
     private javax.swing.JLabel profilePathway;
     private javax.swing.JLabel profileUsername;
+    private javax.swing.JPanel quiz;
     private javax.swing.JRadioButton quizChoiceA;
     private javax.swing.JRadioButton quizChoiceB;
     private javax.swing.JRadioButton quizChoiceC;
@@ -2812,9 +4098,24 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel quizTimerLabel;
     private javax.swing.JLabel quizWeek;
     private javax.swing.JLabel sqlButton;
+    private javax.swing.JPanel sqlMenu;
+    private javax.swing.JPanel sqlSelect;
+    private javax.swing.JPanel sqlSelect1;
+    private javax.swing.JPanel sqlSelect2;
+    private javax.swing.JPanel sqlSelect3;
+    private javax.swing.JPanel sqlView;
+    private javax.swing.JLabel sqlW1;
+    private javax.swing.JLabel sqlW2;
+    private javax.swing.JLabel sqlW3;
+    private javax.swing.JPanel sqlWeek1;
+    private javax.swing.JPanel sqlWeek2;
+    private javax.swing.JPanel sqlWeek3;
+    private javax.swing.JPanel sqlmenuTitle;
     private javax.swing.JLabel studyCurrent;
     private javax.swing.JPanel studyHTML;
     private javax.swing.JLabel studyIcon;
+    private javax.swing.JPanel studyMenu;
+    private javax.swing.JPanel studyViewer;
     private javax.swing.JPanel titleMenu;
     private javax.swing.JPanel titleMenu1;
     private javax.swing.JLabel videoCSS;

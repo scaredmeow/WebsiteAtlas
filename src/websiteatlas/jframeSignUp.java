@@ -19,7 +19,7 @@ public class jframeSignUp extends javax.swing.JFrame {
                         'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 
                         'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
     int[] randPi = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9}; 
-    static int x,count1,count2,count3,count4;
+    static int x,count1,count2,count3,count4,flag2=0;
     boolean flag;
     public jframeSignUp() {
         initComponents();
@@ -269,7 +269,7 @@ public class jframeSignUp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     public void sqlInsert(){                      
-        String sql = "INSERT INTO userInfo(name, email, username, password, activationkey) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO userInfo(name, email, username, password, activationkey,pathchoice,retry) VALUES (?,?,?,?,?,?,?)";
         try {
             pst = conn.prepareStatement (sql);
             pst.setString(1, signupName.getText());
@@ -277,8 +277,28 @@ public class jframeSignUp extends javax.swing.JFrame {
             pst.setString(3, signupUser.getText());
             pst.setString(4, signupPassword.getText());
             pst.setString(5, signupActivation.getText());
+            pst.setString(6, "-1");
+            pst.setString(7, "0");
             pst.execute();
             JOptionPane.showMessageDialog(null, "Successfully Registered");
+        } catch(HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            try{
+                rs.close();
+                pst.close();                       
+            } catch (HeadlessException |SQLException e) {
+                JOptionPane.showMessageDialog(null, e);   
+            }
+        }
+    }
+    
+    public void sqlInsertUserQuiz(){                      
+        String sql1 = "INSERT INTO userQuiz(name, htmlw1, htmlw2, htmlw3, htmlw4, htmlw5, htmlw6, htmlw7, cssw1, cssw2, cssw3, cssw4, jsw1, jsw2, jsw3, jsw4, sqlw1, sqlw2, sqlw3) VALUES (?,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)";
+        try {
+            pst = conn.prepareStatement (sql1);
+            pst.setString(1, signupName.getText());
+            pst.execute();
         } catch(HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         } finally {
@@ -290,51 +310,49 @@ public class jframeSignUp extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e);   
             }
         }
-    }
+    }   
     
     public boolean keyAlgo(String activation) {
         flag = false;
         count1 = count2 = count3 = count4 = 0;
         x =0;
         char[] str = activation.toCharArray(); 
-        
-        for (int i=1; i<=14; i++){
-            if ((i+1) % 5 == 0){
-                if ( str[i] == '-'){
-                    count1++;//3
-                    System.out.println("count1: " + count1);
-                }   
-            } else {
-            //odd position    
-                if ((i+1) % 2 != 0){
-                    if ((i+1) % 3 == 0) {
-                        if (randPi[x] > Arrays.binarySearch(randAlphabet, str[i]) ){
-                            count4 ++; //2
-                            System.out.println("count4: " + count4);
-                        } 
-                    } else {
-                        if (randPi[x] > Character.getNumericValue(str[i])){
-                            count3 ++; //3
-                            System.out.println("count3: " + count3);
-                        }  
+        if (str.length != 17){
+            JOptionPane.showMessageDialog(null,"Activation key is a 17 character alphanumeric","Alert",JOptionPane.WARNING_MESSAGE);
+        } else {
+            for (int i=1; i<=14; i++){
+                if ((i+1) % 5 == 0){
+                    if ( str[i] == '-')
+                        count1++;//3
+                } else {
+                //odd position    
+                    if ((i+1) % 2 != 0){
+                        if ((i+1) % 3 == 0) {
+                            if (randPi[x] > Arrays.binarySearch(randAlphabet, str[i]) )
+                                count4 ++; //2
+                        } else {
+                            if (randPi[x] > Character.getNumericValue(str[i]))
+                                count3 ++; //3
+                        }
                     }
+                //even position
+                    else if ((i+1) % 2 == 0){
+                        if (randPi[x] > Character.getNumericValue(str[i]))
+                            count2 ++; //6  
+                    } 
                 }
-            //even position
-                else if ((i+1) % 2 == 0){
-                    if (randPi[x] > Character.getNumericValue(str[i])){
-                        count2 ++; //6
-                        System.out.println("count2: " + count2);
-                    }
-                } 
+                x++;    
             }
-            x++;    
+                if (count1 == 3)
+                    if (count2 == 6)
+                        if (count3 == 3)
+                            if (count4 == 2)
+                                flag = true;
+                flag2 = 1;
+                return flag;            
         }
-        if (count1 == 3)
-            if (count2 == 6)
-                if (count3 == 3)
-                    if (count4 == 2)
-                        flag = true;
-        return flag;                             
+        flag2 = 0;
+        return false;                     
     }
     
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -351,32 +369,40 @@ public class jframeSignUp extends javax.swing.JFrame {
         char[] secondPass = signupConfirm.getPassword();
         String str2 = String.valueOf(secondPass);
         String inputActivation = signupActivation.getText();
-        
-        try {    
-            String sql = "SELECT activationkey from userInfo where activationkey = ?";
-                    pst = conn.prepareStatement(sql);
-                    pst.setString(1, signupActivation.getText());
-                    rs = pst.executeQuery();
-            if (rs.next() == true) {       
-                JOptionPane.showMessageDialog(null,"Your activation key is already used","Alert",JOptionPane.WARNING_MESSAGE);  
-            } else {
-                if (keyAlgo(inputActivation.toUpperCase()) == true){
-                    if (str1.equals(str2)){
-                        sqlInsert();
-                    } else if (false) {            
-                        java.awt.EventQueue.invokeLater(() -> {
-                            new jframeLogin().setVisible(true);
-                        });
-                        dispose();
-                    } else 
-                        JOptionPane.showMessageDialog(null,"Your inputted password does not match","Alert",JOptionPane.WARNING_MESSAGE);                 
-                } else 
-                    JOptionPane.showMessageDialog(null,"Your activation key is not valid","Alert",JOptionPane.WARNING_MESSAGE);                 
-            }
-        } catch (HeadlessException |SQLException e) {
-                JOptionPane.showMessageDialog(null, e);            
-        }             
-
+        if (signupName.getText().equals("") 
+                || signupEmail.getText().equals("") 
+                || signupUser.getText().equals("")
+                || signupPassword.getText().equals("")
+                || signupConfirm.getText().equals("")
+                || signupActivation.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,"Please fill all of the textfield.","Alert",JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {    
+                String sql = "SELECT activationkey from userInfo where activationkey = ?";
+                        pst = conn.prepareStatement(sql);
+                        pst.setString(1, signupActivation.getText());
+                        rs = pst.executeQuery();
+                if (rs.next() == true) {       
+                    JOptionPane.showMessageDialog(null,"Your activation key is already used","Alert",JOptionPane.WARNING_MESSAGE);  
+                } else {
+                    if (keyAlgo(inputActivation.toUpperCase()) == true){
+                        if (str1.equals(str2)){
+                            sqlInsert();
+                            sqlInsertUserQuiz();
+                                   
+                            java.awt.EventQueue.invokeLater(() -> {
+                                new jframeLogin().setVisible(true);
+                            });
+                            dispose();
+                        } else 
+                            JOptionPane.showMessageDialog(null,"Your inputted password does not match","Alert",JOptionPane.WARNING_MESSAGE);                 
+                    } else if (flag2 == 1)
+                        JOptionPane.showMessageDialog(null,"Your activation key is not valid","Alert",JOptionPane.WARNING_MESSAGE);                 
+                }
+            } catch (HeadlessException |SQLException e) {
+                    JOptionPane.showMessageDialog(null, e);            
+            }            
+        }       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void setIcon() {

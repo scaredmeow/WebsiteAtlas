@@ -15,7 +15,9 @@ public class jframeLogin extends javax.swing.JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    static String[] userArray = new String[5];
+
+    static String[] userArray = new String[6];
+    static String[] userScore = new String[18];
     public jframeLogin() {
         initComponents();
         setIcon();
@@ -243,7 +245,34 @@ public class jframeLogin extends javax.swing.JFrame {
     public String[] getuserArray() {
         return userArray;
     }
-
+    
+    public String[] getScore(){
+        return userScore;
+    }
+    
+    public void sqlGetScore(String nameScore) {
+        String sql = "SELECT * from userQuiz where name = ?";
+        try {
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, nameScore);
+            rs = pst.executeQuery();
+            if (rs.next()){
+                for (int i=0; i < 18; i++)
+                    userScore[i] = rs.getString((i+3)); 
+            } 
+        } catch (HeadlessException |SQLException e) {
+                JOptionPane.showMessageDialog(null, e);  
+        } finally {
+                try{
+                    rs.close();
+                    pst.close();
+                    conn.close();                       
+                } catch (HeadlessException |SQLException e) {
+                    JOptionPane.showMessageDialog(null, e);   
+                }
+            }
+    }
+    
     private void buttonSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignUpActionPerformed
         java.awt.EventQueue.invokeLater(() -> {
             new jframeSignUp().setVisible(true);
@@ -260,6 +289,8 @@ public class jframeLogin extends javax.swing.JFrame {
             if(loginUser.getText().equals("admin")|| str.equals("admin")) {
                 Arrays.fill(userArray, "Admin");
                 userArray[4] = "-1";
+                userArray[5] = "0";
+                Arrays.fill(userScore,0,18,"8");
                 java.awt.EventQueue.invokeLater(() -> {
                     new jframeMainMenu().setVisible(true);
                     });
@@ -267,11 +298,10 @@ public class jframeLogin extends javax.swing.JFrame {
             }
             else {
                 try {
-                    String sql = "SELECT password, name, email,activationkey, pathchoice from userInfo where username = ?";
+                    String sql = "SELECT password, name, email,activationkey, pathchoice,retry from userInfo where username = ?";
                     pst = conn.prepareStatement(sql);
                     pst.setString(1, loginUser.getText());
-                    rs = pst.executeQuery();
-            
+                    rs = pst.executeQuery();  
                 if (rs.next() == true) {
                     //getting the password from database
                     String realPass = rs.getString(1);
@@ -279,6 +309,7 @@ public class jframeLogin extends javax.swing.JFrame {
                     String email = rs.getString(3);
                     String activationKey = rs.getString(4);
                     String currentPath = rs.getString(5);
+                    String retry = rs.getString(6);
                     //getting the inputted password
                     
                     if (realPass.equals(str)) { 
@@ -287,6 +318,8 @@ public class jframeLogin extends javax.swing.JFrame {
                         userArray[2] = loginUser.getText();
                         userArray[3] = activationKey.toUpperCase();
                         userArray[4] = currentPath;
+                        userArray[5] = retry;
+                        sqlGetScore(realName);
                         java.awt.EventQueue.invokeLater(() -> {
                             new jframeMainMenu().setVisible(true);
                         });
@@ -303,15 +336,7 @@ public class jframeLogin extends javax.swing.JFrame {
             } catch (HeadlessException |SQLException e) {
                 JOptionPane.showMessageDialog(null, e);  
                 
-            } finally {
-                try{
-                    rs.close();
-                    pst.close();
-                    conn.close();                       
-                } catch (HeadlessException |SQLException e) {
-                    JOptionPane.showMessageDialog(null, e);   
-                }
-            }
+            } 
         }
     }     
 
