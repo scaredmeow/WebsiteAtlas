@@ -2562,8 +2562,9 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     
     public void weekInitialize() {
         int ctr = 0,stop=0;
+        if (currentPathway != -1){
         while (stop == 0) {
-            if (Integer.valueOf(userQuiz[ctr]) == 0 && ctr <=6){
+            if (Integer.valueOf(userQuiz[ctr]) == 0 && ctr <=6 && currentPathway == 0){
                 switch(ctr){
                     case 0: stop = 1; break;
                     case 1:{
@@ -2606,193 +2607,220 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                         stop = 1;
                     } break;
                 }
-            } else if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=10 && ctr >=7)){
-                switch(ctr){
-                    case 1:{
-                        htmlW2.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 2:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 3:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 4:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);                        
-                        htmlW5.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 5:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);   
-                        htmlW5.setEnabled(true);
-                        htmlW6.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 6:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);   
-                        htmlW5.setEnabled(true);
-                        htmlW6.setEnabled(true);
-                        htmlW7.setEnabled(true);
-                        stop = 1;
-                    } break;
-                }
-            } else if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=14 && ctr >= 11)){
-                switch(ctr){
-                    case 1:{
-                        htmlW2.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 2:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 3:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 4:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);                        
-                        htmlW5.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 5:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);   
-                        htmlW5.setEnabled(true);
-                        htmlW6.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 6:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);   
-                        htmlW5.setEnabled(true);
-                        htmlW6.setEnabled(true);
-                        htmlW7.setEnabled(true);
-                        stop = 1;
-                    } break;
-                }
-            } else if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=17 && ctr >=15)){
-                switch(ctr){
-                    case 1:{
-                        htmlW2.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 2:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 3:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 4:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);                        
-                        htmlW5.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 5:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);   
-                        htmlW5.setEnabled(true);
-                        htmlW6.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 6:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);   
-                        htmlW5.setEnabled(true);
-                        htmlW6.setEnabled(true);
-                        htmlW7.setEnabled(true);
-                        stop = 1;
-                    } break;
-                }
-            } else {
-                htmlW2.setEnabled(true);
-                htmlW3.setEnabled(true);                        
-                htmlW4.setEnabled(true);   
-                htmlW5.setEnabled(true);
-                htmlW6.setEnabled(true);
-                htmlW7.setEnabled(true);
-                stop = 1;
+            } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==6 && currentPathway == 0){
+                    htmlW2.setEnabled(true);
+                    htmlW3.setEnabled(true);                        
+                    htmlW4.setEnabled(true);   
+                    htmlW5.setEnabled(true);
+                    htmlW6.setEnabled(true);
+                    htmlW7.setEnabled(true);
+                    stop = 1;
             }
-                
+            if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=10 && ctr >=7) && currentPathway == 1){
+                switch(ctr){
+                    case 7: stop = 1; break;
+                    case 8:{
+                        cssW2.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 9:{
+                        cssW2.setEnabled(true);
+                        cssW3.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 10:{
+                        cssW2.setEnabled(true);
+                        cssW3.setEnabled(true);                        
+                        cssW4.setEnabled(true);
+                        stop = 1;
+                    } break;        
+                }
+            } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==10 && currentPathway == 1){
+                    cssW2.setEnabled(true);
+                    cssW3.setEnabled(true);                        
+                    cssW4.setEnabled(true);   
+                    stop = 1;
+            }
+            if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=14 && ctr >= 11) && currentPathway == 2){
+                switch(ctr){
+                    case 11: stop = 1; break;
+                    case 12:{
+                        jsW2.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 13:{
+                        jsW2.setEnabled(true);
+                        jsW3.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 14:{
+                        jsW2.setEnabled(true);
+                        jsW3.setEnabled(true);                        
+                        jsW4.setEnabled(true);
+                        stop = 1;
+                    } break;
+                }
+            } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==14 && currentPathway == 2){
+                    jsW2.setEnabled(true);
+                    jsW3.setEnabled(true);                        
+                    jsW4.setEnabled(true);   
+                    stop = 1;
+            }
+            if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=17 && ctr >=15) && currentPathway == 3){
+                switch(ctr){
+                    case 15: stop = 1; break;
+                    case 16:{
+                        sqlW2.setEnabled(true);
+                        stop = 1;
+                    } break;
+                    case 17:{
+                        sqlW2.setEnabled(true);
+                        sqlW3.setEnabled(true);
+                        stop = 1;
+                    } break;
+                }
+            } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==17 && currentPathway == 3){
+                    sqlW2.setEnabled(true);
+                    sqlW3.setEnabled(true);                        
+                    stop = 1; 
+            }
             ctr ++;
+        }            
         }
     }
     
     public void buttonScoreInit() {
-        switch(i) {
-            case 0: {
-                if (htmlW2.isEnabled()){
-                   quizScore.setText(userQuiz[i]);
-                   buttonNext.setEnabled(true);
-                } else 
-                     quizScore.setText("0");
+        switch(currentPathway){
+            case 0:{
+                switch(i) {
+                    case 0: {
+                        if (htmlW2.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else 
+                             quizScore.setText("0");
+                    } break;
+                    case 1: {
+                        if (htmlW3.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 2: {
+                        if (htmlW4.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 3: {
+                        if (htmlW5.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 4: {
+                        if (htmlW6.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 5: {
+                        if (htmlW7.isEnabled()){
+                            quizScore.setText(userQuiz[i]);
+                            buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 6: quizScore.setText(userQuiz[i]); break;
+                    default:break;
+                }                
             } break;
             case 1: {
-                if (htmlW3.isEnabled()){
-                   quizScore.setText(userQuiz[i]);
-                   buttonNext.setEnabled(true);
-                } else
-                     quizScore.setText("0");
+                i += 7;
+                switch(i) {
+                    case 7: {
+                        if (cssW2.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else 
+                             quizScore.setText("0");
+                    } break;
+                    case 8: {
+                        if (cssW3.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 9: {
+                        if (cssW4.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 10: quizScore.setText(userQuiz[i]); break;
+                    default: break;
+                }
+            i -=7;
             } break;
             case 2: {
-                if (htmlW4.isEnabled()){
-                   quizScore.setText(userQuiz[i]);
-                   buttonNext.setEnabled(true);
-                } else
-                     quizScore.setText("0");
+                i += 11;
+                switch(i) {
+                    case 11: {
+                        if (jsW2.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else 
+                             quizScore.setText("0");
+                    } break;
+                    case 12: {
+                        if (jsW3.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 13: {
+                        if (jsW4.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 14: quizScore.setText(userQuiz[i]); break;
+                    default: break;
+                }
+                i -= 11;
             } break;
-            case 3: {
-                if (htmlW5.isEnabled()){
-                   quizScore.setText(userQuiz[i]);
-                   buttonNext.setEnabled(true);
-                } else
-                     quizScore.setText("0");
+            case 3:{
+                i += 15;
+                switch(i+15) {
+                    case 15: {
+                        if (sqlW2.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else 
+                             quizScore.setText("0");
+                    } break;
+                    case 16: {
+                        if (sqlW3.isEnabled()){
+                           quizScore.setText(userQuiz[i]);
+                           buttonNext.setEnabled(true);
+                        } else
+                             quizScore.setText("0");
+                    } break;
+                    case 17: quizScore.setText(userQuiz[i]); break;
+                    default: break;
+                } 
+                i -= 15;
             } break;
-            case 4: {
-                if (htmlW6.isEnabled()){
-                   quizScore.setText(userQuiz[i]);
-                   buttonNext.setEnabled(true);
-                } else
-                     quizScore.setText("0");
-            } break;
-            case 5: {
-                if (htmlW7.isEnabled()){
-                    quizScore.setText(userQuiz[i]);
-                    buttonNext.setEnabled(true);
-                } else
-                     quizScore.setText("0");
-            } break;
-            case 6: quizScore.setText(userQuiz[i]); break;
-            default:break;
         }
+        
     }
     
     public void quizRetry() {
@@ -2929,8 +2957,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     
     
     public void controllerNext(CardLayout controlLayout, String card, String card2, JPanel containerParent,int max,JButton next, JButton prev){
-        controlLayout = (CardLayout) (containerParent.getLayout());
-        
+        controlLayout = (CardLayout) (containerParent.getLayout());     
             i = i+1;
             if (i == 0) {
                 controlLayout.show(containerParent,card);
@@ -2965,8 +2992,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                     i = i -1;
                     buttonScoreInit();
                 } 
-            } 
-        
+            }       
     } 
         
     public void controllerPrev(CardLayout controlLayout, String card, String card2,JPanel containerParent,int max,JButton next, JButton prev){
@@ -3325,6 +3351,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         buttonPrev.setEnabled(false);
         buttonNext.setEnabled(true);
         i = -1;
+        count = 0;
         controllerShow(cardLayout2,i,"overview",lessonViewer);       
     }//GEN-LAST:event_htmlViewMouseClicked
 
@@ -3533,6 +3560,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             }            
         } else {
             currentPathway = 0;
+            weekInitialize();
             cardLayout.show(dashMain,"dashStudy");
             overviewNote.setText(instructorNote[currentPathway]);
             cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
@@ -3576,6 +3604,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             }            
         } else {
             currentPathway = 1;
+            weekInitialize();
             overviewNote.setText(instructorNote[currentPathway]);
             cardLayout.show(dashMain,"dashStudy");
             cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
@@ -3599,6 +3628,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             }            
         } else {
             currentPathway = 2;
+            weekInitialize();
             cardLayout.show(dashMain,"dashStudy");
             overviewNote.setText(instructorNote[currentPathway]);
             cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
@@ -3622,6 +3652,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             }            
         } else {
             currentPathway = 3;
+            weekInitialize();
             overviewNote.setText(instructorNote[currentPathway]);
             cardLayout.show(dashMain,"dashStudy");
             cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
