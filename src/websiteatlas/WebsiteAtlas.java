@@ -12,12 +12,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 
 public class WebsiteAtlas {
-
     public static Connection ConnectDb() {
         //Sqlite connection 
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:./javaDatabase.db"); 
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:javaDatabase.db"); 
             System.out.println("Connected Successfully to" + conn);
             return conn;
         } catch (ClassNotFoundException | SQLException e) {
@@ -32,7 +31,6 @@ public class WebsiteAtlas {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(WebsiteAtlas.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        
         java.awt.EventQueue.invokeLater(() -> {
             new jframeLogin().setVisible(true);
         });

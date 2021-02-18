@@ -722,7 +722,7 @@
                       <Dimension value="[1024, 1024]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[997, 1600]"/>
+                      <Dimension value="[997, 600]"/>
                     </Property>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
@@ -743,7 +743,7 @@
                           <Dimension value="[1024, 151]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[977, 1600]"/>
+                          <Dimension value="[977, 600]"/>
                         </Property>
                       </Properties>
 
@@ -1009,13 +1009,10 @@
                               <Properties>
                                 <Property name="horizontalAlignment" type="int" value="2"/>
                                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/images/videoCSS.jpg"/>
+                                  <Image iconType="3" name="/images/jsthumb1.png"/>
                                 </Property>
                                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                                   <Color id="Hand Cursor"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[977, 140]"/>
                                 </Property>
                                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
                               </Properties>
@@ -1043,222 +1040,15 @@
                               <Properties>
                                 <Property name="horizontalAlignment" type="int" value="2"/>
                                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/images/videoSQL2.jpg"/>
+                                  <Image iconType="3" name="/images/sqlthumb1.png"/>
                                 </Property>
                                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                                   <Color id="Hand Cursor"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[977, 140]"/>
                                 </Property>
                                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="videoSQL2MouseClicked"/>
-                              </Events>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                                  <BorderConstraints direction="First"/>
-                                </Constraint>
-                              </Constraints>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JPanel" name="jPanel11">
-                          <Properties>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[977, 160]"/>
-                            </Property>
-                          </Properties>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JLabel" name="videoCSS2">
-                              <Properties>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/images/videoCSS2.jpg"/>
-                                </Property>
-                                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                                  <Color id="Hand Cursor"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[977, 140]"/>
-                                </Property>
-                                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="videoCSS2MouseClicked"/>
-                              </Events>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                                  <BorderConstraints direction="First"/>
-                                </Constraint>
-                              </Constraints>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JPanel" name="jPanel12">
-                          <Properties>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[977, 160]"/>
-                            </Property>
-                          </Properties>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JLabel" name="videoJS2">
-                              <Properties>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/images/videoJS2.jpg"/>
-                                </Property>
-                                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                                  <Color id="Hand Cursor"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[977, 140]"/>
-                                </Property>
-                                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="videoJS2MouseClicked"/>
-                              </Events>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                                  <BorderConstraints direction="First"/>
-                                </Constraint>
-                              </Constraints>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JPanel" name="jPanel13">
-                          <Properties>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[977, 160]"/>
-                            </Property>
-                          </Properties>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JLabel" name="videoHTML2">
-                              <Properties>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/images/videoHTML2.jpg"/>
-                                </Property>
-                                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                                  <Color id="Hand Cursor"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[977, 140]"/>
-                                </Property>
-                                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="videoHTML2MouseClicked"/>
-                              </Events>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                                  <BorderConstraints direction="First"/>
-                                </Constraint>
-                              </Constraints>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JPanel" name="jPanel14">
-                          <Properties>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[977, 160]"/>
-                            </Property>
-                          </Properties>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JLabel" name="videoSQL">
-                              <Properties>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/images/videoSQL.jpg"/>
-                                </Property>
-                                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                                  <Color id="Hand Cursor"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[977, 140]"/>
-                                </Property>
-                                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="videoSQLMouseClicked"/>
-                              </Events>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                                  <BorderConstraints direction="First"/>
-                                </Constraint>
-                              </Constraints>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JPanel" name="jPanel15">
-                          <Properties>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[977, 160]"/>
-                            </Property>
-                          </Properties>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JLabel" name="videoJS">
-                              <Properties>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/images/videoJS.jpg"/>
-                                </Property>
-                                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                                  <Color id="Hand Cursor"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[977, 140]"/>
-                                </Property>
-                                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="videoJSMouseClicked"/>
-                              </Events>
-                              <Constraints>
-                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                                  <BorderConstraints direction="First"/>
-                                </Constraint>
-                              </Constraints>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JPanel" name="jPanel16">
-                          <Properties>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[977, 160]"/>
-                            </Property>
-                          </Properties>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JLabel" name="videoHTML">
-                              <Properties>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/images/videoHTML.jpg"/>
-                                </Property>
-                                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                                  <Color id="Hand Cursor"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[977, 140]"/>
-                                </Property>
-                                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="videoHTMLMouseClicked"/>
                               </Events>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -1337,7 +1127,7 @@
                               <Font name="Roboto" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="&lt;html&gt; &#xa;&lt;head&gt;&#xa; &lt;style&gt; p {   text-transform: uppercase; text-align: justify;} &lt;/style&gt; &lt;/head&gt;&#xa;&lt;p&gt;&#xa;&lt;font size = 30&gt; Hi! Having troubles using the app? &lt;/font&gt; &lt;br&gt;&#xa;Horrible experience? Bug reports? Complaints?&lt;br&gt;&lt;br&gt;&#xa;&#xa;No Worries. Hang in there, we got you covered. &lt;br&gt;&#xa;As much as we want a smooth sailing experience to our users, issues are inevitable. &lt;br&gt;&#xa;Let us know by sending an email on example@gmail.com and we&#x2019;ll get down to business. &lt;br&gt;&lt;br&gt;&lt;br&gt;&#xa;&lt;font size = 30&gt; No troubles? &lt;/font&gt; &lt;br&gt;&#xa;Great. Send us your feedback on example2@gmail.com. Every feedback counts. &lt;br&gt;&lt;br&gt;&#xa;&#xa;We appreciate your time sending comprehensive feedback as this will guarantee quality&lt;br&gt;&#xa;improvements in the future. We ensure every feedbacks are evaluated because we value &lt;br&gt;&#xa;your time and effort on this matter. We hope to provide you a better experience in the future. &#xa;&lt;/p&gt; &lt;/html&gt;"/>
+                            <Property name="text" type="java.lang.String" value="&lt;html&gt;  &lt;head&gt;  &lt;style&gt; p {   text-transform: uppercase; text-align: justify;} &lt;/style&gt; &lt;/head&gt; &lt;p&gt; &lt;font size = 30&gt; Hi! Having troubles using the app? &lt;/font&gt; &lt;br&gt; Horrible experience? Bug reports? Complaints?&lt;br&gt;&lt;br&gt;  No Worries. Hang in there, we got you covered. &lt;br&gt; As much as we want a smooth sailing experience to our users, issues are inevitable. &lt;br&gt; Let us know by sending an email on neilchristianriego3@gmail.com and we&#x2019;ll get down to business. &lt;br&gt;&lt;br&gt;&lt;br&gt; &lt;font size = 30&gt; No troubles? &lt;/font&gt; &lt;br&gt; Great. Send us your feedback on neilriego3@gmail.com. Every feedback counts. &lt;br&gt;&lt;br&gt;  We appreciate your time sending comprehensive feedback as this will guarantee quality&lt;br&gt; improvements in the future. We ensure every feedbacks are evaluated because we value &lt;br&gt; your time and effort on this matter. We hope to provide you a better experience in the future.  &lt;/p&gt; &lt;/html&gt;"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[700, 400]"/>

@@ -1,6 +1,7 @@
 
 package websiteatlas;
 
+import de.javasoft.plaf.synthetica.io.FileUtils;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,8 +15,11 @@ import java.awt.Desktop;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,6 +45,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     static String name;
     boolean a = false;
     static int i = -1,limit,j,times,count = 0, attempt = 0,  prevcount = 0, no = 0,score = 0,accessID = 0,currentPathway=-1,currentRetry = 0 ;
+    static int overall=0,html=0,css=0,js=0,sql=0;
     static double percentage = 0;
     int seconds = 10, secondReattempt = 180;
     CardLayout cardLayout, cardLayout2,cardLayout3;
@@ -77,7 +82,8 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         getAccessName();
         getStorageArray();
         weekInitialize();
-        quizRetry();
+        quizRetry(); 
+        progress();
     }
     
     @SuppressWarnings("unchecked")
@@ -147,18 +153,6 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         videoCSS = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         videoSQL2 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        videoCSS2 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        videoJS2 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        videoHTML2 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        videoSQL = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
-        videoJS = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        videoHTML = new javax.swing.JLabel();
         dashStudy = new javax.swing.JPanel();
         studyHTML = new javax.swing.JPanel();
         studyMenu = new javax.swing.JPanel();
@@ -286,10 +280,14 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         profilePathway = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         profileName1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         jPanel17 = new javax.swing.JPanel();
         profileOverall = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        overallProgress = new javax.swing.JProgressBar();
         jPanel28 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
@@ -297,18 +295,26 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         profileOverall2 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        htmlProgress = new javax.swing.JProgressBar();
         jPanel21 = new javax.swing.JPanel();
         profileOverall3 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        cssProgress = new javax.swing.JProgressBar();
         jPanel24 = new javax.swing.JPanel();
         profileOverall4 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jsProgress = new javax.swing.JProgressBar();
         jPanel26 = new javax.swing.JPanel();
         profileOverall5 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        sqlProgress = new javax.swing.JProgressBar();
         dashDiscussion = new javax.swing.JPanel();
         dashContact = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -643,12 +649,12 @@ public final class jframeMainMenu extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane1.setMaximumSize(new java.awt.Dimension(1024, 1024));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(997, 1600));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(997, 600));
         jScrollPane1.setRequestFocusEnabled(false);
 
         homePathway.setMaximumSize(new java.awt.Dimension(1024, 1024));
         homePathway.setMinimumSize(new java.awt.Dimension(1024, 151));
-        homePathway.setPreferredSize(new java.awt.Dimension(977, 1600));
+        homePathway.setPreferredSize(new java.awt.Dimension(977, 600));
 
         homeTitlePath.setPreferredSize(new java.awt.Dimension(977, 30));
         homeTitlePath.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -814,9 +820,8 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         jPanel8.setLayout(new java.awt.BorderLayout());
 
         videoCSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoCSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoCSS.jpg"))); // NOI18N
+        videoCSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/jsthumb1.png"))); // NOI18N
         videoCSS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoCSS.setPreferredSize(new java.awt.Dimension(977, 140));
         videoCSS.setRequestFocusEnabled(false);
         videoCSS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -831,9 +836,8 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         jPanel10.setLayout(new java.awt.BorderLayout());
 
         videoSQL2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoSQL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoSQL2.jpg"))); // NOI18N
+        videoSQL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sqlthumb1.png"))); // NOI18N
         videoSQL2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoSQL2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoSQL2.setRequestFocusEnabled(false);
         videoSQL2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -843,108 +847,6 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         jPanel10.add(videoSQL2, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel10);
-
-        jPanel11.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel11.setLayout(new java.awt.BorderLayout());
-
-        videoCSS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoCSS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoCSS2.jpg"))); // NOI18N
-        videoCSS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoCSS2.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoCSS2.setRequestFocusEnabled(false);
-        videoCSS2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoCSS2MouseClicked(evt);
-            }
-        });
-        jPanel11.add(videoCSS2, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel11);
-
-        jPanel12.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel12.setLayout(new java.awt.BorderLayout());
-
-        videoJS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoJS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoJS2.jpg"))); // NOI18N
-        videoJS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoJS2.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoJS2.setRequestFocusEnabled(false);
-        videoJS2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoJS2MouseClicked(evt);
-            }
-        });
-        jPanel12.add(videoJS2, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel12);
-
-        jPanel13.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel13.setLayout(new java.awt.BorderLayout());
-
-        videoHTML2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoHTML2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoHTML2.jpg"))); // NOI18N
-        videoHTML2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoHTML2.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoHTML2.setRequestFocusEnabled(false);
-        videoHTML2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoHTML2MouseClicked(evt);
-            }
-        });
-        jPanel13.add(videoHTML2, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel13);
-
-        jPanel14.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel14.setLayout(new java.awt.BorderLayout());
-
-        videoSQL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoSQL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoSQL.jpg"))); // NOI18N
-        videoSQL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoSQL.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoSQL.setRequestFocusEnabled(false);
-        videoSQL.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoSQLMouseClicked(evt);
-            }
-        });
-        jPanel14.add(videoSQL, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel14);
-
-        jPanel15.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel15.setLayout(new java.awt.BorderLayout());
-
-        videoJS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoJS.jpg"))); // NOI18N
-        videoJS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoJS.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoJS.setRequestFocusEnabled(false);
-        videoJS.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoJSMouseClicked(evt);
-            }
-        });
-        jPanel15.add(videoJS, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel15);
-
-        jPanel16.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel16.setLayout(new java.awt.BorderLayout());
-
-        videoHTML.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoHTML.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoHTML.jpg"))); // NOI18N
-        videoHTML.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoHTML.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoHTML.setRequestFocusEnabled(false);
-        videoHTML.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoHTMLMouseClicked(evt);
-            }
-        });
-        jPanel16.add(videoHTML, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel16);
 
         jScrollPane1.setViewportView(homePathway);
 
@@ -2178,6 +2080,9 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         profileName1.setPreferredSize(new java.awt.Dimension(276, 30));
         profileInfo.add(profileName1);
 
+        jSeparator1.setPreferredSize(new java.awt.Dimension(200, 10));
+        profileInfo.add(jSeparator1);
+
         jPanel22.add(profileInfo, java.awt.BorderLayout.LINE_START);
 
         jPanel17.setPreferredSize(new java.awt.Dimension(300, 570));
@@ -2190,16 +2095,16 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/futures_96px.png"))); // NOI18N
         profileOverall.add(jLabel9, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
-        );
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
+
+        jLabel16.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel16.setText("Overall Progress");
+        jPanel9.add(jLabel16);
+        jPanel9.add(jSeparator2);
+
+        overallProgress.setMaximum(180);
+        overallProgress.setPreferredSize(new java.awt.Dimension(560, 30));
+        jPanel9.add(overallProgress);
 
         profileOverall.add(jPanel9, java.awt.BorderLayout.CENTER);
 
@@ -2251,16 +2156,15 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/html_5_96px.png"))); // NOI18N
         profileOverall2.add(jLabel32, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
-        );
+        jPanel20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
+
+        jLabel17.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel17.setText("HTML Progress");
+        jPanel20.add(jLabel17);
+
+        htmlProgress.setMaximum(70);
+        htmlProgress.setPreferredSize(new java.awt.Dimension(560, 30));
+        jPanel20.add(htmlProgress);
 
         profileOverall2.add(jPanel20, java.awt.BorderLayout.CENTER);
 
@@ -2288,16 +2192,15 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/css3_logo_96px.png"))); // NOI18N
         profileOverall3.add(jLabel33, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
-        jPanel23.setLayout(jPanel23Layout);
-        jPanel23Layout.setHorizontalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
-        );
-        jPanel23Layout.setVerticalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
-        );
+        jPanel23.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
+
+        jLabel22.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel22.setText("CSS Progress");
+        jPanel23.add(jLabel22);
+
+        cssProgress.setMaximum(40);
+        cssProgress.setPreferredSize(new java.awt.Dimension(560, 30));
+        jPanel23.add(cssProgress);
 
         profileOverall3.add(jPanel23, java.awt.BorderLayout.CENTER);
 
@@ -2325,16 +2228,15 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/node_js_96px.png"))); // NOI18N
         profileOverall4.add(jLabel34, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
-        jPanel25.setLayout(jPanel25Layout);
-        jPanel25Layout.setHorizontalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
-        );
-        jPanel25Layout.setVerticalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
-        );
+        jPanel25.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
+
+        jLabel23.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel23.setText("JS Progress");
+        jPanel25.add(jLabel23);
+
+        jsProgress.setMaximum(40);
+        jsProgress.setPreferredSize(new java.awt.Dimension(560, 30));
+        jPanel25.add(jsProgress);
 
         profileOverall4.add(jPanel25, java.awt.BorderLayout.CENTER);
 
@@ -2364,16 +2266,15 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         jLabel35.setPreferredSize(new java.awt.Dimension(96, 96));
         profileOverall5.add(jLabel35, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
-        jPanel27.setLayout(jPanel27Layout);
-        jPanel27Layout.setHorizontalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
-        );
-        jPanel27Layout.setVerticalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
-        );
+        jPanel27.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
+
+        jLabel24.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel24.setText("SQL Progress");
+        jPanel27.add(jLabel24);
+
+        sqlProgress.setMaximum(30);
+        sqlProgress.setPreferredSize(new java.awt.Dimension(560, 30));
+        jPanel27.add(sqlProgress);
 
         profileOverall5.add(jPanel27, java.awt.BorderLayout.CENTER);
 
@@ -2433,7 +2334,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("<html> \n<head>\n <style> p {   text-transform: uppercase; text-align: justify;} </style> </head>\n<p>\n<font size = 30> Hi! Having troubles using the app? </font> <br>\nHorrible experience? Bug reports? Complaints?<br><br>\n\nNo Worries. Hang in there, we got you covered. <br>\nAs much as we want a smooth sailing experience to our users, issues are inevitable. <br>\nLet us know by sending an email on example@gmail.com and we’ll get down to business. <br><br><br>\n<font size = 30> No troubles? </font> <br>\nGreat. Send us your feedback on example2@gmail.com. Every feedback counts. <br><br>\n\nWe appreciate your time sending comprehensive feedback as this will guarantee quality<br>\nimprovements in the future. We ensure every feedbacks are evaluated because we value <br>\nyour time and effort on this matter. We hope to provide you a better experience in the future. \n</p> </html>");
+        jLabel26.setText("<html>  <head>  <style> p {   text-transform: uppercase; text-align: justify;} </style> </head> <p> <font size = 30> Hi! Having troubles using the app? </font> <br> Horrible experience? Bug reports? Complaints?<br><br>  No Worries. Hang in there, we got you covered. <br> As much as we want a smooth sailing experience to our users, issues are inevitable. <br> Let us know by sending an email on neilchristianriego3@gmail.com and we’ll get down to business. <br><br><br> <font size = 30> No troubles? </font> <br> Great. Send us your feedback on neilriego3@gmail.com. Every feedback counts. <br><br>  We appreciate your time sending comprehensive feedback as this will guarantee quality<br> improvements in the future. We ensure every feedbacks are evaluated because we value <br> your time and effort on this matter. We hope to provide you a better experience in the future.  </p> </html>");
         jLabel26.setToolTipText("");
         jLabel26.setPreferredSize(new java.awt.Dimension(700, 400));
         jPanel1.add(jLabel26);
@@ -2451,7 +2352,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1040, 679));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     public void getStorageArray(){
         arrayStorage abc = new arrayStorage();
         pdfStorage = abc.arrayPDFStorage();
@@ -2520,6 +2421,33 @@ public final class jframeMainMenu extends javax.swing.JFrame {
         }
     });
     
+    public void progress() {
+        overall=html=js=css=sql=0;
+        for (int progress = 0; progress < 18; progress++ ){
+            if (Integer.valueOf(userQuiz[progress]) > 0 && progress <=6){
+                html += 10;
+                overall +=10;
+            }
+            if (Integer.valueOf(userQuiz[progress]) > 0 && (progress <=10 && progress >=7)){
+                js += 10;
+                overall +=10;
+            }            
+            if (Integer.valueOf(userQuiz[progress]) > 0 && (progress <=14 && progress >=11)){
+                css += 10;
+                overall +=10;
+            }
+            if (Integer.valueOf(userQuiz[progress]) > 0 && (progress <=17 && progress >=15)){
+                sql += 10;
+                overall +=10;
+            }            
+        }
+        overallProgress.setValue(overall);
+        htmlProgress.setValue(html);
+        cssProgress.setValue(css);
+        jsProgress.setValue(js);
+        sqlProgress.setValue(sql);
+    }
+    
     public void quizReset() {
         timer.stop();
         quizSubmit.setText("Start");
@@ -2553,6 +2481,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             } else {
                 quizSubmit.setEnabled(false);
                 currentRetry = 1;
+                sqlUpdateRetry();
                 reattempt.start();                
             }
         score = 0; 
@@ -2563,41 +2492,51 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     public void weekInitialize() {
         int ctr = 0,stop=0;
         if (currentPathway != -1){
-        while (stop == 0) {
-            if (Integer.valueOf(userQuiz[ctr]) == 0 && ctr <=6 && currentPathway == 0){
-                switch(ctr){
-                    case 0: stop = 1; break;
-                    case 1:{
-                        htmlW2.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 2:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 3:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 4:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);                        
-                        htmlW5.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 5:{
-                        htmlW2.setEnabled(true);
-                        htmlW3.setEnabled(true);                        
-                        htmlW4.setEnabled(true);   
-                        htmlW5.setEnabled(true);
-                        htmlW6.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 6:{
+            while (stop == 0) {
+                if (Integer.valueOf(userQuiz[ctr]) == 0 && ctr <=6 && currentPathway == 0){
+                    switch(ctr){
+                        case 0: stop = 1; break;
+                        case 1:{
+                            htmlW2.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 2:{
+                            htmlW2.setEnabled(true);
+                            htmlW3.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 3:{
+                            htmlW2.setEnabled(true);
+                            htmlW3.setEnabled(true);                        
+                            htmlW4.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 4:{
+                            htmlW2.setEnabled(true);
+                            htmlW3.setEnabled(true);                        
+                            htmlW4.setEnabled(true);                        
+                            htmlW5.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 5:{
+                            htmlW2.setEnabled(true);
+                            htmlW3.setEnabled(true);                        
+                            htmlW4.setEnabled(true);   
+                            htmlW5.setEnabled(true);
+                            htmlW6.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 6:{
+                            htmlW2.setEnabled(true);
+                            htmlW3.setEnabled(true);                        
+                            htmlW4.setEnabled(true);   
+                            htmlW5.setEnabled(true);
+                            htmlW6.setEnabled(true);
+                            htmlW7.setEnabled(true);
+                            stop = 1;
+                        } break;
+                    }
+                } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==6 && currentPathway == 0){
                         htmlW2.setEnabled(true);
                         htmlW3.setEnabled(true);                        
                         htmlW4.setEnabled(true);   
@@ -2605,87 +2544,77 @@ public final class jframeMainMenu extends javax.swing.JFrame {
                         htmlW6.setEnabled(true);
                         htmlW7.setEnabled(true);
                         stop = 1;
-                    } break;
                 }
-            } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==6 && currentPathway == 0){
-                    htmlW2.setEnabled(true);
-                    htmlW3.setEnabled(true);                        
-                    htmlW4.setEnabled(true);   
-                    htmlW5.setEnabled(true);
-                    htmlW6.setEnabled(true);
-                    htmlW7.setEnabled(true);
-                    stop = 1;
-            }
-            if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=10 && ctr >=7) && currentPathway == 1){
-                switch(ctr){
-                    case 7: stop = 1; break;
-                    case 8:{
-                        cssW2.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 9:{
-                        cssW2.setEnabled(true);
-                        cssW3.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 10:{
+                if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=10 && ctr >=7) && currentPathway == 1){
+                    switch(ctr){
+                        case 7: stop = 1; break;
+                        case 8:{
+                            cssW2.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 9:{
+                            cssW2.setEnabled(true);
+                            cssW3.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 10:{
+                            cssW2.setEnabled(true);
+                            cssW3.setEnabled(true);                        
+                            cssW4.setEnabled(true);
+                            stop = 1;
+                        } break;        
+                    }
+                } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==10 && currentPathway == 1){
                         cssW2.setEnabled(true);
                         cssW3.setEnabled(true);                        
-                        cssW4.setEnabled(true);
+                        cssW4.setEnabled(true);   
                         stop = 1;
-                    } break;        
                 }
-            } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==10 && currentPathway == 1){
-                    cssW2.setEnabled(true);
-                    cssW3.setEnabled(true);                        
-                    cssW4.setEnabled(true);   
-                    stop = 1;
-            }
-            if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=14 && ctr >= 11) && currentPathway == 2){
-                switch(ctr){
-                    case 11: stop = 1; break;
-                    case 12:{
-                        jsW2.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 13:{
-                        jsW2.setEnabled(true);
-                        jsW3.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 14:{
+                if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=14 && ctr >= 11) && currentPathway == 2){
+                    switch(ctr){
+                        case 11: stop = 1; break;
+                        case 12:{
+                            jsW2.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 13:{
+                            jsW2.setEnabled(true);
+                            jsW3.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 14:{
+                            jsW2.setEnabled(true);
+                            jsW3.setEnabled(true);                        
+                            jsW4.setEnabled(true);
+                            stop = 1;
+                        } break;
+                    }
+                } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==14 && currentPathway == 2){
                         jsW2.setEnabled(true);
                         jsW3.setEnabled(true);                        
-                        jsW4.setEnabled(true);
+                        jsW4.setEnabled(true);   
                         stop = 1;
-                    } break;
                 }
-            } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==14 && currentPathway == 2){
-                    jsW2.setEnabled(true);
-                    jsW3.setEnabled(true);                        
-                    jsW4.setEnabled(true);   
-                    stop = 1;
-            }
-            if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=17 && ctr >=15) && currentPathway == 3){
-                switch(ctr){
-                    case 15: stop = 1; break;
-                    case 16:{
+                if (Integer.valueOf(userQuiz[ctr]) == 0 && (ctr <=17 && ctr >=15) && currentPathway == 3){
+                    switch(ctr){
+                        case 15: stop = 1; break;
+                        case 16:{
+                            sqlW2.setEnabled(true);
+                            stop = 1;
+                        } break;
+                        case 17:{
+                            sqlW2.setEnabled(true);
+                            sqlW3.setEnabled(true);
+                            stop = 1;
+                        } break;
+                    }
+                } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==17 && currentPathway == 3){
                         sqlW2.setEnabled(true);
-                        stop = 1;
-                    } break;
-                    case 17:{
-                        sqlW2.setEnabled(true);
-                        sqlW3.setEnabled(true);
-                        stop = 1;
-                    } break;
+                        sqlW3.setEnabled(true);                        
+                        stop = 1; 
                 }
-            } else if (Integer.valueOf(userQuiz[ctr]) != 0 && ctr ==17 && currentPathway == 3){
-                    sqlW2.setEnabled(true);
-                    sqlW3.setEnabled(true);                        
-                    stop = 1; 
-            }
-            ctr ++;
-        }            
+                ctr ++;
+            }            
         }
     }
     
@@ -3183,8 +3112,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonHome1MouseClicked
 
     private void buttonHome1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHome1MouseEntered
-        hoverShow(buttonHome,buttonHome,buttonHome1,colorHover);
-        
+        hoverShow(buttonHome,buttonHome,buttonHome1,colorHover);       
     }//GEN-LAST:event_buttonHome1MouseEntered
 
     private void buttonHome1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHome1MouseExited
@@ -3232,10 +3160,17 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonContact1MouseExited
 
     private void buttonLogout1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogout1MouseClicked
-        java.awt.EventQueue.invokeLater(() -> {
-            new jframeLogin().setVisible(true);
-        });
-        dispose();
+        try{
+                conn.close();
+                java.awt.EventQueue.invokeLater(() -> {
+                    new jframeLogin().setVisible(true);
+                });
+                dispose(); 
+            } catch (HeadlessException |SQLException e) {
+                JOptionPane.showMessageDialog(null, e);   
+        }
+
+
     }//GEN-LAST:event_buttonLogout1MouseClicked
 
     private void buttonLogout1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogout1MouseEntered
@@ -3259,42 +3194,41 @@ public final class jframeMainMenu extends javax.swing.JFrame {
             cardLayout.show(dashMain,"dashStudy");
             overviewNote.setText(instructorNote[currentPathway]);
             cardLayout3.show(studyMenu, cardLayoutStudy[currentPathway]);
-            selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal);            
+            selectShow(buttonStudy, buttonStudy,buttonStudy1,colorSelected,colorNormal); 
+            progress();
         }
 
     }//GEN-LAST:event_buttonStudy1MouseClicked
+    public static void copyInputStreamToFile(InputStream input, File file) {  
 
+        try (OutputStream output = new FileOutputStream(file)) {
+            input.transferTo(output);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
     private void videoCSSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoCSSMouseClicked
-        desktopLink("https://www.youtube.com/watch?v=D-h8L5hgW-w&t=4s");
+        try {
+            InputStream link1 =  getClass().getResourceAsStream("JavaScriptVideo.wmv"); 
+            File link = new File ("JavaScriptVideo.wmv");
+            copyInputStreamToFile(link1, link);
+            Desktop.getDesktop().open(link);
+        } catch (IOException ex) {
+            Logger.getLogger(jframeMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }    
     }//GEN-LAST:event_videoCSSMouseClicked
 
     private void videoSQL2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoSQL2MouseClicked
-        desktopLink("https://www.youtube.com/watch?v=zbMHLJ0dY4w");
+        try {
+            InputStream link1 =  getClass().getResourceAsStream("SQLVideo.wmv"); 
+            File link = new File ("SQLVideo.wmv");
+            copyInputStreamToFile(link1, link);
+            Desktop.getDesktop().open(link);
+        } catch (IOException ex) {
+            Logger.getLogger(jframeMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }//GEN-LAST:event_videoSQL2MouseClicked
-
-    private void videoCSS2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoCSS2MouseClicked
-        desktopLink("https://www.youtube.com/watch?v=Tfjd5yzCaxk");
-    }//GEN-LAST:event_videoCSS2MouseClicked
-
-    private void videoJS2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoJS2MouseClicked
-        desktopLink("https://www.youtube.com/watch?v=NibsUd_InPU");
-    }//GEN-LAST:event_videoJS2MouseClicked
-
-    private void videoHTML2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoHTML2MouseClicked
-        desktopLink("https://www.youtube.com/watch?v=PlxWf493en4");
-    }//GEN-LAST:event_videoHTML2MouseClicked
-
-    private void videoSQLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoSQLMouseClicked
-        desktopLink("https://www.youtube.com/watch?v=bEtnYWuo2Bw");
-    }//GEN-LAST:event_videoSQLMouseClicked
-
-    private void videoJSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoJSMouseClicked
-        desktopLink("https://www.youtube.com/watch?v=vEROU2XtPR8&t=1s");
-    }//GEN-LAST:event_videoJSMouseClicked
-
-    private void videoHTMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoHTMLMouseClicked
-        desktopLink("https://www.youtube.com/watch?v=idHyruXhXhA&t=5s");
-    }//GEN-LAST:event_videoHTMLMouseClicked
 
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
         controllerNext(cardLayout2,"lesson","quiz",lessonViewer,question[currentPathway].length,buttonNext,buttonPrev);
@@ -3547,9 +3481,11 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_htmlWeek7MouseExited
 
     private void htmlButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_htmlButtonMouseClicked
-        if (!name.equals("Admin")) {
-            if (htmlButton.isEnabled() && currentPathway == -1)
-                sqlUpdatePathway(0);               
+        if (!name.equals("Developer")) {
+            if (htmlButton.isEnabled() && currentPathway == -1){
+                sqlUpdatePathway(0); 
+                weekInitialize();
+            }       
             if (htmlButton.isEnabled() && currentPathway == 0){
                 cardLayout.show(dashMain,"dashStudy");
                 overviewNote.setText(instructorNote[currentPathway]);
@@ -3591,9 +3527,11 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_quizSubmitActionPerformed
 
     private void cssButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cssButtonMouseClicked
-        if (!name.equals("Admin")) {
-            if (cssButton.isEnabled() && currentPathway == -1)
-                sqlUpdatePathway(1);               
+        if (!name.equals("Developer")) {
+            if (cssButton.isEnabled() && currentPathway == -1){
+                sqlUpdatePathway(1);    
+                weekInitialize();          
+            }          
             if (cssButton.isEnabled() && currentPathway == 1){
                 cardLayout.show(dashMain,"dashStudy");
                 overviewNote.setText(instructorNote[currentPathway]);
@@ -3615,9 +3553,12 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_cssButtonMouseClicked
 
     private void jsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsButtonMouseClicked
-        if (!name.equals("Admin")) {
-            if (jsButton.isEnabled() && currentPathway == -1)
-                sqlUpdatePathway(2);               
+        if (!name.equals("Developer")) {
+            if (jsButton.isEnabled() && currentPathway == -1){  
+                sqlUpdatePathway(2); 
+                weekInitialize(); 
+            }
+                              
             if (jsButton.isEnabled() && currentPathway == 2){
                 cardLayout.show(dashMain,"dashStudy");
                 overviewNote.setText(instructorNote[currentPathway]);
@@ -3639,9 +3580,12 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jsButtonMouseClicked
 
     private void sqlButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sqlButtonMouseClicked
-        if (!name.equals("Admin")) {
-            if (sqlButton.isEnabled() && currentPathway == -1)
-                sqlUpdatePathway(3);               
+        if (!name.equals("Developer")) {
+            if (sqlButton.isEnabled() && currentPathway == -1){
+                sqlUpdatePathway(3);  
+                weekInitialize(); 
+            }
+                             
             if (sqlButton.isEnabled() && currentPathway == 3){
                 cardLayout.show(dashMain,"dashStudy");
                 overviewNote.setText(instructorNote[currentPathway]);
@@ -3944,6 +3888,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel buttonStudy1;
     private javax.swing.JLabel cssButton;
     private javax.swing.JPanel cssMenu;
+    private javax.swing.JProgressBar cssProgress;
     private javax.swing.JPanel cssSelect;
     private javax.swing.JPanel cssSelect1;
     private javax.swing.JPanel cssSelect2;
@@ -3975,6 +3920,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel homeTitlePath;
     private javax.swing.JLabel htmlButton;
     private javax.swing.JPanel htmlMenu;
+    private javax.swing.JProgressBar htmlProgress;
     private javax.swing.JPanel htmlSelect;
     private javax.swing.JPanel htmlSelect1;
     private javax.swing.JPanel htmlSelect2;
@@ -4006,11 +3952,16 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -4047,12 +3998,6 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
@@ -4076,8 +4021,11 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel jsButton;
     private javax.swing.JPanel jsMenu;
+    private javax.swing.JProgressBar jsProgress;
     private javax.swing.JPanel jsSelect;
     private javax.swing.JPanel jsSelect1;
     private javax.swing.JPanel jsSelect2;
@@ -4095,6 +4043,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jsmenuTitle;
     private javax.swing.JPanel lesson;
     private javax.swing.JPanel lessonViewer;
+    private javax.swing.JProgressBar overallProgress;
     private javax.swing.JPanel overview;
     private javax.swing.JTextArea overviewNote;
     private javax.swing.JPanel panelMenu;
@@ -4130,6 +4079,7 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel quizWeek;
     private javax.swing.JLabel sqlButton;
     private javax.swing.JPanel sqlMenu;
+    private javax.swing.JProgressBar sqlProgress;
     private javax.swing.JPanel sqlSelect;
     private javax.swing.JPanel sqlSelect1;
     private javax.swing.JPanel sqlSelect2;
@@ -4150,12 +4100,6 @@ public final class jframeMainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel titleMenu;
     private javax.swing.JPanel titleMenu1;
     private javax.swing.JLabel videoCSS;
-    private javax.swing.JLabel videoCSS2;
-    private javax.swing.JLabel videoHTML;
-    private javax.swing.JLabel videoHTML2;
-    private javax.swing.JLabel videoJS;
-    private javax.swing.JLabel videoJS2;
-    private javax.swing.JLabel videoSQL;
     private javax.swing.JLabel videoSQL2;
     // End of variables declaration//GEN-END:variables
 }

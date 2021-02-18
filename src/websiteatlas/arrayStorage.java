@@ -124,12 +124,134 @@ public class arrayStorage {
             "What tag specifies an inline iframe?",
             "Removes the border around the iframe",
             "The src attribute defines the URL of the page to embed",
-            "The length and width attributes specifies the size of the iframe"},
+            "The length and width attributes specifies the size of the iframe"}
         },
-         {{
-            },
-          {
-        }}};
+        {
+            {"What does HTML stand for?", 
+            "The correct sequence of HTML tags for starting a webpage is -",
+            "Which is the correct sequence of HTML tags?",
+            "Which is the correct HTML element for the largest heading?",
+            "Which of the following HTML elements is used for making any text bold?",
+            "Which of the following HTML elements is used for inserting a line break?",
+            "Choose the correct HTML element to define emphasized text",
+            "How many heading tags are there in HTML5?",
+            "HTML comments start with <!-- and end with -->",
+            "Which of the following characters indicate closing of a tag?"},
+            //2
+            {"What is the correct HTML for creating a hyperlink?",
+            "What do you call a link that is underlined and blue?",
+            "What do you call a link that is underlined and purple?",
+            "What do you call a link that is underlined and red?",
+            "This target attribute opens the document in the same window/tab as it was clicked",
+            "This target attribute opens the document in a new windows or tab",
+            "This target attribute opens the document in the parent frame",
+            "This target attribute opens the document in the full body of the window",
+            "Images cannot be links",
+            "A local link (a link to a page within the same website) without the \"https://www\" part"},
+            //3--
+            {"What is the correct HTML for inserting an image?",
+            "For specifying the height and width of an image which attribute is used in image tag?",
+            "Which of the following is NOT included in the IMAGE tag code?",
+            "Which of the following is included in the image tag code?",
+            "Which tag should be used to include the following image: cat.jpeg?",
+            "What is missing from this image tag <img=\"cat.jpeg\" alt=\"cat\"/>?",
+            "What is missing from the following image tag? <img src = cat.jpeg alt = cat jumping / >",
+            "Which is an example of a complete image tag?",
+            "What is missing from the following image tag? <img src =\"\" alt =\"Cat Jumping\"/>",
+            "What is missing from the following image tag? <img src = \"cat.jpeg\" alt = \"cat jumping\"/>"},
+            //4
+            {"Which of these elements are all <table> elements?",
+            "Which tag is used to add a header in HTML5 table?",
+            "Starting tag of a table",
+            "A <tr> element can have 0 <td> elements inside",
+            "To add rows to your tables use which tags?",
+            "To create columns inside a row you can use what elements?",
+            "You can define a cell as a header for a group of table cells using what element?",
+            "You can use what attribute to create a cell that spans more than one row?",
+            "ou can specify a caption (or title) for your tables using what element?",
+            "Which is the correct way of defining a table footer?"}         
+        },
+        {
+            {"What does HTML stand for?", 
+            "The correct sequence of HTML tags for starting a webpage is -",
+            "Which is the correct sequence of HTML tags?",
+            "Which is the correct HTML element for the largest heading?",
+            "Which of the following HTML elements is used for making any text bold?",
+            "Which of the following HTML elements is used for inserting a line break?",
+            "Choose the correct HTML element to define emphasized text",
+            "How many heading tags are there in HTML5?",
+            "HTML comments start with <!-- and end with -->",
+            "Which of the following characters indicate closing of a tag?"},
+            //2
+            {"What is the correct HTML for creating a hyperlink?",
+            "What do you call a link that is underlined and blue?",
+            "What do you call a link that is underlined and purple?",
+            "What do you call a link that is underlined and red?",
+            "This target attribute opens the document in the same window/tab as it was clicked",
+            "This target attribute opens the document in a new windows or tab",
+            "This target attribute opens the document in the parent frame",
+            "This target attribute opens the document in the full body of the window",
+            "Images cannot be links",
+            "A local link (a link to a page within the same website) without the \"https://www\" part"},
+            //3--
+            {"What is the correct HTML for inserting an image?",
+            "For specifying the height and width of an image which attribute is used in image tag?",
+            "Which of the following is NOT included in the IMAGE tag code?",
+            "Which of the following is included in the image tag code?",
+            "Which tag should be used to include the following image: cat.jpeg?",
+            "What is missing from this image tag <img=\"cat.jpeg\" alt=\"cat\"/>?",
+            "What is missing from the following image tag? <img src = cat.jpeg alt = cat jumping / >",
+            "Which is an example of a complete image tag?",
+            "What is missing from the following image tag? <img src =\"\" alt =\"Cat Jumping\"/>",
+            "What is missing from the following image tag? <img src = \"cat.jpeg\" alt = \"cat jumping\"/>"},
+            //4
+            {"Which of these elements are all <table> elements?",
+            "Which tag is used to add a header in HTML5 table?",
+            "Starting tag of a table",
+            "A <tr> element can have 0 <td> elements inside",
+            "To add rows to your tables use which tags?",
+            "To create columns inside a row you can use what elements?",
+            "You can define a cell as a header for a group of table cells using what element?",
+            "You can use what attribute to create a cell that spans more than one row?",
+            "ou can specify a caption (or title) for your tables using what element?",
+            "Which is the correct way of defining a table footer?"}          
+        },
+        {
+            {"What does HTML stand for?", 
+            "The correct sequence of HTML tags for starting a webpage is -",
+            "Which is the correct sequence of HTML tags?",
+            "Which is the correct HTML element for the largest heading?",
+            "Which of the following HTML elements is used for making any text bold?",
+            "Which of the following HTML elements is used for inserting a line break?",
+            "Choose the correct HTML element to define emphasized text",
+            "How many heading tags are there in HTML5?",
+            "HTML comments start with <!-- and end with -->",
+            "Which of the following characters indicate closing of a tag?"},
+            //2
+            {"What is the correct HTML for creating a hyperlink?",
+            "What do you call a link that is underlined and blue?",
+            "What do you call a link that is underlined and purple?",
+            "What do you call a link that is underlined and red?",
+            "This target attribute opens the document in the same window/tab as it was clicked",
+            "This target attribute opens the document in a new windows or tab",
+            "This target attribute opens the document in the parent frame",
+            "This target attribute opens the document in the full body of the window",
+            "Images cannot be links",
+            "A local link (a link to a page within the same website) without the \"https://www\" part"},
+            //3--
+            {"What is the correct HTML for inserting an image?",
+            "For specifying the height and width of an image which attribute is used in image tag?",
+            "Which of the following is NOT included in the IMAGE tag code?",
+            "Which of the following is included in the image tag code?",
+            "Which tag should be used to include the following image: cat.jpeg?",
+            "What is missing from this image tag <img=\"cat.jpeg\" alt=\"cat\"/>?",
+            "What is missing from the following image tag? <img src = cat.jpeg alt = cat jumping / >",
+            "Which is an example of a complete image tag?",
+            "What is missing from the following image tag? <img src =\"\" alt =\"Cat Jumping\"/>",
+            "What is missing from the following image tag? <img src = \"cat.jpeg\" alt = \"cat jumping\"/>"},
+                
+        }   
+    };
 
     String[][][][] Answer = {
         {
@@ -490,8 +612,575 @@ public class arrayStorage {
                                  "C. None of the Above",
                                  "D. Not True and Not False"                         
                             }}                            
+        },
+        {
+                            { //1
+                                {"A. HighText Machine Language",
+                                "B. HyperText and links Markup Language",
+                                "C. HyperText Markup Language",
+                                "D. None of these"   
+                            },
+                                {"A. Head, Title, HTML, Body",
+                                "B. HTML, Body, Title, Head",
+                                "C. HTML, Title, Head, Body",
+                                "D. HTML, Head, Title, Body"
+                            },
+                                {"A. Html, Head, Title, Body",
+                                "B. Body, Title, Head, Html",
+                                "C. Html, Title, Head, Body",
+                                "D. Title, Head, Body, Html"
+                            },
+                                {"A. <h6>",
+                                "B. <h4>",
+                                "C. <h5>",
+                                "D. <h1>"
+                            },                                
+                                {"A. <li>",
+                                "B. <i>",
+                                "C. <b>",
+				"D. <br>"
+                            },
+                                {"A. <break>",
+				"B. <br>",
+				"C. <rb>",
+				"D. </br/>"
+                            },
+                                {"A. <i>",
+				"B. <important>",
+				"C. <em>",
+				"D. <emphasized>"
+                            },         
+                                {"A. 5",
+				"B. 7",
+				"C. 4",
+				"D. 6"
+                            },   
+                                {"A. True",
+				"B. False",
+                                "C. None of the Above",
+                                "D. Not True and Not False"                                       
+                            },   
+                                {"A. .",
+				"B. /",
+				"C. \\",
+				"D. !"
+                            }}, //2
+                            {
+                                {"A. <a href = http://www.html.com> HTML</a>",
+                                 "B. <a link = http://www.html.com> HTML</a>",
+                                 "C. <a> http://www.html.com> HTML</a>",
+                                 "D. <a hyperlink = http://www.html.com> HTML</a>"                             
+                            },
+                                {"A. Unvisited link",
+                                 "B. Visited link",
+                                 "C. Active link",
+                                 "D. Hyperlink"                           
+                            },
+                                {"A. Unvisited link",
+                                 "B. Visited link",
+                                 "C. Active link",
+                                 "D. Hyperlink"                               
+                            },
+                                {"A. Unvisited link",
+                                 "B. Visited link",
+                                 "C. Active link",
+                                 "D. Hyperlink"                               
+                            },
+                                {"A. self",
+                                 "B. blank",
+                                 "C. parent",
+                                 "D. top"                         
+                            },
+                                {"A. _blank",
+                                 "B. _top",
+                                 "C. _parent",
+                                 "D. _self"                      
+                            },
+                                {"A. top",
+                                 "B. self",
+                                 "C. parent",
+                                 "D. blank"                             
+                            },
+                                {"A. _blank",
+                                 "B. _top",
+                                 "C. _self",
+                                 "D. _parent"                         
+                            },
+                                {"A. True",
+                                 "B. False",
+                                 "C. None of the Above",
+                                 "D. Not True and Not False"                             
+                            },
+                                {"A. Absolute URL",
+                                 "B. Relative URL",
+                                 "C. Hyprelink",
+                                 "D. Visited link"                           
+                            }}, // 3
+                            {
+                                {"A. <img>image.gif</img>",
+                                 "B. <img alt = “image.gif”>Image</img>",
+                                 "C. <image src = “image.gif” alt = “Image”>",
+                                 "D. <img src = “image.gif” alt = “Image”>"                           
+                            },
+                                {"A. Style tag",
+                                 "B. Alt attribute",
+                                 "C. Target attribute",
+                                 "D. None of the above"                          
+                            },
+                                {"A. Img",
+                                 "B. Src",
+                                 "C. H1",
+                                 "D. Alt"                            
+                            },
+                                {"A. Img",
+                                 "B. Src",
+                                 "C. H1",
+                                 "D. Alt"                                
+                            },
+                                {"A. <img src=\"cats.jpg\" alt=\"cat\"/>",
+                                 "B. <img src=\"cat.JPG\" alt=\"cat\"/>",
+                                 "C. <img src=\"cat.jpeg\" alt=\"cat\"/>",
+                                 "D. <img src=\"dog.jpeg\" alt=\"cat\"/>"                        
+                            },
+                                {"A. h1",
+                                 "B. h6",
+                                 "C. .jpeg",
+                                 "D. src="                    
+                            },
+                                {"A. Closing Tag",
+                                 "B. Nothing",
+                                 "C. Quotation Marks",
+                                 "D. Parenthesis"                           
+                            },
+                                {"A. <img \"dog.jpg\">",
+                                 "B. <img src=\"dog.jpg\" alt=\"my dog\"/>",
+                                 "C. <img=dog.jpg",
+                                 "D. <src=\"dog.jpg\" alt=\"my dog\">"                        
+                            },
+                                {"A. Quotation Marks",
+                                 "B. An image",
+                                 "C. Closing Tag",
+                                 "D. Nothing"                          
+                            },
+                                {"A. Nothing",
+                                 "B. Quotation Marks",
+                                 "C. Angle Brackets",
+                                 "D. Closing Tag"                          
+                            }},//4
+                            {
+                                {"A. <table> <tr> <td>",
+                                 "B. <table> <row> <column>",
+                                 "C. <table> <tr> <td>",
+                                 "D. <table> <th> <tf>"                           
+                            },
+                                {"A. <th>",
+                                 "B. <header>",
+                                 "C. <theader>",
+                                 "D. <tableheader>"                        
+                            },
+                                {"A. <tr>",
+                                 "B. <table>",
+                                 "C. <td>",
+                                 "D. <tablet>"                           
+                            },
+                                {"A. Yes",
+                                 "B. No",
+                                 "C. None of the Above",
+                                 "D. Neither Yes or No"                                  
+                            },
+                                {"A. <cr> and </cr>",
+                                 "B. <tr> and </tr>",
+                                 "C. <td> and </td>",
+                                 "D. <th> and </th>"                       
+                            },
+                                {"A. <tr>",
+                                 "B. <td>",
+                                 "C. <th>",
+                                 "D. <table>"                    
+                            },
+                                {"A. <tr>",
+                                 "B. <td>",
+                                 "C. <th>",
+                                 "D. <table>"                           
+                            },
+                                {"A. Colspan",
+                                 "B. Spanning",
+                                 "C. Rowspan",
+                                 "D. Rowcolspan"                        
+                            },
+                                {"A. <caption>",
+                                 "B. <comment>",
+                                 "C. <title>",
+                                 "D. <table comment>"                         
+                            },
+                                {"A. <foot>",
+                                 "B. <footer>",
+                                 "C. <tfoot>",
+                                 "D. <table footer>"                          
+                            }}                            
+        },
+                {
+                            { //1
+                                {"A. HighText Machine Language",
+                                "B. HyperText and links Markup Language",
+                                "C. HyperText Markup Language",
+                                "D. None of these"   
+                            },
+                                {"A. Head, Title, HTML, Body",
+                                "B. HTML, Body, Title, Head",
+                                "C. HTML, Title, Head, Body",
+                                "D. HTML, Head, Title, Body"
+                            },
+                                {"A. Html, Head, Title, Body",
+                                "B. Body, Title, Head, Html",
+                                "C. Html, Title, Head, Body",
+                                "D. Title, Head, Body, Html"
+                            },
+                                {"A. <h6>",
+                                "B. <h4>",
+                                "C. <h5>",
+                                "D. <h1>"
+                            },                                
+                                {"A. <li>",
+                                "B. <i>",
+                                "C. <b>",
+				"D. <br>"
+                            },
+                                {"A. <break>",
+				"B. <br>",
+				"C. <rb>",
+				"D. </br/>"
+                            },
+                                {"A. <i>",
+				"B. <important>",
+				"C. <em>",
+				"D. <emphasized>"
+                            },         
+                                {"A. 5",
+				"B. 7",
+				"C. 4",
+				"D. 6"
+                            },   
+                                {"A. True",
+				"B. False",
+                                "C. None of the Above",
+                                "D. Not True and Not False"                                       
+                            },   
+                                {"A. .",
+				"B. /",
+				"C. \\",
+				"D. !"
+                            }}, //2
+                            {
+                                {"A. <a href = http://www.html.com> HTML</a>",
+                                 "B. <a link = http://www.html.com> HTML</a>",
+                                 "C. <a> http://www.html.com> HTML</a>",
+                                 "D. <a hyperlink = http://www.html.com> HTML</a>"                             
+                            },
+                                {"A. Unvisited link",
+                                 "B. Visited link",
+                                 "C. Active link",
+                                 "D. Hyperlink"                           
+                            },
+                                {"A. Unvisited link",
+                                 "B. Visited link",
+                                 "C. Active link",
+                                 "D. Hyperlink"                               
+                            },
+                                {"A. Unvisited link",
+                                 "B. Visited link",
+                                 "C. Active link",
+                                 "D. Hyperlink"                               
+                            },
+                                {"A. self",
+                                 "B. blank",
+                                 "C. parent",
+                                 "D. top"                         
+                            },
+                                {"A. _blank",
+                                 "B. _top",
+                                 "C. _parent",
+                                 "D. _self"                      
+                            },
+                                {"A. top",
+                                 "B. self",
+                                 "C. parent",
+                                 "D. blank"                             
+                            },
+                                {"A. _blank",
+                                 "B. _top",
+                                 "C. _self",
+                                 "D. _parent"                         
+                            },
+                                {"A. True",
+                                 "B. False",
+                                 "C. None of the Above",
+                                 "D. Not True and Not False"                             
+                            },
+                                {"A. Absolute URL",
+                                 "B. Relative URL",
+                                 "C. Hyprelink",
+                                 "D. Visited link"                           
+                            }}, // 3
+                            {
+                                {"A. <img>image.gif</img>",
+                                 "B. <img alt = “image.gif”>Image</img>",
+                                 "C. <image src = “image.gif” alt = “Image”>",
+                                 "D. <img src = “image.gif” alt = “Image”>"                           
+                            },
+                                {"A. Style tag",
+                                 "B. Alt attribute",
+                                 "C. Target attribute",
+                                 "D. None of the above"                          
+                            },
+                                {"A. Img",
+                                 "B. Src",
+                                 "C. H1",
+                                 "D. Alt"                            
+                            },
+                                {"A. Img",
+                                 "B. Src",
+                                 "C. H1",
+                                 "D. Alt"                                
+                            },
+                                {"A. <img src=\"cats.jpg\" alt=\"cat\"/>",
+                                 "B. <img src=\"cat.JPG\" alt=\"cat\"/>",
+                                 "C. <img src=\"cat.jpeg\" alt=\"cat\"/>",
+                                 "D. <img src=\"dog.jpeg\" alt=\"cat\"/>"                        
+                            },
+                                {"A. h1",
+                                 "B. h6",
+                                 "C. .jpeg",
+                                 "D. src="                    
+                            },
+                                {"A. Closing Tag",
+                                 "B. Nothing",
+                                 "C. Quotation Marks",
+                                 "D. Parenthesis"                           
+                            },
+                                {"A. <img \"dog.jpg\">",
+                                 "B. <img src=\"dog.jpg\" alt=\"my dog\"/>",
+                                 "C. <img=dog.jpg",
+                                 "D. <src=\"dog.jpg\" alt=\"my dog\">"                        
+                            },
+                                {"A. Quotation Marks",
+                                 "B. An image",
+                                 "C. Closing Tag",
+                                 "D. Nothing"                          
+                            },
+                                {"A. Nothing",
+                                 "B. Quotation Marks",
+                                 "C. Angle Brackets",
+                                 "D. Closing Tag"                          
+                            }},//4
+                            {
+                                {"A. <table> <tr> <td>",
+                                 "B. <table> <row> <column>",
+                                 "C. <table> <tr> <td>",
+                                 "D. <table> <th> <tf>"                           
+                            },
+                                {"A. <th>",
+                                 "B. <header>",
+                                 "C. <theader>",
+                                 "D. <tableheader>"                        
+                            },
+                                {"A. <tr>",
+                                 "B. <table>",
+                                 "C. <td>",
+                                 "D. <tablet>"                           
+                            },
+                                {"A. Yes",
+                                 "B. No",
+                                 "C. None of the Above",
+                                 "D. Neither Yes or No"                                  
+                            },
+                                {"A. <cr> and </cr>",
+                                 "B. <tr> and </tr>",
+                                 "C. <td> and </td>",
+                                 "D. <th> and </th>"                       
+                            },
+                                {"A. <tr>",
+                                 "B. <td>",
+                                 "C. <th>",
+                                 "D. <table>"                    
+                            },
+                                {"A. <tr>",
+                                 "B. <td>",
+                                 "C. <th>",
+                                 "D. <table>"                           
+                            },
+                                {"A. Colspan",
+                                 "B. Spanning",
+                                 "C. Rowspan",
+                                 "D. Rowcolspan"                        
+                            },
+                                {"A. <caption>",
+                                 "B. <comment>",
+                                 "C. <title>",
+                                 "D. <table comment>"                         
+                            },
+                                {"A. <foot>",
+                                 "B. <footer>",
+                                 "C. <tfoot>",
+                                 "D. <table footer>"                          
+                            }}                           
+        },
+                        {
+                            { //1
+                                {"A. HighText Machine Language",
+                                "B. HyperText and links Markup Language",
+                                "C. HyperText Markup Language",
+                                "D. None of these"   
+                            },
+                                {"A. Head, Title, HTML, Body",
+                                "B. HTML, Body, Title, Head",
+                                "C. HTML, Title, Head, Body",
+                                "D. HTML, Head, Title, Body"
+                            },
+                                {"A. Html, Head, Title, Body",
+                                "B. Body, Title, Head, Html",
+                                "C. Html, Title, Head, Body",
+                                "D. Title, Head, Body, Html"
+                            },
+                                {"A. <h6>",
+                                "B. <h4>",
+                                "C. <h5>",
+                                "D. <h1>"
+                            },                                
+                                {"A. <li>",
+                                "B. <i>",
+                                "C. <b>",
+				"D. <br>"
+                            },
+                                {"A. <break>",
+				"B. <br>",
+				"C. <rb>",
+				"D. </br/>"
+                            },
+                                {"A. <i>",
+				"B. <important>",
+				"C. <em>",
+				"D. <emphasized>"
+                            },         
+                                {"A. 5",
+				"B. 7",
+				"C. 4",
+				"D. 6"
+                            },   
+                                {"A. True",
+				"B. False",
+                                "C. None of the Above",
+                                "D. Not True and Not False"                                       
+                            },   
+                                {"A. .",
+				"B. /",
+				"C. \\",
+				"D. !"
+                            }}, //2
+                            {
+                                {"A. <a href = http://www.html.com> HTML</a>",
+                                 "B. <a link = http://www.html.com> HTML</a>",
+                                 "C. <a> http://www.html.com> HTML</a>",
+                                 "D. <a hyperlink = http://www.html.com> HTML</a>"                             
+                            },
+                                {"A. Unvisited link",
+                                 "B. Visited link",
+                                 "C. Active link",
+                                 "D. Hyperlink"                           
+                            },
+                                {"A. Unvisited link",
+                                 "B. Visited link",
+                                 "C. Active link",
+                                 "D. Hyperlink"                               
+                            },
+                                {"A. Unvisited link",
+                                 "B. Visited link",
+                                 "C. Active link",
+                                 "D. Hyperlink"                               
+                            },
+                                {"A. self",
+                                 "B. blank",
+                                 "C. parent",
+                                 "D. top"                         
+                            },
+                                {"A. _blank",
+                                 "B. _top",
+                                 "C. _parent",
+                                 "D. _self"                      
+                            },
+                                {"A. top",
+                                 "B. self",
+                                 "C. parent",
+                                 "D. blank"                             
+                            },
+                                {"A. _blank",
+                                 "B. _top",
+                                 "C. _self",
+                                 "D. _parent"                         
+                            },
+                                {"A. True",
+                                 "B. False",
+                                 "C. None of the Above",
+                                 "D. Not True and Not False"                             
+                            },
+                                {"A. Absolute URL",
+                                 "B. Relative URL",
+                                 "C. Hyprelink",
+                                 "D. Visited link"                           
+                            }}, // 3
+                            {
+                                {"A. <img>image.gif</img>",
+                                 "B. <img alt = “image.gif”>Image</img>",
+                                 "C. <image src = “image.gif” alt = “Image”>",
+                                 "D. <img src = “image.gif” alt = “Image”>"                           
+                            },
+                                {"A. Style tag",
+                                 "B. Alt attribute",
+                                 "C. Target attribute",
+                                 "D. None of the above"                          
+                            },
+                                {"A. Img",
+                                 "B. Src",
+                                 "C. H1",
+                                 "D. Alt"                            
+                            },
+                                {"A. Img",
+                                 "B. Src",
+                                 "C. H1",
+                                 "D. Alt"                                
+                            },
+                                {"A. <img src=\"cats.jpg\" alt=\"cat\"/>",
+                                 "B. <img src=\"cat.JPG\" alt=\"cat\"/>",
+                                 "C. <img src=\"cat.jpeg\" alt=\"cat\"/>",
+                                 "D. <img src=\"dog.jpeg\" alt=\"cat\"/>"                        
+                            },
+                                {"A. h1",
+                                 "B. h6",
+                                 "C. .jpeg",
+                                 "D. src="                    
+                            },
+                                {"A. Closing Tag",
+                                 "B. Nothing",
+                                 "C. Quotation Marks",
+                                 "D. Parenthesis"                           
+                            },
+                                {"A. <img \"dog.jpg\">",
+                                 "B. <img src=\"dog.jpg\" alt=\"my dog\"/>",
+                                 "C. <img=dog.jpg",
+                                 "D. <src=\"dog.jpg\" alt=\"my dog\">"                        
+                            },
+                                {"A. Quotation Marks",
+                                 "B. An image",
+                                 "C. Closing Tag",
+                                 "D. Nothing"                          
+                            },
+                                {"A. Nothing",
+                                 "B. Quotation Marks",
+                                 "C. Angle Brackets",
+                                 "D. Closing Tag"                          
+                            }}                      
         }
-                            };
+    };
     String[][][] Correct = {
                         {
                             {"C","D","A","D","C","B","C","D","A","B"}, 
@@ -501,7 +1190,24 @@ public class arrayStorage {
                             {"A","A","B","A","A","C","A","B","C","C"}, 
                             {"B","D","C","B","D","C","B","A","B","A"}, 
                             {"B","A","C","B","C","A","A","D","A","B"} 
-                        }
+                        },
+                        {
+                            {"B","D","C","B","D","C","B","A","B","A"},
+                            {"B","D","C","B","D","C","B","A","B","A"},
+                            {"B","D","C","B","D","C","B","A","B","A"},
+                            {"B","D","C","B","D","C","B","A","B","A"}
+                        },
+                        {
+                            {"B","D","C","B","D","C","B","A","B","A"},
+                            {"B","D","C","B","D","C","B","A","B","A"},
+                            {"B","D","C","B","D","C","B","A","B","A"},
+                            {"B","D","C","B","D","C","B","A","B","A"}
+                        },
+                        {
+                            {"B","D","C","B","D","C","B","A","B","A"},
+                            {"B","D","C","B","D","C","B","A","B","A"},
+                            {"B","D","C","B","D","C","B","A","B","A"}
+                        },
                             };
     
     String[] instructorNote = {"Welcome to the HTML pathway! So you’ve decided you want to learn some HTML? Well, you have come to the right place! Learning HTML is something every web developer should learn. After all, HTML is the basic skeleton of all web pages. Without HTML skills, web developers wouldn’t be able to add text, add images, or even add videos to your favorite websites. HTML is the very foundation of everything you need to know in order to create an engaging web page!\n" +

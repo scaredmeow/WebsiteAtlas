@@ -11,15 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.net.URI;
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import org.icepdf.ri.common.SwingController;
-import org.icepdf.ri.common.SwingViewBuilder;
-import org.icepdf.ri.util.PropertiesManager;
+import static websiteatlas.jframeMainMenu.copyInputStreamToFile;
 
 public class jframeGuestLogin extends javax.swing.JFrame {
 
@@ -31,17 +29,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     Color colorNormal = new Color(224,224,224);
     Color colorSelected = new Color(240,240,240);
     Color colorSide = new Color(50,50,250);
-    SwingController ctrl = new SwingController();   
-    String[] htmlArray ={"src//project1_resources//html//HTML-Week-1.pdf",
-                        "src//project1_resources//html//HTML-Week-2.pdf",
-                        "src//project1_resources//html//HTML-Week-3.pdf",
-                        "src//project1_resources//html//HTML-Week-4.pdf",
-                        "src//project1_resources//html//HTML-Week-5.pdf",
-                        "src//project1_resources//html//HTML-Week-6.pdf",
-                        "src//project1_resources//html//HTML-Week-7.pdf"} ;
-    String[] cssArray = {};
-    String[] jsArray = {};
-    String[] sqlArray = {};
+
     public jframeGuestLogin() {
         initComponents();
         setIcon();
@@ -116,18 +104,6 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         videoCSS = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         videoSQL2 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        videoCSS2 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        videoJS2 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        videoHTML2 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        videoSQL = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
-        videoJS = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        videoHTML = new javax.swing.JLabel();
         dashContact = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
@@ -465,12 +441,12 @@ public class jframeGuestLogin extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane1.setMaximumSize(new java.awt.Dimension(1024, 1024));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(997, 1600));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(997, 600));
         jScrollPane1.setRequestFocusEnabled(false);
 
         homePathway.setMaximumSize(new java.awt.Dimension(1024, 1024));
         homePathway.setMinimumSize(new java.awt.Dimension(1024, 151));
-        homePathway.setPreferredSize(new java.awt.Dimension(977, 1600));
+        homePathway.setPreferredSize(new java.awt.Dimension(977, 600));
 
         homeTitlePath.setPreferredSize(new java.awt.Dimension(977, 30));
         homeTitlePath.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -616,9 +592,8 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel8.setLayout(new java.awt.BorderLayout());
 
         videoCSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoCSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoCSS.jpg"))); // NOI18N
+        videoCSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/jsthumb1.png"))); // NOI18N
         videoCSS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoCSS.setPreferredSize(new java.awt.Dimension(977, 140));
         videoCSS.setRequestFocusEnabled(false);
         videoCSS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -633,9 +608,8 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel10.setLayout(new java.awt.BorderLayout());
 
         videoSQL2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoSQL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoSQL2.jpg"))); // NOI18N
+        videoSQL2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sqlthumb1.png"))); // NOI18N
         videoSQL2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoSQL2.setPreferredSize(new java.awt.Dimension(977, 140));
         videoSQL2.setRequestFocusEnabled(false);
         videoSQL2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -645,108 +619,6 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         jPanel10.add(videoSQL2, java.awt.BorderLayout.PAGE_START);
 
         homePathway.add(jPanel10);
-
-        jPanel11.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel11.setLayout(new java.awt.BorderLayout());
-
-        videoCSS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoCSS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoCSS2.jpg"))); // NOI18N
-        videoCSS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoCSS2.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoCSS2.setRequestFocusEnabled(false);
-        videoCSS2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoCSS2MouseClicked(evt);
-            }
-        });
-        jPanel11.add(videoCSS2, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel11);
-
-        jPanel12.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel12.setLayout(new java.awt.BorderLayout());
-
-        videoJS2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoJS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoJS2.jpg"))); // NOI18N
-        videoJS2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoJS2.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoJS2.setRequestFocusEnabled(false);
-        videoJS2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoJS2MouseClicked(evt);
-            }
-        });
-        jPanel12.add(videoJS2, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel12);
-
-        jPanel13.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel13.setLayout(new java.awt.BorderLayout());
-
-        videoHTML2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoHTML2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoHTML2.jpg"))); // NOI18N
-        videoHTML2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoHTML2.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoHTML2.setRequestFocusEnabled(false);
-        videoHTML2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoHTML2MouseClicked(evt);
-            }
-        });
-        jPanel13.add(videoHTML2, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel13);
-
-        jPanel14.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel14.setLayout(new java.awt.BorderLayout());
-
-        videoSQL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoSQL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoSQL.jpg"))); // NOI18N
-        videoSQL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoSQL.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoSQL.setRequestFocusEnabled(false);
-        videoSQL.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoSQLMouseClicked(evt);
-            }
-        });
-        jPanel14.add(videoSQL, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel14);
-
-        jPanel15.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel15.setLayout(new java.awt.BorderLayout());
-
-        videoJS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoJS.jpg"))); // NOI18N
-        videoJS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoJS.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoJS.setRequestFocusEnabled(false);
-        videoJS.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoJSMouseClicked(evt);
-            }
-        });
-        jPanel15.add(videoJS, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel15);
-
-        jPanel16.setPreferredSize(new java.awt.Dimension(977, 160));
-        jPanel16.setLayout(new java.awt.BorderLayout());
-
-        videoHTML.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        videoHTML.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videoHTML.jpg"))); // NOI18N
-        videoHTML.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        videoHTML.setPreferredSize(new java.awt.Dimension(977, 140));
-        videoHTML.setRequestFocusEnabled(false);
-        videoHTML.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoHTMLMouseClicked(evt);
-            }
-        });
-        jPanel16.add(videoHTML, java.awt.BorderLayout.PAGE_START);
-
-        homePathway.add(jPanel16);
 
         jScrollPane1.setViewportView(homePathway);
 
@@ -774,7 +646,7 @@ public class jframeGuestLogin extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("<html> \n<head>\n <style> p {   text-transform: uppercase; text-align: justify;} </style> </head>\n<p>\n<font size = 30> Hi! Having troubles using the app? </font> <br>\nHorrible experience? Bug reports? Complaints?<br><br>\n\nNo Worries. Hang in there, we got you covered. <br>\nAs much as we want a smooth sailing experience to our users, issues are inevitable. <br>\nLet us know by sending an email on example@gmail.com and we’ll get down to business. <br><br><br>\n<font size = 30> No troubles? </font> <br>\nGreat. Send us your feedback on example2@gmail.com. Every feedback counts. <br><br>\n\nWe appreciate your time sending comprehensive feedback as this will guarantee quality<br>\nimprovements in the future. We ensure every feedbacks are evaluated because we value <br>\nyour time and effort on this matter. We hope to provide you a better experience in the future. \n</p> </html>");
+        jLabel26.setText("<html>  <head>  <style> p {   text-transform: uppercase; text-align: justify;} </style> </head> <p> <font size = 30> Hi! Having troubles using the app? </font> <br> Horrible experience? Bug reports? Complaints?<br><br>  No Worries. Hang in there, we got you covered. <br> As much as we want a smooth sailing experience to our users, issues are inevitable. <br> Let us know by sending an email on neilchristianriego3@gmail.com and we’ll get down to business. <br><br><br> <font size = 30> No troubles? </font> <br> Great. Send us your feedback on neilriego3@gmail.com. Every feedback counts. <br><br>  We appreciate your time sending comprehensive feedback as this will guarantee quality<br> improvements in the future. We ensure every feedbacks are evaluated because we value <br> your time and effort on this matter. We hope to provide you a better experience in the future.  </p> </html>");
         jLabel26.setToolTipText("");
         jLabel26.setPreferredSize(new java.awt.Dimension(700, 400));
         jPanel1.add(jLabel26);
@@ -792,117 +664,6 @@ public class jframeGuestLogin extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1040, 679));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void controllerNext(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
-        controlLayout = (CardLayout) (containerParent.getLayout());
-        if (i != max){
-            i = i+1;
-            if (i == 0) {
-                controlLayout.show(containerParent,card);
-                ctrl.openDocument(lesson[i]);
-                prev.setEnabled(true);
-            } else if (i <= max) {
-                ctrl.openDocument(lesson[i]);
-                if (i == max) {
-                    next.setEnabled(false);
-                }  
-            } 
-        }
-    } 
-    
-    public void controllerPrev(CardLayout controlLayout, String card, JPanel containerParent, String[] lesson,int max,JButton next, JButton prev){
-        controlLayout = (CardLayout) (containerParent.getLayout());
-        if (i != -1) {
-            i = i-1;
-            if (i > -1) {
-                ctrl.openDocument(lesson[i]);
-                if (i == max)
-                    next.setEnabled(true);  
-            }
-            if (i == -1) {
-                prev.setEnabled(false);
-                controlLayout.show(containerParent,card);                
-            }
-        }
-    }
-
-    public void controllerShow(CardLayout controlLayout,int state, String card, JPanel containerParent){
-        controlLayout = (CardLayout) (containerParent.getLayout());
-        if (state == -1) {
-            controlLayout.show(containerParent,card);
-        } else if (state >=0) {
-            controlLayout.show(containerParent,card);
-            ctrl.openDocument(htmlArray[state]);
-        }
-    }
-    public void dashHover (JPanel state, JPanel side,Color mousestate,int frame) {
-        if (state != viewHtml && frame == 1 ) {
-            state.setBackground(mousestate);
-            side.setBackground(mousestate);
-        } else if (state != viewCss && frame == 2) {
-            state.setBackground(mousestate);
-            side.setBackground(mousestate);
-        } else if (state != viewJs && frame == 3) {
-            state.setBackground(mousestate);
-            side.setBackground(mousestate);            
-        } else if (state != viewSql && frame == 4) {
-            state.setBackground(mousestate);
-            side.setBackground(mousestate);            
-        }
-    }
-           
-    public void dashSelect (JPanel state, JPanel side,int frame) {
-        if (state != viewHtml && frame == 1) {
-            viewHtml.setBackground(colorSelected);
-            sideHtml.setBackground(colorSelected);
-            state.setBackground(colorNormal);
-            side.setBackground(colorSide);
-            viewHtml = state;
-            sideHtml = side;
-        } else if (state != viewCss && frame == 2) {
-            viewCss.setBackground(colorSelected);
-            sideCss.setBackground(colorSelected);
-            state.setBackground(colorNormal);
-            side.setBackground(colorSide);
-            viewCss = state;
-            sideCss = side;
-        } else if (state != viewJs && frame == 3) {
-            viewJs.setBackground(colorSelected);
-            sideJs.setBackground(colorSelected);
-            state.setBackground(colorNormal);
-            side.setBackground(colorSide);   
-            viewJs = state;
-            sideJs = side;
-        } else if (state != viewSql && frame == 4) {
-            viewSql.setBackground(colorSelected);
-            sideSql.setBackground(colorSelected);
-            state.setBackground(colorNormal);
-            side.setBackground(colorSide);  
-            viewSql = state;
-            sideSql = side;
-        }
-    }
-    
-    public void openpdf (JPanel dashboardview){
-        try {
-            // build a component controller   
-            PropertiesManager properties =
-                new PropertiesManager(System.getProperties(),
-                               ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
-            properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_UTILITY, Boolean.FALSE);
-            properties.setBoolean(PropertiesManager.PROPERTY_SHOW_UTILITYPANE_ANNOTATION, Boolean.FALSE);
-            properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_ANNOTATION, Boolean.FALSE);
-            SwingViewBuilder vb = new SwingViewBuilder(ctrl,properties);
-            ctrl.getDocumentViewController().setAnnotationCallback(
-                new org.icepdf.ri.common.MyAnnotationCallback(
-                    ctrl.getDocumentViewController()));
-            JPanel s = vb.buildViewerPanel();
-            dashboardview.add(s);                     
-        }
-        catch (Exception e){
-            
-        }
-    }
     
     public void changeimage(JLabel button, String resourcheimg){
         ImageIcon img = new ImageIcon(getClass().getResource(resourcheimg));
@@ -1053,36 +814,26 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonStudy1MouseClicked
 
     private void videoCSSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoCSSMouseClicked
-        desktopLink("https://www.youtube.com/watch?v=D-h8L5hgW-w&t=4s");
+        try {
+            InputStream link1 =  getClass().getResourceAsStream("JavaScriptVideo.wmv"); 
+            File link = new File ("JavaScriptVideo.wmv");
+            copyInputStreamToFile(link1, link);
+            Desktop.getDesktop().open(link);
+        } catch (IOException ex) {
+            Logger.getLogger(jframeMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }//GEN-LAST:event_videoCSSMouseClicked
 
     private void videoSQL2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoSQL2MouseClicked
-        desktopLink("https://www.youtube.com/watch?v=zbMHLJ0dY4w");
+        try {
+            InputStream link1 =  getClass().getResourceAsStream("SQLVideo.wmv"); 
+            File link = new File ("SQLVideo.wmv");
+            copyInputStreamToFile(link1, link);
+            Desktop.getDesktop().open(link);
+        } catch (IOException ex) {
+            Logger.getLogger(jframeMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }//GEN-LAST:event_videoSQL2MouseClicked
-
-    private void videoCSS2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoCSS2MouseClicked
-        desktopLink("https://www.youtube.com/watch?v=Tfjd5yzCaxk");
-    }//GEN-LAST:event_videoCSS2MouseClicked
-
-    private void videoJS2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoJS2MouseClicked
-        desktopLink("https://www.youtube.com/watch?v=NibsUd_InPU");
-    }//GEN-LAST:event_videoJS2MouseClicked
-
-    private void videoHTML2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoHTML2MouseClicked
-        desktopLink("https://www.youtube.com/watch?v=PlxWf493en4");
-    }//GEN-LAST:event_videoHTML2MouseClicked
-
-    private void videoSQLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoSQLMouseClicked
-        desktopLink("https://www.youtube.com/watch?v=bEtnYWuo2Bw");
-    }//GEN-LAST:event_videoSQLMouseClicked
-
-    private void videoJSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoJSMouseClicked
-        desktopLink("https://www.youtube.com/watch?v=vEROU2XtPR8&t=1s");
-    }//GEN-LAST:event_videoJSMouseClicked
-
-    private void videoHTMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoHTMLMouseClicked
-        desktopLink("https://www.youtube.com/watch?v=idHyruXhXhA&t=5s");
-    }//GEN-LAST:event_videoHTMLMouseClicked
 
     private void setIcon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icoApplication.png")));
@@ -1143,12 +894,6 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1162,12 +907,6 @@ public class jframeGuestLogin extends javax.swing.JFrame {
     private javax.swing.JPanel titleMenu;
     private javax.swing.JPanel titleMenu1;
     private javax.swing.JLabel videoCSS;
-    private javax.swing.JLabel videoCSS2;
-    private javax.swing.JLabel videoHTML;
-    private javax.swing.JLabel videoHTML2;
-    private javax.swing.JLabel videoJS;
-    private javax.swing.JLabel videoJS2;
-    private javax.swing.JLabel videoSQL;
     private javax.swing.JLabel videoSQL2;
     // End of variables declaration//GEN-END:variables
 }

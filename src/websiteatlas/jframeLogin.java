@@ -59,7 +59,6 @@ public class jframeLogin extends javax.swing.JFrame {
         setTitle("WEBSITE ATLAS");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(390, 150));
-        setPreferredSize(new java.awt.Dimension(1024, 640));
         setResizable(false);
 
         mainWindow.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
@@ -286,8 +285,8 @@ public class jframeLogin extends javax.swing.JFrame {
         if (loginUser.getText().equals("") ||loginPass.getText().equals("") ){
             JOptionPane.showMessageDialog(null,"Username or Password is Empty","Alert",JOptionPane.WARNING_MESSAGE); 
         } else {
-            if(loginUser.getText().equals("admin")|| str.equals("admin")) {
-                Arrays.fill(userArray, "Admin");
+            if(loginUser.getText().equals("developer")|| str.equals("developer")) {
+                Arrays.fill(userArray, "Developer");
                 userArray[4] = "-1";
                 userArray[5] = "0";
                 Arrays.fill(userScore,0,18,"8");
@@ -320,10 +319,18 @@ public class jframeLogin extends javax.swing.JFrame {
                         userArray[4] = currentPath;
                         userArray[5] = retry;
                         sqlGetScore(realName);
-                        java.awt.EventQueue.invokeLater(() -> {
-                            new jframeMainMenu().setVisible(true);
-                        });
-                        dispose();       
+                        if (realName.equals("admin")){
+                            java.awt.EventQueue.invokeLater(() -> {
+                                new jframeAdmin().setVisible(true);
+                            });
+                            dispose();                             
+                        } else {
+                            java.awt.EventQueue.invokeLater(() -> {
+                                new jframeMainMenu().setVisible(true);
+                            });
+                            dispose();                             
+                        }
+      
                     } else {
                         JOptionPane.showMessageDialog(null,"Password is Incorrect","Alert",JOptionPane.WARNING_MESSAGE);
                         loginPass.setText(null);
